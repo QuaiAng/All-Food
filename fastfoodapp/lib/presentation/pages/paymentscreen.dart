@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonLogin.dart';
 import 'package:fastfoodapp/presentation/widgets/itemRow.dart';
 import 'package:fastfoodapp/presentation/widgets/priceRow.dart';
@@ -96,7 +97,9 @@ class Paymentscreen extends StatelessWidget {
                 return const Divider(thickness: 0.5);
               } else {
                 return InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteName.voucherScreen);
+                  },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Row(
