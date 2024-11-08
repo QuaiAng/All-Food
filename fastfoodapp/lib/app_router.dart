@@ -4,6 +4,7 @@ import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
 import 'package:fastfoodapp/presentation/pages/registerscreen.dart';
 import 'package:fastfoodapp/presentation/pages/splashscreen.dart';
 import 'package:fastfoodapp/presentation/pages/verifyotpscreen.dart';
+import 'package:fastfoodapp/presentation/pages/voucherscreen.dart';
 import 'package:flutter/material.dart';
 
 class RouteName {
@@ -15,6 +16,7 @@ class RouteName {
   static const String verifyotpScreen = "/verifyotp";
   static const String detaiListProductScreen = "/detaillistproduct";
   static const String paymentScreen = "/payment";
+  static const String voucherScreen = "/vouchers";
   static const String splashScreen = "";
 }
 
@@ -45,6 +47,8 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const Verifyotpscreen(),
         );
+      case RouteName.voucherScreen:
+        return MaterialPageRoute(builder: (_) => const Voucherscreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

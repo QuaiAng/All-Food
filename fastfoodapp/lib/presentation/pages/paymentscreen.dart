@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonLogin.dart';
 import 'package:fastfoodapp/presentation/widgets/itemRow.dart';
 import 'package:fastfoodapp/presentation/widgets/priceRow.dart';
