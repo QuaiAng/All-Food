@@ -3,6 +3,7 @@ import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
 import 'package:fastfoodapp/presentation/pages/registerscreen.dart';
 import 'package:fastfoodapp/presentation/pages/splashscreen.dart';
+import 'package:fastfoodapp/presentation/pages/test.dart';
 import 'package:fastfoodapp/presentation/pages/verifyotpscreen.dart';
 import 'package:fastfoodapp/presentation/pages/voucherscreen.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class RouteName {
   static const String paymentScreen = "/payment";
   static const String voucherScreen = "/vouchers";
   static const String splashScreen = "";
+  static const String sectionFood = "/test";
 }
 
 class AppRouter {
@@ -49,6 +51,8 @@ class AppRouter {
         );
       case RouteName.voucherScreen:
         return MaterialPageRoute(builder: (_) => const Voucherscreen());
+      case RouteName.sectionFood:
+        return MaterialPageRoute(builder: (_) => const Test());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(
