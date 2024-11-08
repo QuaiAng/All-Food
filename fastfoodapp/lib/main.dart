@@ -24,20 +24,20 @@ class MainApp extends StatelessWidget {
           // initialRoute: RouteName.splashScreen,
           // onGenerateRoute: AppRouter.generateRoute,
           debugShowCheckedModeBanner: false,
-          home: Scaffold(
-            body: Restaurant(
-                name_restaurant: "McDonal's",
-                images: [
-                  "assets/images/big.png",
-                  "assets/images/anhga.png",
-                  "assets/images/anhga.png"
-                ],
-                price: "10k-99k",
-                category_food: "BURGERS",
-                rating: "4.3",
-                comment: "200+ Đánh giá",
-                time: "25 min",
-                delivery: "Free"),
+          // home: Scaffold(
+          //   body: Restaurant(
+          //       name_restaurant: "McDonal's",
+          //       images: [
+          //         "assets/images/big.png",
+          //         "assets/images/anhga.png",
+          //         "assets/images/anhga.png"
+          //       ],
+          //       price: "10k-99k",
+          //       category_food: "BURGERS",
+          //       rating: "4.3",
+          //       comment: "200+ Đánh giá",
+          //       time: "25 min",
+          //       delivery: "Free"),
           ));
     });
   }
