@@ -23,7 +23,6 @@ class MainApp extends StatelessWidget {
         initialRoute: RouteName.splashScreen,
         onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
-        // home: Registerscreen()
       );
     });
   }

@@ -87,8 +87,7 @@ class Loginscreen extends StatelessWidget {
                     child: Text(
                       "Hoặc",
                       style: StylesOfWidgets.textStyle1(
-                          fs: SizeOfWidget.sizeOfLabelText,
-                          fw: FontWeight.w500),
+                          fs: SizeOfWidget.sizeOfH4, fw: FontWeight.w500),
                     ),
                   ),
                   const Expanded(
@@ -127,8 +126,7 @@ class Loginscreen extends StatelessWidget {
                             "Tiếp tục với Google",
                             style: GoogleFonts.inter(
                                 textStyle: TextStyle(
-                                    fontSize:
-                                        SizeOfWidget.sizeOfButtonLoginText,
+                                    fontSize: SizeOfWidget.sizeOfH4,
                                     color: Colors.black,
                                     fontWeight: FontWeight.normal)),
                           ),

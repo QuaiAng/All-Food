@@ -25,14 +25,14 @@ class Textheader extends StatelessWidget {
           style: GoogleFonts.inter(
               textStyle: TextStyle(
                   color: Colors.black,
-                  fontSize: SizeOfWidget.sizeOfLoginHeader,
+                  fontSize: SizeOfWidget.sizeOfLargeHeader,
                   fontWeight: FontWeight.w300)),
         ),
         Text(
           h2,
           style: GoogleFonts.inter(
               textStyle: TextStyle(
-                  color: AppColors.gray, fontSize: SizeOfWidget.sizeOfH2)),
+                  color: AppColors.gray, fontSize: SizeOfWidget.sizeOfH3)),
         ),
         InkWell(
           onTap: onClick,
@@ -42,7 +42,7 @@ class Textheader extends StatelessWidget {
             style: GoogleFonts.inter(
                 textStyle: TextStyle(
                     color: AppColors.primaryColor,
-                    fontSize: SizeOfWidget.sizeOfH2)),
+                    fontSize: SizeOfWidget.sizeOfH3)),
           ),
         )
       ],

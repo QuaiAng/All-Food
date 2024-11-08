@@ -60,7 +60,7 @@ class TextboxState extends State<Textbox> {
         labelStyle: GoogleFonts.inter(
             textStyle: TextStyle(
                 color: AppColors.placeholderColor,
-                fontSize: SizeOfWidget.sizeOfLabelText)),
+                fontSize: SizeOfWidget.sizeOfH4)),
         enabledBorder: StylesOfWidgets.textboxStyle,
         focusedBorder: StylesOfWidgets.textboxStyle,
       ),

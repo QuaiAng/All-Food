@@ -25,7 +25,7 @@ class Buttonlogin extends StatelessWidget {
               text,
               style: GoogleFonts.inter(
                   textStyle: TextStyle(
-                      fontSize: SizeOfWidget.sizeOfButtonLoginText,
+                      fontSize: SizeOfWidget.sizeOfH4,
                       color: Colors.white,
                       fontWeight: FontWeight.bold)),
             ),

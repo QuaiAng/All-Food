@@ -46,7 +46,7 @@ class Paymentscreen extends StatelessWidget {
         children: [
           Expanded(
               child: ListView.builder(
-            itemCount: items.length + 7,
+            itemCount: items.length + 1,
             itemBuilder: (context, index) {
               if (index < items.length) {
                 final item = items[index];
@@ -64,51 +64,55 @@ class Paymentscreen extends StatelessWidget {
                   ],
                 );
               } else if (index == items.length) {
-                return const Pricerow(
-                    label: "Phụ phí", amount: 0, isTotal: false);
-              } else if (index == items.length + 1) {
-                return const Pricerow(
-                    label: "Phí giao hàng", amount: 0, isTotal: false);
-              } else if (index == items.length + 2) {
-                return const Pricerow(
-                    label: "Tổng thanh toán", amount: 96000, isTotal: true);
-              } else if (index == items.length + 3) {
-                return const Divider(thickness: 0.5);
-              } else if (index == items.length + 4) {
-                return InkWell(
-                  onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Thêm món khác",
-                            style: GoogleFonts.inter(
-                                textStyle: TextStyle(
-                                    fontSize: 17.sp,
-                                    color: AppColors.primaryColor))),
-                        Icon(Icons.arrow_forward_ios, size: 17.sp),
-                      ],
-                    ),
-                  ),
-                );
-              } else if (index == items.length + 5) {
-                return const Divider(thickness: 0.5);
-              } else {
-                return InkWell(
-                  onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Voucher",
-                            style: GoogleFonts.inter(
-                                textStyle: TextStyle(
-                                    color: Colors.black, fontSize: 17.sp))),
-                        Icon(Icons.arrow_forward_ios, size: 17.sp),
-                      ],
-                    ),
+                return Padding(
+                  padding: EdgeInsets.all(15.sp),
+                  child: Column(
+                    children: [
+                      const Pricerow(
+                          label: "Phụ phí", amount: 0, isTotal: false),
+                      const Pricerow(
+                          label: "Phí giao hàng", amount: 0, isTotal: false),
+                      const Pricerow(
+                          label: "Tổng thanh toán",
+                          amount: 96000,
+                          isTotal: true),
+                      const Divider(thickness: 0.5),
+                      InkWell(
+                        onTap: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Voucher",
+                                  style: GoogleFonts.inter(
+                                      textStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 17.sp))),
+                              Icon(Icons.arrow_forward_ios, size: 17.sp),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Divider(thickness: 0.5),
+                      InkWell(
+                        onTap: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Thêm món khác",
+                                  style: GoogleFonts.inter(
+                                      textStyle: TextStyle(
+                                          fontSize: 17.sp,
+                                          color: AppColors.primaryColor))),
+                              Icon(Icons.arrow_forward_ios, size: 17.sp),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }
@@ -119,33 +123,29 @@ class Paymentscreen extends StatelessWidget {
       bottomNavigationBar: BottomAppBar(
           height: 43.sp,
           color: AppColors.backgroundColor,
-          child: SafeArea(
-              child: Container(
-            alignment: Alignment.center,
-            color: AppColors.backgroundColor,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Tổng",
-                      style: GoogleFonts.inter(
-                          textStyle: TextStyle(fontSize: 17.sp)),
-                    ),
-                    Text(
-                      Formatmoney.formatCurrency(total),
-                      style: GoogleFonts.inter(
-                          textStyle: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 17.sp)),
-                    )
-                  ],
-                ),
-                Buttonlogin(onClick: () {}, text: "Thanh toán")
-              ],
-            ),
-          ))),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Tổng",
+                    style: GoogleFonts.inter(
+                        textStyle: TextStyle(fontSize: 17.sp)),
+                  ),
+                  Text(
+                    Formatmoney.formatCurrency(total),
+                    style: GoogleFonts.inter(
+                        textStyle: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 17.sp)),
+                  )
+                ],
+              ),
+              Buttonlogin(onClick: () {}, text: "Thanh toán")
+            ],
+          )),
     );
   }
 }

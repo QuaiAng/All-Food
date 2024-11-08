@@ -48,7 +48,7 @@ class Verifyotpscreen extends StatelessWidget {
                 style: GoogleFonts.inter(
                     textStyle: TextStyle(
                         color: Colors.black,
-                        fontSize: SizeOfWidget.sizeOfLoginHeader,
+                        fontSize: SizeOfWidget.sizeOfLargeHeader,
                         fontWeight: FontWeight.w400)),
               ),
               SizedBox(
@@ -60,7 +60,7 @@ class Verifyotpscreen extends StatelessWidget {
                 style: GoogleFonts.inter(
                     textStyle: TextStyle(
                         color: AppColors.gray,
-                        fontSize: SizeOfWidget.sizeOfH2)),
+                        fontSize: SizeOfWidget.sizeOfH3)),
               ),
               SizedBox(
                 height: 25.sp,
@@ -104,7 +104,7 @@ class Verifyotpscreen extends StatelessWidget {
                   Text(
                     "Bạn chưa nhận được mã OTP?",
                     style: GoogleFonts.inter(
-                      fontSize: SizeOfWidget.sizeOfQuestion,
+                      fontSize: SizeOfWidget.sizeOfH3,
                     ),
                   ),
                   SizedBox(
@@ -118,7 +118,7 @@ class Verifyotpscreen extends StatelessWidget {
                       style: GoogleFonts.inter(
                           textStyle: TextStyle(
                         color: AppColors.primaryColor,
-                        fontSize: SizeOfWidget.sizeOfQuestion,
+                        fontSize: SizeOfWidget.sizeOfH3,
                         fontWeight: FontWeight.w600,
                       )),
                     ),

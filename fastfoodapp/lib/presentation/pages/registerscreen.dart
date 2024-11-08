@@ -137,7 +137,7 @@ class _RegisterscreenState extends State<Registerscreen> {
                       "Hoặc",
                       style: GoogleFonts.inter(
                         textStyle: TextStyle(
-                            fontSize: SizeOfWidget.sizeOfLabelText,
+                            fontSize: SizeOfWidget.sizeOfH4,
                             fontWeight: FontWeight.w500),
                       ),
                     ),
@@ -178,8 +178,7 @@ class _RegisterscreenState extends State<Registerscreen> {
                             "Tiếp tục với Google",
                             style: GoogleFonts.inter(
                                 textStyle: TextStyle(
-                                    fontSize:
-                                        SizeOfWidget.sizeOfButtonLoginText,
+                                    fontSize: SizeOfWidget.sizeOfH4,
                                     color: Colors.black,
                                     fontWeight: FontWeight.normal)),
                           ),
