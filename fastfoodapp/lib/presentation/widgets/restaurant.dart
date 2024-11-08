@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/presentation/widgets/advertisement.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:flutter/material.dart';
@@ -41,31 +42,16 @@ class Restaurant extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.5,
-                      width: MediaQuery.of(context)
-                          .size
-                          .width, // Điều chỉnh chiều cao của carousel
-                      child: PageView.builder(
-                        itemCount: images.length,
-                        scrollDirection: Axis.horizontal, // Vuốt ngang
-                        itemBuilder: (context, index) {
-                          return Image.asset(
-                            images[index],
-                            fit: BoxFit.fill, // Điều chỉnh cách hiển thị ảnh
-                          );
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 15),
+                    Listimageindicator(images: images),
+                    SizedBox(height: 15.sp),
                     Text(name_restaurant,
                         style: GoogleFonts.inter(
                             textStyle: TextStyle(
-                                fontSize: 21.sp,
+                                fontSize: 20.sp,
                                 fontWeight: FontWeight.w200,
                                 color: Colors.black,
                                 decorationColor: Colors.white))),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.sp),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -79,66 +65,76 @@ class Restaurant extends StatelessWidget {
                                       color: Colors.grey,
                                       decorationColor: Colors.white))),
                         ),
-                        const Point(),
+                        Point(),
                         Padding(
                           padding: const EdgeInsets.only(left: 12, right: 12),
                           child: Text(category_food,
                               style: GoogleFonts.inter(
                                   textStyle: TextStyle(
-                                      fontSize: 15.sp,
+                                      fontSize: 16.sp,
                                       fontWeight: FontWeight.w400,
                                       color: Colors.grey,
                                       decorationColor: Colors.white))),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.sp),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(rating,
                             style: GoogleFonts.inter(
                                 textStyle: TextStyle(
-                                    fontSize: 15.sp,
+                                    fontSize: 16.sp,
                                     fontWeight: FontWeight.w400,
                                     color: Colors.grey,
                                     decorationColor: Colors.white))),
-                        const SizedBox(width: 12),
-                        const Icon(Icons.star, color: AppColors.primaryColor),
-                        const SizedBox(width: 12),
+                        SizedBox(width: 12.sp),
+                        Icon(
+                            // icon ngôi sao
+                            Icons.star,
+                            color: AppColors.primaryColor),
+                        SizedBox(width: 12.sp),
                         Text(comment,
                             style: GoogleFonts.inter(
                                 textStyle: TextStyle(
-                                    fontSize: 15.sp,
+                                    fontSize: 16.sp,
                                     fontWeight: FontWeight.w400,
                                     color: Colors.grey,
                                     decorationColor: Colors.white))),
-                        const SizedBox(width: 12),
-                        const Point(),
-                        const SizedBox(width: 12),
-                        const Icon(Icons.punch_clock_rounded,
-                            color: Colors.grey),
+                        SizedBox(width: 12.sp),
+                        Point(),
+                        SizedBox(width: 12.sp),
+                        Icon(
+                          // icon đòng hồ
+                          Icons.punch_clock_rounded,
+                          color: Colors.grey, size: 20.sp,
+                        ),
                         Text(time,
                             style: GoogleFonts.inter(
                                 textStyle: TextStyle(
-                                    fontSize: 15.sp,
+                                    fontSize: 16.sp,
                                     fontWeight: FontWeight.w400,
                                     color: Colors.grey,
                                     decorationColor: Colors.white))),
-                        const SizedBox(width: 12),
-                        const Point(),
-                        const SizedBox(width: 12),
-                        const CircleAvatar(
+                        SizedBox(width: 12.sp),
+                        Point(),
+                        SizedBox(width: 12.sp),
+                        CircleAvatar(
+                          // vòng tròn chứa icon dollar
                           backgroundColor: Colors.grey,
-                          radius: 10,
-                          child: Icon(Icons.attach_money,
-                              color: Colors.white, size: 18),
+                          radius: 13.sp,
+                          child: Icon(
+                            Icons.attach_money,
+                            color: Colors.white,
+                            size: 18.sp,
+                          ),
                         ),
-                        const SizedBox(width: 6),
+                        SizedBox(width: 6.sp),
                         Text(delivery,
                             style: GoogleFonts.inter(
                                 textStyle: TextStyle(
-                                    fontSize: 15.sp,
+                                    fontSize: 16.sp,
                                     fontWeight: FontWeight.w400,
                                     color: Colors.grey,
                                     decorationColor: Colors.white))),
@@ -160,10 +156,11 @@ class Point extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 8.sp,
-      height: 8.sp,
+      width: 10.sp,
+      height: 10.sp,
       padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(color: Colors.grey, shape: BoxShape.circle),
+      decoration:
+          const BoxDecoration(color: Colors.grey, shape: BoxShape.circle),
     );
   }
 }
