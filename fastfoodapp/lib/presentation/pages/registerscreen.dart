@@ -9,26 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-class Registerscreen extends StatefulWidget {
+class Registerscreen extends StatelessWidget {
   const Registerscreen({super.key});
-
-  @override
-  State<Registerscreen> createState() => _RegisterscreenState();
-}
-
-class _RegisterscreenState extends State<Registerscreen> {
-  late bool isAgree;
-
-  @override
-  void initState() {
-    super.initState();
-    isAgree = false;
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.backgroundColor,
+        surfaceTintColor: AppColors.backgroundColor,
+        shadowColor: Colors.grey,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -43,7 +33,7 @@ class _RegisterscreenState extends State<Registerscreen> {
       body: Container(
         alignment: Alignment.topCenter,
         padding: const EdgeInsets.only(left: 20, right: 20),
-        color: AppColors.backgroundColor,
+        color: const Color.fromARGB(255, 252, 248, 247),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,7 +105,7 @@ class _RegisterscreenState extends State<Registerscreen> {
                     style: GoogleFonts.inter(
                         textStyle: TextStyle(
                             color: AppColors.gray,
-                            fontSize: SizeOfWidget.sizeOfH2)),
+                            fontSize: SizeOfWidget.sizeOfH3)),
                   ),
                 ],
               ),

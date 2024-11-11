@@ -1,4 +1,3 @@
-import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -23,7 +22,7 @@ class Vouchercard extends StatelessWidget {
     return InkWell(
       onTap: () {
         print("Chi tiết voucher");
-        Navigator.pushNamed(context, RouteName.paymentScreen);
+        //Navigator.pushNamed(context, RouteName.paymentScreen);
       },
       child: Stack(
         children: [
@@ -38,12 +37,11 @@ class Vouchercard extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // Icon(
-                      //   Icons.percent,
-                      //   color: AppColors.primaryColor,
-                      //   size: 20.sp,
-                      // ),
-                      Image.asset(Imagepath.iconVoucher, width: 22.sp, height: 22.sp,),
+                      Image.asset(
+                        Imagepath.iconVoucher,
+                        width: 22.sp,
+                        height: 22.sp,
+                      ),
                       SizedBox(width: 15.sp),
                       Expanded(
                           child: Column(
@@ -51,21 +49,27 @@ class Vouchercard extends StatelessWidget {
                         children: [
                           Text(
                             name,
-                            style: StylesOfWidgets.textStyle1(fs: 17.sp, fw: FontWeight.w400),
+                            style: StylesOfWidgets.textStyle1(
+                                fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w400),
                           ),
                           SizedBox(height: 10.sp),
-                          Container(
+                          SizedBox(
                             width: 60.sp,
                             child: Text(
                               description,
-                              style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w400, clr: Colors.grey),),
+                              style: StylesOfWidgets.textStyle1(
+                                  fs: SizeOfWidget.sizeOfH3,
+                                  fw: FontWeight.w400,
+                                  clr: Colors.grey),
+                            ),
                           ),
-                          
                         ],
                       )),
                     ],
                   )),
-                  SizedBox(height: 20.sp,),
+              SizedBox(
+                height: 20.sp,
+              ),
               SizedBox(
                 width: double.infinity,
                 height: 30.sp,
@@ -85,7 +89,7 @@ class Vouchercard extends StatelessWidget {
                       "Chi tiết voucher",
                       style: GoogleFonts.inter(
                           textStyle: TextStyle(
-                              fontSize: 16.sp,
+                              fontSize: SizeOfWidget.sizeOfH3,
                               fontWeight: FontWeight.w300,
                               color: Colors.white)),
                     )),

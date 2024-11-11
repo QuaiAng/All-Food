@@ -21,6 +21,9 @@ class Verifyotpscreen extends StatelessWidget {
     var provider = Provider.of<AppProvier>(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.backgroundColor,
+        surfaceTintColor: AppColors.backgroundColor,
+        shadowColor: Colors.grey,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);

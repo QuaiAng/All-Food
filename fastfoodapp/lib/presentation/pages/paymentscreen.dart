@@ -27,6 +27,9 @@ class Paymentscreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
+        backgroundColor: AppColors.backgroundColor,
+        surfaceTintColor: AppColors.backgroundColor,
+        shadowColor: Colors.grey,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -79,17 +82,17 @@ class Paymentscreen extends StatelessWidget {
                           isTotal: true),
                       const Divider(thickness: 0.5),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, RouteName.voucherScreen);
+                        },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("Voucher",
-                                  style: GoogleFonts.inter(
-                                      textStyle: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 17.sp))),
+                                  style: StylesOfWidgets.textStyle1(
+                                      fs: SizeOfWidget.sizeOfH3)),
                               Icon(Icons.arrow_forward_ios, size: 17.sp),
                             ],
                           ),
@@ -104,10 +107,9 @@ class Paymentscreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("Thêm món khác",
-                                  style: GoogleFonts.inter(
-                                      textStyle: TextStyle(
-                                          fontSize: 17.sp,
-                                          color: AppColors.primaryColor))),
+                                  style: StylesOfWidgets.textStyle1(
+                                      fs: SizeOfWidget.sizeOfH3,
+                                      clr: AppColors.primaryColor)),
                               Icon(Icons.arrow_forward_ios, size: 17.sp),
                             ],
                           ),
@@ -140,11 +142,12 @@ class Paymentscreen extends StatelessWidget {
                     Formatmoney.formatCurrency(total),
                     style: GoogleFonts.inter(
                         textStyle: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 17.sp)),
+                            fontWeight: FontWeight.w500,
+                            fontSize: SizeOfWidget.sizeOfH3)),
                   )
                 ],
               ),
-              Buttonlogin(onClick: () {}, text: "Thanh toán")
+              Buttonlogin(onClick: () {}, text: "THANH TOÁN")
             ],
           )),
     );

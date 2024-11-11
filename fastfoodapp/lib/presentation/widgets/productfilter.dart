@@ -29,7 +29,7 @@ class Productfilter extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           AspectRatio(
-            aspectRatio: 1 / 1,
+            aspectRatio: 0.75,
             child: Stack(
               alignment: Alignment.topCenter,
               children: [
@@ -132,7 +132,7 @@ class Productfilter extends StatelessWidget {
           Text(
             shopName,
             style: StylesOfWidgets.textStyle1(
-                fs: SizeOfWidget.sizeOfH1, clr: Colors.black),
+                fs: SizeOfWidget.sizeOfH2, clr: Colors.black),
           ),
           SizedBox(
             height: 8.sp,
@@ -140,7 +140,7 @@ class Productfilter extends StatelessWidget {
           Text(
             address,
             style: StylesOfWidgets.textStyle1(
-                fs: SizeOfWidget.sizeOfH2, clr: AppColors.gray),
+                fs: SizeOfWidget.sizeOfH4, clr: AppColors.gray),
           ),
         ],
       ),

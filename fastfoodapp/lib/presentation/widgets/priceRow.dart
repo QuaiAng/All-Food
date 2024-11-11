@@ -1,4 +1,5 @@
 import 'package:fastfoodapp/res/colors.dart';
+import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/utils/formatmoney.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,13 +26,13 @@ class Pricerow extends StatelessWidget {
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
                     fontWeight: isTotal ? FontWeight.w400 : FontWeight.normal,
-                    fontSize: 17.sp),
+                    fontSize: SizeOfWidget.sizeOfH3),
               )),
           Text(Formatmoney.formatCurrency(amount),
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
                     color: isTotal ? AppColors.primaryColor : Colors.black,
-                    fontSize: 17.sp),
+                    fontSize: SizeOfWidget.sizeOfH3),
               )),
         ],
       ),
