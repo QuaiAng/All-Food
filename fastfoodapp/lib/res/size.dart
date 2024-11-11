@@ -6,6 +6,7 @@ class SizeOfWidget {
   static double sizeOfButtonLoginText = 15.sp;
   static double sizeOfQuestion = 15.5.sp;
   static double sizeOfH1 = 18.sp;
-  static double sizeOfH2 = 16.sp;
-  static double sizeOfH3 = 14.sp;
+  static double sizeOfH2 = 17.sp;
+  static double sizeOfH3 = 16.sp;
+  static double sizeOfH4 = 15.sp;
 }
