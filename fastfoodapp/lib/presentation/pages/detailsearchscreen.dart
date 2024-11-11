@@ -1,4 +1,4 @@
-import 'package:fastfoodapp/presentation/widgets/searchedRecent.dart';
+import 'package:fastfoodapp/presentation/widgets/searchedrecent.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';

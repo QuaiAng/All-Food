@@ -1,5 +1,5 @@
 import 'package:fastfoodapp/app_router.dart';
-import 'package:fastfoodapp/presentation/widgets/buttonLogin.dart';
+import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
 import 'package:fastfoodapp/presentation/widgets/textbox.dart';
 import 'package:fastfoodapp/presentation/widgets/textheader.dart';
 import 'package:fastfoodapp/res/colors.dart';

@@ -1,5 +1,5 @@
 import 'package:fastfoodapp/app_router.dart';
-import 'package:fastfoodapp/presentation/widgets/voucherCard.dart';
+import 'package:fastfoodapp/presentation/widgets/vouchercard.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
