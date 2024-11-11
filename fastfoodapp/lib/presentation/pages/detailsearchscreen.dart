@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/presentation/states/dataprovider.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/widgets/searchedrecent.dart';
 import 'package:fastfoodapp/res/colors.dart';
@@ -8,38 +9,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-final List<String> searched = [
-  "Bánh mì",
-  "Phở bò",
-  "Cơm tấm",
-  "Hủ tiếu",
-  "Bún chả",
-  "Chả giò",
-  "Gỏi cuốn",
-  "Mì Quảng",
-  "Bún bò Huế",
-  "Cơm chiên Dương Châu",
-  "Nem nướng",
-  "Lẩu Thái",
-  "Chè thập cẩm",
-  "Trà sữa",
-  "Nước ép trái cây",
-  "Pizza",
-  "Bánh bao",
-  "Bánh xèo",
-  "Súp cua",
-  "Chả cá Lã Vọng",
-];
-
 class Detailsearchscreen extends StatelessWidget {
   const Detailsearchscreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<AppProvier>(context);
+    var appProvider = Provider.of<AppProvier>(context);
+    var dataProvider = Provider.of<Dataprovider>(context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      FocusScope.of(context).requestFocus(provider.focusNode);
+      FocusScope.of(context).requestFocus(appProvider.focusNode);
     });
 
     return Scaffold(
@@ -63,8 +42,8 @@ class Detailsearchscreen extends StatelessWidget {
             children: [
               Expanded(
                 child: TextField(
-                  controller: provider.searchTextcontroller,
-                  focusNode: provider.focusNode,
+                  controller: appProvider.searchTextcontroller,
+                  focusNode: appProvider.focusNode,
                   cursorColor: AppColors.primaryColor,
                   decoration: InputDecoration(
                     hintText: "Tìm kiếm",
@@ -92,7 +71,10 @@ class Detailsearchscreen extends StatelessWidget {
                 ),
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    dataProvider
+                        .addSearchItem(appProvider.searchTextcontroller.text);
+                  },
                   child: Text("Tìm kiếm",
                       style: StylesOfWidgets.textStyle1(
                           fs: SizeOfWidget.sizeOfH3,
@@ -100,50 +82,55 @@ class Detailsearchscreen extends StatelessWidget {
                           clr: AppColors.primaryColor)))
             ],
           )),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 10.sp),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Tìm kiếm gần đây",
-                  style: StylesOfWidgets.textStyle1(
-                      fs: SizeOfWidget.sizeOfH3,
-                      fw: FontWeight.w300,
-                      clr: AppColors.gray),
-                ),
-                TextButton(
-                    onPressed: () {
-                      searched.removeRange(0, searched.length);
-                    },
-                    child: Text(
-                      "Xóa tất cả",
-                      style: StylesOfWidgets.textStyle1(
-                          fs: SizeOfWidget.sizeOfH4,
-                          fw: FontWeight.w400,
-                          clr: AppColors.gray),
-                    ))
-              ],
-            ),
-            Expanded(
-              child: ListView.builder(
-                  itemCount: searched.length,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 10.sp),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Tìm kiếm gần đây",
+                    style: StylesOfWidgets.textStyle1(
+                        fs: SizeOfWidget.sizeOfH3,
+                        fw: FontWeight.w300,
+                        clr: AppColors.gray),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Provider.of<Dataprovider>(context, listen: false)
+                            .removeAllSearchItem();
+                      },
+                      child: Text(
+                        "Xóa tất cả",
+                        style: StylesOfWidgets.textStyle1(
+                            fs: SizeOfWidget.sizeOfH4,
+                            fw: FontWeight.w400,
+                            clr: AppColors.gray),
+                      ))
+                ],
+              ),
+              ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: dataProvider.recentSearch.length,
                   itemBuilder: (context, index) {
                     return Searchedrecent(
-                      name: searched[index],
+                      name: dataProvider.recentSearch[index],
                       onTap: () {
-                        provider.searchTextcontroller.text = searched[index];
+                        appProvider.searchTextcontroller.text =
+                            dataProvider.recentSearch[index];
                       },
                       onDeleteTap: () {
-                        searched.removeAt(index);
+                        dataProvider.removeSearchItem(index);
+
+                        print("Xóa $index");
                       },
                     );
-                  }),
-            )
-          ],
+                  })
+            ],
+          ),
         ),
       ),
     );
