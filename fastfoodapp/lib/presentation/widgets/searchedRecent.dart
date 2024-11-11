@@ -4,20 +4,19 @@ import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class Searchedrecent extends StatefulWidget {
-  const Searchedrecent({super.key, required this.name, required this.index});
+class Searchedrecent extends StatelessWidget {
+  const Searchedrecent(
+      {super.key,
+      required this.name,
+      required this.onTap,
+      required this.onDeleteTap});
   final String name;
-  final int index;
-  State<StatefulWidget> createState() => Searchscreen_State();
-}
-
-
-class Searchscreen_State extends State<Searchedrecent>{
-
-@override
+  final VoidCallback onTap;
+  final VoidCallback onDeleteTap;
+  @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Row(
@@ -30,18 +29,14 @@ class Searchscreen_State extends State<Searchedrecent>{
             const SizedBox(width: 16), // Khoảng cách giữa icon và text
             Expanded(
               child: Text(
-                widget.name,
+                name,
                 style: StylesOfWidgets.textStyle1(
                     fw: FontWeight.w400, fs: SizeOfWidget.sizeOfH3),
               ),
             ),
             const SizedBox(width: 16), // Khoảng cách thêm trước icon close
             IconButton(
-              onPressed: () {
-                // setState(() {
-                //   searched.removeAt(widget.index); // Xóa mục hiện tại //  I need some help there !!!
-                // });
-              },
+              onPressed: onDeleteTap,
               icon: Icon(
                 Icons.close,
                 color: AppColors.gray,

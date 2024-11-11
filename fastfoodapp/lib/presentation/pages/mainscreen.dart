@@ -1,6 +1,6 @@
 import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
-import 'package:fastfoodapp/presentation/pages/verifyotpscreen.dart';
+import 'package:fastfoodapp/presentation/pages/searchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/voucherscreen.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/widgets/bottomappbar.dart';
@@ -23,7 +23,7 @@ class Mainscreen extends StatelessWidget {
         },
         children: const [
           Loginscreen(),
-          Verifyotpscreen(),
+          Searchscreen(),
           Paymentscreen(),
           Voucherscreen()
         ],

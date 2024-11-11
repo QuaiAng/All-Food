@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/widgets/topfooditem.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -18,6 +19,9 @@ class Searchscreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(
+                height: 20.sp,
+              ),
               Text("Search",
                   style: StylesOfWidgets.textStyle1(
                       fs: SizeOfWidget.sizeOfLargeHeader, fw: FontWeight.w600)),
@@ -25,7 +29,9 @@ class Searchscreen extends StatelessWidget {
                 height: 20.sp,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, RouteName.detailsearchScreen);
+                },
                 child: Container(
                   height: 30.sp,
                   decoration: BoxDecoration(

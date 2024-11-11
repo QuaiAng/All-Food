@@ -29,7 +29,7 @@ class Topfooditem extends StatelessWidget {
         children: [
           SizedBox(
             child: Image.asset(
-              'assets/images/bg.png',
+              image,
               fit: BoxFit.fill,
             ),
           ),
