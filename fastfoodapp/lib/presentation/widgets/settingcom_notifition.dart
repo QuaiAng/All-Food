@@ -1,14 +1,14 @@
-import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/icon.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:flutter/material.dart';
+import 'package:fastfoodapp/res/colors.dart';
 
-class SettingsComponent extends StatefulWidget {
+class SettingcomNotifition extends StatefulWidget {
   final int SIcon;
   final String STitle;
   final String SContent;
 
-  const SettingsComponent({
+  const SettingcomNotifition({
   Key? key,
    required this.SIcon, 
    required this.STitle, 
@@ -19,16 +19,22 @@ class SettingsComponent extends StatefulWidget {
   State<StatefulWidget> createState() => SComponent();
 }
 
-class SComponent extends State<SettingsComponent>{
+class SComponent extends State<SettingcomNotifition>{
+  bool isSwitched = false;
+
+  void toggleSwitch(bool value) {
+    setState(() {
+      isSwitched = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Padding(
           padding: EdgeInsets.only(right: 16),
-          child: Icon(
-            IconList.getIcon(widget.SIcon), 
-            color: widget.SIcon == 5 ? AppColors.primaryColor : Colors.black,),
+          child: Icon(IconList.getIcon(widget.SIcon))
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +63,13 @@ class SComponent extends State<SettingsComponent>{
           ],
         ),
         Spacer(),
-        Icon(Icons.arrow_forward_ios)
+        Switch(
+          value: isSwitched,
+          onChanged: toggleSwitch,
+          activeColor: AppColors.primaryColor, // Màu khi bật
+          inactiveThumbColor: AppColors.primaryColor, // Màu khi tắt
+          inactiveTrackColor: Colors.white, // Màu của track khi tắt
+        ),
       ],
     );
   }
