@@ -1,4 +1,5 @@
 import 'package:fastfoodapp/presentation/pages/detailistproduct.dart';
+import 'package:fastfoodapp/presentation/pages/detailvoucherscreen.dart';
 import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
 import 'package:fastfoodapp/presentation/pages/mainscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
@@ -24,6 +25,7 @@ class RouteName {
   static const String detailsearchScreen = "/detailsearch";
   static const String splashScreen = "";
   static const String searchScreen = "/search";
+  static const String detailvoucherScreen ="/detailvoucher";
 }
 
 class AppRouter {
@@ -66,11 +68,16 @@ class AppRouter {
       //Màn hình danh sách vouchers
       case RouteName.voucherScreen:
         return MaterialPageRoute(builder: (_) => const Voucherscreen());
-      //Màn hình danh sách vouchers
+      //Màn hình chi tiết voucher
+      case RouteName.detailvoucherScreen:
+        return MaterialPageRoute(builder: (_) => VoucherDetailScreen());
+      //Màn hình ...
       case RouteName.searchScreen:
         return MaterialPageRoute(builder: (_) => const Searchscreen());
+      //Màn hình tìm kiếm món ăn
       case RouteName.detailsearchScreen:
         return MaterialPageRoute(builder: (_) => const Detailsearchscreen());
+      
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(
