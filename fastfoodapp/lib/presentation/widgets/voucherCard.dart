@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -75,11 +76,11 @@ class Vouchercard extends StatelessWidget {
                 height: 30.sp,
                 child: ElevatedButton(
                     onPressed: () {
-                      print("Chi tiết voucher");
+                      Navigator.pushNamed(context, RouteName.detailvoucherScreen);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
-                          AppColors.primaryColor, // Màu nền cam giống hình mẫu
+                          AppColors.primaryColor,
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(8),
