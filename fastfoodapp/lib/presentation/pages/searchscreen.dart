@@ -69,9 +69,13 @@ class Searchscreen extends StatelessWidget {
               Text("Các quán nổi bật",
                   style: StylesOfWidgets.textStyle1(
                       fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w500)),
+              SizedBox(
+                height: 25.sp,
+              ),
               GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                padding: const EdgeInsets.all(10),
+                // padding: const EdgeInsets.all(10),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, // Số cột hiển thị
                   childAspectRatio: 0.6, // Tỷ lệ khung hình mỗi item

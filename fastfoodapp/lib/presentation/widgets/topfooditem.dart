@@ -24,22 +24,25 @@ class Topfooditem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
+          Container(
             child: Image.asset(
               image,
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
             ),
           ),
           SizedBox(
             height: 10.sp,
           ),
-          Text(
-            foodName,
-            style: StylesOfWidgets.textStyle1(
-                clr: Colors.black, fs: SizeOfWidget.sizeOfH1),
+          Row(
+            children: [
+              Text(
+                foodName,
+                style: StylesOfWidgets.textStyle1(
+                    clr: Colors.black, fs: SizeOfWidget.sizeOfH1),
+              ),
+            ],
           ),
           SizedBox(
             height: 10.sp,

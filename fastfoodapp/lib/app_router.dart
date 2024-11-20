@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/presentation/pages/cartscreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailistproduct.dart';
 import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
 import 'package:fastfoodapp/presentation/pages/mainscreen.dart';
@@ -8,6 +9,7 @@ import 'package:fastfoodapp/presentation/pages/detailsearchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/splashscreen.dart';
 import 'package:fastfoodapp/presentation/pages/verifyotpscreen.dart';
 import 'package:fastfoodapp/presentation/pages/voucherscreen.dart';
+import 'package:fastfoodapp/presentation/widgets/itemincart.dart';
 import 'package:flutter/material.dart';
 
 class RouteName {
@@ -71,6 +73,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const Searchscreen());
       case RouteName.detailsearchScreen:
         return MaterialPageRoute(builder: (_) => const Detailsearchscreen());
+      case RouteName.cartScreen:
+        return MaterialPageRoute(builder: (_) => const Cartscreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

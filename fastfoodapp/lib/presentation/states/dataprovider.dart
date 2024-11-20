@@ -1,6 +1,25 @@
+import 'package:fastfoodapp/presentation/widgets/itemincart.dart';
 import 'package:flutter/material.dart';
 
 class Dataprovider extends ChangeNotifier {
+  final List _Itemincarts = List.generate(12, (index) {
+    return Itemincart(
+      onTap: () {},
+      image: 'assets/images/food.png',
+      name: "McDonald's",
+      note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
+      price: 56000.0,
+      quantity: 8,
+    );
+  });
+
+  List get Itemincarts => _Itemincarts;
+
+  void addToCart(Itemincart value) {
+    _Itemincarts.add(value);
+    notifyListeners();
+  }
+
   final List<String> _recentSearch = [
     "Bánh mì",
     "Phở bò",
@@ -26,17 +45,17 @@ class Dataprovider extends ChangeNotifier {
 
   List<String> get recentSearch => _recentSearch;
   void addSearchItem(String value) {
-    recentSearch.add(value);
+    _recentSearch.add(value);
     notifyListeners();
   }
 
   void removeSearchItem(int index) {
-    recentSearch.removeAt(index);
+    _recentSearch.removeAt(index);
     notifyListeners();
   }
 
   void removeAllSearchItem() {
-    recentSearch.removeRange(0, _recentSearch.length);
+    _recentSearch.removeRange(0, _recentSearch.length);
     notifyListeners();
   }
 
