@@ -1,4 +1,5 @@
 import 'package:fastfoodapp/presentation/pages/detailistproduct.dart';
+import 'package:fastfoodapp/presentation/pages/homescreen.dart';
 import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
 import 'package:fastfoodapp/presentation/pages/registerscreen.dart';
@@ -33,6 +34,9 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const Splashscreen());
       case RouteName.detaiListProductScreen:
         return MaterialPageRoute(builder: (_) => const Detailistproduct());
+      // case RouteName.homeScreen:
+      //   return MaterialPageRoute(
+      //       builder: (_) => const Homescreen(address: "address"));
       case RouteName.paymentScreen:
         return MaterialPageRoute(builder: (_) => const Paymentscreen());
       case RouteName.loginScreen:

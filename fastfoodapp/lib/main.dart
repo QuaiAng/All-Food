@@ -1,9 +1,12 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/pages/homescreen.dart';
+import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
+import 'package:fastfoodapp/presentation/widgets/advertisement.dart';
+import 'package:fastfoodapp/presentation/widgets/sectionfood.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import 'package:fastfoodapp/presentation/widgets/restaurant.dart';
 
 void main() {
   runApp(
@@ -21,24 +24,13 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
-          // initialRoute: RouteName.splashScreen,
-          // onGenerateRoute: AppRouter.generateRoute,
-          debugShowCheckedModeBanner: false,
-          home: Scaffold(
-            body: Restaurant(
-                name_restaurant: "McDonal's",
-                images: [
-                  "assets/images/big.png",
-                  "assets/images/anhga.png",
-                  "assets/images/anhga.png"
-                ],
-                price: "10k-99k",
-                category_food: "BURGERS",
-                rating: "4.3",
-                comment: "200+ Đánh giá",
-                time: "25 min",
-                delivery: "Free"),
-          ));
+        initialRoute: RouteName.splashScreen,
+        onGenerateRoute: AppRouter.generateRoute,
+        debugShowCheckedModeBanner: false,
+        // home: Homescreen(
+        //     address:
+        //         "ughiughidufsygieurtyieurytiuerytouieytoiuweytiuewyrtoijdflkshfkjsahfkas")
+      );
     });
   }
 }
