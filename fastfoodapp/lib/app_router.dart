@@ -27,7 +27,7 @@ class RouteName {
   static const String detailsearchScreen = "/detailsearch";
   static const String splashScreen = "";
   static const String searchScreen = "/search";
-  static const String detailvoucherScreen ="/detailvoucher";
+  static const String detailvoucherScreen = "/detailvoucher";
 }
 
 class AppRouter {
@@ -79,12 +79,8 @@ class AppRouter {
       //Màn hình tìm kiếm món ăn
       case RouteName.detailsearchScreen:
         return MaterialPageRoute(builder: (_) => const Detailsearchscreen());
-<<<<<<< HEAD
       case RouteName.cartScreen:
         return MaterialPageRoute(builder: (_) => const Cartscreen());
-=======
-      
->>>>>>> origin/BranchOfThao
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(
