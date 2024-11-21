@@ -8,4 +8,5 @@ class SizeOfWidget {
   static double sizeOfH4 = 15.sp;
   static double heightSection = 120;
   static double widthSection = 120;
+  static double icon = 20.sp;
 }

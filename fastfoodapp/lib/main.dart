@@ -6,6 +6,7 @@ import 'package:fastfoodapp/res/images.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:fastfoodapp/presentation/pages/informationscreen.dart';
 
 void main() {
   runApp(
@@ -22,8 +23,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      return const MaterialApp(
-        home: const Foodsection(foodImg: Imagepath.logo, foodName: "Gà Rán", foodLocation: "Quận 1", foodRating: "4.5", foodTime: "25min", foodVoucher: "Freeship"),
+      return MaterialApp(
+        home: Informationscreen(name: 'CAO HOAI AN', email: 'caohoaian@gmail.com', imagePath: Imagepath.logo,),
         // initialRoute: RouteName.sectionFood,
         // onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
