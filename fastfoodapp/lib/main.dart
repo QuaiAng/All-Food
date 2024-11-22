@@ -3,6 +3,7 @@ import 'package:fastfoodapp/presentation/pages/homescreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/widgets/advertisement.dart';
+import 'package:fastfoodapp/presentation/widgets/restaurant.dart';
 import 'package:fastfoodapp/presentation/widgets/sectionfood.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,7 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         // home: Homescreen(
         //     address:
-        //         "ughiughidufsygieurtyieurytiuerytouieytoiuweytiuewyrtoijdflkshfkjsahfkas")
+        //         "67 Đường Hoàng Diệu, Phường 12, Quận 9 Thành Phố Thủ Đức hàiiudayfiauyfoeryriquyeriuqywkjfh")
       );
     });
   }

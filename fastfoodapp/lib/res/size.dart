@@ -19,9 +19,27 @@ class SizeOfWidget {
   /// size: 18
   static double sizeOfH1 = 18.sp;
 
+  /// size: 19
+  static double sizeOfText = 19.sp;
+
+  /// size: 20
+  static double sizeOfTextH1 = 20.sp;
+
   /// size: 16
   static double sizeOfH2 = 16.sp;
 
   /// size: 14
   static double sizeOfH3 = 14.sp;
+
+  /// size: 2
+  static double sizeOfPadding = 2.sp;
+
+  /// size: 5
+  static double sizeOfPaddingHorizontal = 4.sp;
+
+  /// size of container: 55
+  static double sizeOfHeightContainer = 55.sp;
+
+  /// size of widget Point width and height: 10
+  static double sizeOfHeightPoint = 10.sp;
 }

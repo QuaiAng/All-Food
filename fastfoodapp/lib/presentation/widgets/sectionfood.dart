@@ -7,100 +7,112 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart'; // File chứa đường dẫn ảnh
 
 class Sectionfood extends StatelessWidget {
-  const Sectionfood({
-    super.key,
-    required this.name_food,
-    required this.foodImg,
-    required this.foodLocation,
-    required this.foodStart,
-    required this.foodRating,
-  });
+  const Sectionfood(
+      {super.key,
+      required this.name_food,
+      required this.foodImg,
+      required this.foodLocation,
+      required this.foodRating,
+      required this.time,
+      required this.delivery});
   final String name_food;
   final String foodImg;
   final String foodLocation;
-  final double foodStart;
-  final String foodRating;
+  final double foodRating;
+  final int time;
+  final String delivery;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15),
+      padding: EdgeInsets.all(SizeOfWidget.sizeOfLabelText),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-              height: 55.sp,
-              width: 55.sp,
+              height: SizeOfWidget.sizeOfHeightContainer,
+              width: SizeOfWidget.sizeOfHeightContainer,
               child: Image.asset(
-                "assets/images/anhga.png",
+                '${foodImg}',
                 fit: BoxFit.fill,
               )),
           SizedBox(
-            height: 5.sp,
+            height: SizeOfWidget.sizeOfPaddingHorizontal,
           ),
           Padding(
-            padding: const EdgeInsets.only( bottom: 5),
+            padding:
+                EdgeInsets.only(bottom: SizeOfWidget.sizeOfPaddingHorizontal),
             child: Text(
-              "Gà Rán",
+              "${name_food}",
               style: GoogleFonts.inter(
-                  fontSize: 18.sp,
+                  fontSize: SizeOfWidget.sizeOfH1,
                   fontWeight: FontWeight.w300,
                   color: Colors.black,
                   decoration: TextDecoration.none),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 6),
+            padding:
+                EdgeInsets.only(bottom: SizeOfWidget.sizeOfPaddingHorizontal),
             child: Text(
-              "67, Hoàng Diệu",
+              "${foodLocation}",
               style: GoogleFonts.inter(
-                  fontSize: 14.sp,
+                  fontSize: SizeOfWidget.sizeOfH3,
                   fontWeight: FontWeight.w400,
-                  color: AppColors.placeholderColor,
+                  color: AppColors.gray,
                   decoration: TextDecoration.none),
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                height: 18.sp,
-                width: 22.sp,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(2),
-                  color: AppColors.primaryColor,
-                ),
-                child: Text(
-                  "4.3",
-                  style: GoogleFonts.inter(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white,
-                      decoration: TextDecoration.none),
-                  textAlign: TextAlign.center,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(3),
+                child: Container(
+                  height: SizeOfWidget.sizeOfH1,
+                  width: SizeOfWidget.sizeOfNameRestaurant,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryColor,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: SizeOfWidget.sizeOfHeightPoint),
+                    child: Text(
+                      "${foodRating}",
+                      style: GoogleFonts.inter(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                          decoration: TextDecoration.none),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeOfWidget.sizeOfHeightPoint),
                 child: Text(
-                  "25 min",
+                  "${time} min",
                   style: GoogleFonts.inter(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black,
-                      decoration: TextDecoration.none),
+                    fontSize: SizeOfWidget.sizeOfH3,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.gray,
+                  ),
                 ),
               ),
-              Point(),
+              const Point(),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeOfWidget.sizeOfHeightPoint),
                 child: Text(
-                  "Freeship",
+                  "${delivery}",
                   style: GoogleFonts.inter(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black,
-                      decoration: TextDecoration.none),
+                    fontSize: SizeOfWidget.sizeOfH3,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.gray,
+                  ),
                 ),
               ),
             ],
@@ -116,8 +128,8 @@ class Point extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 10.sp,
-      height: 10.sp,
+      width: SizeOfWidget.sizeOfHeightPoint,
+      height: SizeOfWidget.sizeOfHeightPoint,
       padding: const EdgeInsets.all(8),
       decoration:
           const BoxDecoration(color: Colors.grey, shape: BoxShape.circle),

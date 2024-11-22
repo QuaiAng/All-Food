@@ -38,7 +38,7 @@ class Restaurant extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.all(20.sp),
+              padding: EdgeInsets.all(SizeOfWidget.sizeOfTextH1),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -47,100 +47,93 @@ class Restaurant extends StatelessWidget {
                     width: double.infinity,
                     child: Listimageindicator(images: images),
                   ),
-                  SizedBox(height: 15.sp),
+                  SizedBox(height: SizeOfWidget.sizeOfButtonLoginText),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(name_restaurant,
                           style: StylesOfWidgets.textStyle1(
-                              fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w300)),
-                      SizedBox(height: 10.sp),
+                              fs: SizeOfWidget.sizeOfText,
+                              fw: FontWeight.w300)),
+                      SizedBox(height: SizeOfWidget.sizeOfHeightPoint),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(right: 12),
+                            padding: EdgeInsets.only(
+                                right: SizeOfWidget.sizeOfButtonLoginText),
                             child: Text(price,
-                                style: GoogleFonts.inter(
-                                    textStyle: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey,
-                                ))),
+                                style: StylesOfWidgets.textStyle1(
+                                    fs: SizeOfWidget.sizeOfButtonLoginText,
+                                    fw: FontWeight.w400,
+                                    clr: AppColors.gray)),
                           ),
                           const Point(),
                           Padding(
-                            padding: const EdgeInsets.only(left: 12, right: 12),
+                            padding: EdgeInsets.only(
+                                left: SizeOfWidget.sizeOfHeightPoint,
+                                right: SizeOfWidget.sizeOfHeightPoint),
                             child: Text(category_food,
-                                style: GoogleFonts.inter(
-                                    textStyle: TextStyle(
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.grey,
-                                        decorationColor: Colors.white))),
+                                style: StylesOfWidgets.textStyle1(
+                                  fs: SizeOfWidget.sizeOfButtonLoginText,
+                                  fw: FontWeight.w400,
+                                  clr: AppColors.gray,
+                                )),
                           ),
                         ],
                       ),
-                      SizedBox(height: 10.sp),
+                      SizedBox(height: SizeOfWidget.sizeOfHeightPoint),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(rating,
-                              style: GoogleFonts.inter(
-                                  textStyle: TextStyle(
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey,
-                                      decorationColor: Colors.white))),
-                          SizedBox(width: 12.sp),
-                          const Icon(
+                              style: StylesOfWidgets.textStyle1(
+                                  fs: SizeOfWidget.sizeOfButtonLoginText,
+                                  fw: FontWeight.w400,
+                                  clr: AppColors.gray)),
+                          SizedBox(width: SizeOfWidget.sizeOfHeightPoint),
+                          Icon(
                               // icon ngôi sao
                               Icons.star,
                               color: AppColors.primaryColor),
-                          SizedBox(width: 12.sp),
+                          SizedBox(width: SizeOfWidget.sizeOfHeightPoint),
                           Text(comment,
-                              style: GoogleFonts.inter(
-                                  textStyle: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey,
-                                      decorationColor: Colors.white))),
-                          SizedBox(width: 12.sp),
+                              style: StylesOfWidgets.textStyle1(
+                                  fs: SizeOfWidget.sizeOfButtonLoginText,
+                                  fw: FontWeight.w400,
+                                  clr: AppColors.gray)),
+                          SizedBox(width: SizeOfWidget.sizeOfHeightPoint),
                           const Point(),
-                          SizedBox(width: 12.sp),
+                          SizedBox(width: SizeOfWidget.sizeOfHeightPoint),
                           Icon(
                             // icon đòng hồ
                             Icons.timer_sharp,
-                            color: Colors.grey, size: 20.sp,
+                            color: AppColors.gray, size: SizeOfWidget.sizeOfTextH1,
                           ),
                           Text(time,
-                              style: GoogleFonts.inter(
-                                  textStyle: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey,
-                                      decorationColor: Colors.white))),
-                          SizedBox(width: 12.sp),
+                              style: StylesOfWidgets.textStyle1(
+                                  fs: SizeOfWidget.sizeOfButtonLoginText,
+                                  fw: FontWeight.w400,
+                                  clr: AppColors.gray)),
+                          SizedBox(width: SizeOfWidget.sizeOfHeightPoint),
                           const Point(),
-                          SizedBox(width: 12.sp),
+                          SizedBox(width: SizeOfWidget.sizeOfHeightPoint),
                           CircleAvatar(
                             // vòng tròn chứa icon dollar
-                            backgroundColor: Colors.grey,
-                            radius: 13.sp,
+                            backgroundColor: AppColors.gray,
+                            radius: SizeOfWidget.sizeOfH3,
                             child: Icon(
                               Icons.attach_money,
                               color: Colors.white,
-                              size: 14.sp,
+                              size: SizeOfWidget.sizeOfButtonLoginText,
                             ),
                           ),
-                          SizedBox(width: 6.sp),
+                          SizedBox(width: SizeOfWidget.sizeOfPaddingHorizontal),
                           Text(delivery,
-                              style: GoogleFonts.inter(
-                                  textStyle: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey,
-                                      decorationColor: Colors.white))),
+                              style: StylesOfWidgets.textStyle1(
+                                  fs: SizeOfWidget.sizeOfButtonLoginText,
+                                  fw: FontWeight.w400,
+                                  clr: AppColors.gray)),
                         ],
                       )
                     ],
@@ -164,7 +157,7 @@ class Point extends StatelessWidget {
       height: 10.sp,
       padding: const EdgeInsets.all(8),
       decoration:
-          const BoxDecoration(color: Colors.grey, shape: BoxShape.circle),
+          const BoxDecoration(color: AppColors.gray, shape: BoxShape.circle),
     );
   }
 }

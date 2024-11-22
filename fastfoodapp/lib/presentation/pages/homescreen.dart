@@ -23,61 +23,54 @@ class Homescreen extends StatelessWidget {
   final String address;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        // scrollDirection: Axis.horizontal,
-        child: Padding(
-            padding: const EdgeInsets.all(15),
+    return Scaffold(
+      body: Padding(
+          padding: EdgeInsets.all(SizeOfWidget.sizeOfH3),
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "Địa điểm của tôi: ",
                   style: GoogleFonts.inter(
-                    textStyle: TextStyle(
-                        fontSize: SizeOfWidget.sizeOfButtonLoginText,
-                        fontWeight: FontWeight.w300,
-                        color: AppColors.primaryColor,
-                        decoration: TextDecoration.none),
-                  ),
+                      textStyle: TextStyle(
+                    fontSize: SizeOfWidget.sizeOfButtonLoginText,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.primaryColor,
+                  )),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    Icon(Icons.location_on,
+                        color: Colors.red, size: SizeOfWidget.sizeOfH1),
                     Expanded(
-                        child: Row(
-                      children: [
-                        Icon(
-                          Icons.location_on,
-                          color: Colors.red,
-                          size: SizeOfWidget.sizeOfH1,
-                        ),
-                        Expanded(
-                          child: Text(
-                            address,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.inter(
-                                fontSize: SizeOfWidget.sizeOfButtonLoginText,
-                                fontWeight: FontWeight.w200,
-                                color: AppColors.gray,
-                                decoration: TextDecoration.none),
-                          ),
-                        ),
-                      ],
+                        child: Text(
+                      address,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.inter(
+                        fontSize: SizeOfWidget.sizeOfH3,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.gray,
+                      ),
                     )),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // thực hiện chuyển trang
+                      },
                       icon: Icon(
                         Icons.chevron_right,
                         color: AppColors.gray,
-                        size: 17.sp,
+                        size: SizeOfWidget.sizeOfH1,
                       ),
-                    )
+                    ),
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10),
+                  padding: EdgeInsets.all(SizeOfWidget.sizeOfHeightPoint),
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.35,
+                    height: MediaQuery.of(context).size.height * 0.3,
                     width: double.infinity,
                     child: Listimageindicator(images: images),
                   ),
@@ -89,23 +82,25 @@ class Homescreen extends StatelessWidget {
                         child: Text(
                       "Gần Tôi",
                       style: GoogleFonts.inter(
-                          fontSize: 19.sp,
+                          fontSize: SizeOfWidget.sizeOfText,
                           color: AppColors.primaryColor,
                           fontWeight: FontWeight.w300,
                           decoration: TextDecoration.none),
                     )),
                     Material(
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          // chuyển trang qua trang chi tiết món ăn
+                        },
                         child: Row(
                           children: [
                             Text(
                               "Xem tất cả",
                               style: GoogleFonts.inter(
-                                  fontSize: 14.sp,
+                                  fontSize: SizeOfWidget.sizeOfH3,
                                   color: AppColors.primaryColor),
                             ),
-                            SizedBox(width: 2.sp),
+                            SizedBox(width: SizeOfWidget.sizeOfPadding),
                             Icon(
                               Icons.chevron_right,
                               color: AppColors.primaryColor,
@@ -121,14 +116,17 @@ class Homescreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                           children: List.generate(
-                        5,
-                        (index) => Sectionfood(
-                            name_food: "name_food",
-                            foodImg: "foodImg",
-                            foodLocation: "foodLocation",
-                            foodStart: 4.3,
-                            foodRating: "foodRating"),
-                      ))),
+                              5,
+                              (index) => InkWell(
+                                    onTap: () {},
+                                    child: Sectionfood(
+                                        name_food: "Gà Rán",
+                                        foodImg: "assets/images/anhga.png",
+                                        foodLocation: "67, Hoàng Diệu",
+                                        foodRating: 4.3,
+                                        time: 25,
+                                        delivery: "Freeship"),
+                                  )))),
                 ),
                 Row(
                   children: [
@@ -136,24 +134,26 @@ class Homescreen extends StatelessWidget {
                         child: Text(
                       "Best Seller",
                       style: GoogleFonts.inter(
-                          fontSize: 19.sp,
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.w200,
-                          decoration: TextDecoration.none),
+                        fontSize: SizeOfWidget.sizeOfText,
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.w700,
+                      ),
                     )),
                     Material(
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          // xử lí chuyển trang
+                        },
                         child: Row(
                           children: [
                             Text(
                               "Xem tất cả",
                               style: GoogleFonts.inter(
-                                  fontSize: 14.sp,
+                                  fontSize: SizeOfWidget.sizeOfH3,
                                   color: AppColors.primaryColor),
                             ),
-                            SizedBox(width: 2.sp),
-                            const Icon(
+                            SizedBox(width: SizeOfWidget.sizeOfPadding),
+                            Icon(
                               Icons.chevron_right,
                               color: AppColors.primaryColor,
                             )
@@ -168,39 +168,44 @@ class Homescreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                           children: List.generate(
-                        5,
-                        (index) => Sectionfood(
-                            name_food: "name_food",
-                            foodImg: "foodImg",
-                            foodLocation: "foodLocation",
-                            foodStart: 4.3,
-                            foodRating: "foodRating"),
-                      ))),
+                              5,
+                              (index) => InkWell(
+                                    onTap: () {},
+                                    child: Sectionfood(
+                                        name_food: "Gà Rán",
+                                        foodImg: "assets/images/anhga.png",
+                                        foodLocation: "67, Hoàng Diệu",
+                                        foodRating: 4.3,
+                                        time: 25,
+                                        delivery: "Freeship"),
+                                  )))),
                 ),
                 Row(
                   children: [
                     Expanded(
                         child: Text(
-                      "Tất Cả Nhà Hàng ",
+                      "Tất Cả Nhà Hàng",
                       style: GoogleFonts.inter(
-                          fontSize: 20.sp,
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.w300,
-                          decoration: TextDecoration.none),
+                        fontSize: SizeOfWidget.sizeOfTextH1,
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.w400,
+                      ),
                     )),
                     Material(
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          // xử lí chuyển trang
+                        },
                         child: Row(
                           children: [
                             Text(
                               "Xem tất cả",
                               style: GoogleFonts.inter(
-                                  fontSize: 14.sp,
+                                  fontSize: SizeOfWidget.sizeOfH3,
                                   color: AppColors.primaryColor),
                             ),
-                            SizedBox(width: 2.sp),
-                            const Icon(
+                            SizedBox(width: SizeOfWidget.sizeOfPadding),
+                            Icon(
                               Icons.chevron_right,
                               color: AppColors.primaryColor,
                             )
@@ -230,6 +235,8 @@ class Homescreen extends StatelessWidget {
                               delivery: "Deshi food"))),
                 ),
               ], // lấy cái này
-            )));
+            ),
+          )),
+    );
   }
 }

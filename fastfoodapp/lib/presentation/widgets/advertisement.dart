@@ -18,7 +18,7 @@ class Listimageindicator extends StatelessWidget {
       width: MediaQuery.of(context)
           .size
           .width, // Điều chỉnh chiều cao của carousel
-
+        
       child: PageView.builder(
         itemCount: images.length,
         scrollDirection: Axis.horizontal, // Vuốt ngang
