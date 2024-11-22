@@ -40,6 +40,9 @@ class SizeOfWidget {
   /// size of container: 55
   static double sizeOfHeightContainer = 55.sp;
 
+  /// size : 17
+  static double sizeOfLable = 17.sp;
+
   /// size of widget Point width and height: 10
   static double sizeOfHeightPoint = 10.sp;
 }

@@ -1,7 +1,9 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/pages/addressscreen.dart';
 import 'package:fastfoodapp/presentation/pages/homescreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
+import 'package:fastfoodapp/presentation/widgets/addresssection.dart';
 import 'package:fastfoodapp/presentation/widgets/advertisement.dart';
 import 'package:fastfoodapp/presentation/widgets/restaurant.dart';
 import 'package:fastfoodapp/presentation/widgets/sectionfood.dart';
@@ -28,9 +30,7 @@ class MainApp extends StatelessWidget {
         initialRoute: RouteName.splashScreen,
         onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
-        // home: Homescreen(
-        //     address:
-        //         "67 Đường Hoàng Diệu, Phường 12, Quận 9 Thành Phố Thủ Đức hàiiudayfiauyfoeryriquyeriuqywkjfh")
+        // home: Addressscreen()
       );
     });
   }
