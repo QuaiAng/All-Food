@@ -66,9 +66,9 @@ class SComponent extends State<SettingcomNotifition>{
         Switch(
           value: isSwitched,
           onChanged: toggleSwitch,
-          activeColor: AppColors.primaryColor, // Màu khi bật
-          inactiveThumbColor: AppColors.primaryColor, // Màu khi tắt
-          inactiveTrackColor: Colors.white, // Màu của track khi tắt
+          activeColor: AppColors.primaryColor,
+          inactiveThumbColor: AppColors.primaryColor, 
+          inactiveTrackColor: Colors.white,
         ),
       ],
     );

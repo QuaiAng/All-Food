@@ -3,6 +3,7 @@ import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:pelaicons/pelaicons.dart';
 
 class Informationscreen extends StatefulWidget {
   final String name;
@@ -27,66 +28,124 @@ class _Informationscreen extends State<Informationscreen> {
       body: ListView(
         padding: EdgeInsets.all(16.sp),
         children: [
+          Row(
+            children: [
+              Container(
+                height: 80,
+                width: 80,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage(widget.imagePath),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(width: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.name,
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: SizeOfWidget.sizeOfH2),
+                  ),
+                  Text(
+                    widget.email,
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ],
+              ),
+              Spacer(),
+              TextButton(
+                onPressed: () {
+                  print('Chỉnh sửa thông tin cá nhân');
+                },
+                child: Text(
+                  'Edit',
+                  style: TextStyle(color: AppColors.primaryColor, fontSize: SizeOfWidget.sizeOfH2),
+                ),
+              ),
+            ],  
+          ),
+          Padding(padding: EdgeInsets.only(top: 10.sp)),
           ListTile(
-            leading: CircleAvatar(
-              backgroundImage: AssetImage(widget.imagePath),
-              radius: 25,
-            ),
+            leading: Icon(Pelaicons.cart_2_light_outline, size: SizeOfWidget.icon),
             title: Text(
-              widget.name,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            subtitle: Text(widget.email),
-            trailing: TextButton(
-              onPressed: () {
-                print('Chỉnh sửa thông tin cá nhân');
-              },
-              child: const Text(
-                'Edit',
-                style: TextStyle(color: AppColors.primaryColor),
+              'Shop của tôi',
+              style: TextStyle(
+                fontSize: SizeOfWidget.sizeOfH3
               ),
             ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 20.sp)),
-          ListTile(
-            leading: Icon(Icons.store, size: SizeOfWidget.icon),
-            title: Text('Shop của tôi'),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
               print("Shop của tôi được nhấn");
             },
           ),
-          Divider(),
+          Divider(indent: 50,),
           ListTile(
-            leading: Icon(Icons.card_giftcard, size: SizeOfWidget.icon),
-            title: Text('Ưu đãi của tôi'),
+            leading: Icon(Icons.insert_drive_file, size: SizeOfWidget.icon),
+            title: Text(
+              'Lịch sử đơn hàng',
+              style: TextStyle(
+                fontSize: SizeOfWidget.sizeOfH3
+              ),
+            ),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () {
+              print("Shop của tôi được nhấn");
+            },
+          ),
+          Divider(indent: 50,),
+          ListTile(
+            leading: Icon(Icons.discount_outlined, size: SizeOfWidget.icon),
+            title: Text(
+              'Ưu đãi của tôi',
+              style: TextStyle(
+                fontSize: SizeOfWidget.sizeOfH3
+              ),
+            ),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
               print("Ưu đãi của tôi được nhấn");
             },
           ),
-          Divider(),
+          Divider(indent: 50,),
           ListTile(
-            leading: Icon(Icons.payment, size: SizeOfWidget.icon),
-            title: Text('Phương thức thanh toán'),
+            leading: Icon(Icons.credit_card, size: SizeOfWidget.icon),
+            title: Text(
+              'Phương thức thanh toán',
+              style: TextStyle(
+                fontSize: SizeOfWidget.sizeOfH3
+              ),
+            ),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
               print("Phương thức thanh toán được nhấn");
             },
           ),
-          Divider(),
+          Divider(indent: 50,),
           ListTile(
             leading: Icon(Icons.location_on, size: SizeOfWidget.icon,),
-            title: Text('Địa chỉ của tôi'),
+            title: Text(
+              'Địa chỉ của tôi',
+              style: TextStyle(
+                fontSize: SizeOfWidget.sizeOfH3
+              ),
+            ),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
               print("Địa chỉ của tôi được nhấn");
             },
           ),
-          Divider(),
+          Divider(indent: 50,),
           ListTile(
             leading: Icon(Icons.lock, size: SizeOfWidget.icon,),
-            title: Text('Bảo mật'),
+            title: Text(
+              'Bảo mật',
+              style: TextStyle(
+                fontSize: SizeOfWidget.sizeOfH3
+              ),
+            ),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
               print("Bảo mật được nhấn");
@@ -103,6 +162,8 @@ class _Informationscreen extends State<Informationscreen> {
                   style: TextStyle(fontSize: SizeOfWidget.sizeOfH3),
                 ),
                 Container(
+                  height: 36,
+                  width: 123,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(8.0),
@@ -123,62 +184,127 @@ class _Informationscreen extends State<Informationscreen> {
                         print("Ngôn ngữ được chọn: $selectedLanguage");
                       });
                     },
+                    style: TextStyle(
+                      fontSize: SizeOfWidget.sizeOfH3
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-          Divider(),
-          SwitchListTile(
-            title: Text('Âm thanh thông báo'),
-            value: notificationSound,
-            activeColor: Colors.white,
-            activeTrackColor: AppColors.primaryColor,
-            inactiveThumbColor: AppColors.primaryColor,
-            inactiveTrackColor: Colors.white,
-            onChanged: (bool value) {
-              setState(() {
-                notificationSound = value;
-                print("Âm thanh thông báo: $value");
-              });
-            },
+          Divider(indent: 50,),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 16.sp),
+                child: Icon(
+                  Icons.notifications, size: SizeOfWidget.icon,
+                ),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: SwitchListTile(
+                  title: Text(
+                    'Âm thanh thông báo',
+                    style: TextStyle(
+                      fontSize: SizeOfWidget.sizeOfH3
+                    ),
+                  ),
+                  value: notificationSound,
+                  activeColor: Colors.white,
+                  activeTrackColor: AppColors.primaryColor,
+                  inactiveThumbColor: AppColors.primaryColor,
+                  inactiveTrackColor: Colors.white,
+                  onChanged: (bool value) {
+                    setState(() {
+                      notificationSound = value;
+                      print("Âm thanh thông báo: $value");
+                    });
+                  },
+                ),
+              ),
+            ],
           ),
-          SwitchListTile(
-            title: Text('Âm thanh'),
-            value: sound,
-            activeColor: Colors.white,
-            activeTrackColor: AppColors.primaryColor,
-            inactiveThumbColor: AppColors.primaryColor,
-            inactiveTrackColor: Colors.white,
-            onChanged: (bool value) {
-              setState(() {
-                sound = value;
-                print("Âm thanh: $value");
-              });
-            },
+          Divider(indent: 50.sp,),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 16.sp),
+                child: Icon(
+                  Icons.notifications, size: SizeOfWidget.icon,
+                ),
+              ),
+              SizedBox(width: 10.sp),
+              Expanded(
+                child: SwitchListTile(
+                  title: Text(
+                    'Âm thanh trông ứng dụng',
+                    style: TextStyle(
+                      fontSize: SizeOfWidget.sizeOfH3
+                    ),
+                  ),
+                  value: notificationSound,
+                  activeColor: Colors.white,
+                  activeTrackColor: AppColors.primaryColor,
+                  inactiveThumbColor: AppColors.primaryColor,
+                  inactiveTrackColor: Colors.white,
+                  onChanged: (bool value) {
+                    setState(() {
+                      notificationSound = value;
+                      print("Âm thanh trong ứng dụng: $value");
+                    });
+                  },
+                ),
+              ),
+            ],
           ),
-          SwitchListTile(
-            title: Text('Thông báo cập nhật'),
-            value: updateNotification,
-            activeColor: Colors.white,
-            activeTrackColor: AppColors.primaryColor,
-            inactiveThumbColor: AppColors.primaryColor,
-            inactiveTrackColor: Colors.white,
-            onChanged: (bool value) {
-              setState(() {
-                updateNotification = value;
-                print("Thông báo cập nhật: $value");
-              });
-            },
+          Divider(indent: 50,),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 16.sp),
+                child: Icon(
+                  Icons.notifications, size: SizeOfWidget.icon,
+                ),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: SwitchListTile(
+                  title: Text(
+                    'Thông báo cập nhật',
+                    style: TextStyle(
+                      fontSize: SizeOfWidget.sizeOfH3
+                    ),
+                  ),
+                  value: notificationSound,
+                  activeColor: Colors.white,
+                  activeTrackColor: AppColors.primaryColor,
+                  inactiveThumbColor: AppColors.primaryColor,
+                  inactiveTrackColor: Colors.white,
+                  onChanged: (bool value) {
+                    setState(() {
+                      notificationSound = value;
+                      print("Thông báo câp nhật: $value");
+                    });
+                  },
+                ),
+              ),
+            ],
           ),
-          Divider(),
+          Divider(indent: 50,),
           ListTile(
-            title: Text('About App'),
+            title: Text(
+              'Thông tin ứng dụng',
+              style: TextStyle(
+                fontSize: SizeOfWidget.sizeOfH3
+              ),
+            ),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
               print("Thông tin ứng dụng được nhấn");
             },
           ),
+          Padding(padding: EdgeInsets.only(top: 30.sp)),
           Center(
             child: SizedBox(
               width: 800.sp,
