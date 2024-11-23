@@ -9,7 +9,7 @@ class Dataprovider extends ChangeNotifier {
       name: "McDonald's",
       note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
       price: 56000.0,
-      quantity: 8,
+      quantity: 1,
     );
   });
 

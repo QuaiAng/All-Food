@@ -36,7 +36,7 @@ class VoucherDetailScreen extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
             color: AppColors.primaryColor,
-            size: 20,
+            size: 30,
           ),
         ),
         title: Text(
@@ -51,8 +51,8 @@ class VoucherDetailScreen extends StatelessWidget {
           child: Card(
             color: Colors.white,
             elevation: 10.sp,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

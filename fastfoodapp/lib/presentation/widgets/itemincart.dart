@@ -5,15 +5,17 @@ import 'package:fastfoodapp/utils/formatmoney.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class Itemincart extends StatelessWidget {
-  const Itemincart(
-      {super.key,
-      required this.onTap,
-      required this.image,
-      required this.name,
-      required this.note,
-      required this.price,
-      required this.quantity});
+class Itemincart extends StatefulWidget {
+  const Itemincart({
+    super.key,
+    required this.onTap,
+    required this.image,
+    required this.name,
+    required this.note,
+    required this.price,
+    required this.quantity,
+  });
+
   final VoidCallback onTap;
   final String image;
   final String name;
@@ -22,9 +24,40 @@ class Itemincart extends StatelessWidget {
   final int quantity;
 
   @override
+  State<Itemincart> createState() => _ItemincartState();
+}
+
+class _ItemincartState extends State<Itemincart> {
+  late int _quantity;
+  late double _totalPrice;
+
+  @override
+  void initState() {
+    super.initState();
+    _quantity = widget.quantity;
+    _totalPrice = widget.price * _quantity;
+  }
+
+  void _increaseQuantity() {
+    setState(() {
+      _quantity++;
+      _totalPrice = widget.price * _quantity;
+    });
+  }
+
+  void _decreaseQuantity() {
+    setState(() {
+      if (_quantity > 1) {
+        _quantity--;
+        _totalPrice = widget.price * _quantity;
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -40,7 +73,7 @@ class Itemincart extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Image.asset(
-                    image,
+                    widget.image,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -58,12 +91,12 @@ class Itemincart extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  name,
+                  widget.name,
                   style: StylesOfWidgets.textStyle1(
                       fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w400),
                 ),
                 Text(
-                  note,
+                  widget.note,
                   style: StylesOfWidgets.textStyle1(
                       fs: SizeOfWidget.sizeOfH3,
                       fw: FontWeight.w400,
@@ -79,24 +112,26 @@ class Itemincart extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.remove,
-                                color: AppColors.primaryColor,
-                                size: 20.sp,
-                              )),
+                            onPressed: _decreaseQuantity,
+                            icon: Icon(
+                              Icons.remove,
+                              color: AppColors.primaryColor,
+                              size: 20.sp,
+                            ),
+                          ),
                           Text(
-                            quantity.toString(),
+                            _quantity.toString(),
                             style: StylesOfWidgets.textStyle1(
                                 fs: SizeOfWidget.sizeOfH3),
                           ),
                           IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.add,
-                                color: AppColors.primaryColor,
-                                size: 20.sp,
-                              )),
+                            onPressed: _increaseQuantity,
+                            icon: Icon(
+                              Icons.add,
+                              color: AppColors.primaryColor,
+                              size: 20.sp,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -105,7 +140,7 @@ class Itemincart extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          Formatmoney.formatCurrency(price),
+                          Formatmoney.formatCurrency(_totalPrice),
                           softWrap: true,
                           style: StylesOfWidgets.textStyle1(
                               fs: SizeOfWidget.sizeOfH3,

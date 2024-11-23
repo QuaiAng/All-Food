@@ -1,8 +1,10 @@
 import 'package:fastfoodapp/presentation/pages/cartscreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailistproduct.dart';
 import 'package:fastfoodapp/presentation/pages/detailvoucherscreen.dart';
+import 'package:fastfoodapp/presentation/pages/forgotpassword.dart';
 import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
 import 'package:fastfoodapp/presentation/pages/mainscreen.dart';
+import 'package:fastfoodapp/presentation/pages/paymentmethodscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
 import 'package:fastfoodapp/presentation/pages/registerscreen.dart';
 import 'package:fastfoodapp/presentation/pages/searchscreen.dart';
@@ -10,7 +12,6 @@ import 'package:fastfoodapp/presentation/pages/detailsearchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/splashscreen.dart';
 import 'package:fastfoodapp/presentation/pages/verifyotpscreen.dart';
 import 'package:fastfoodapp/presentation/pages/voucherscreen.dart';
-import 'package:fastfoodapp/presentation/widgets/itemincart.dart';
 import 'package:flutter/material.dart';
 
 class RouteName {
@@ -28,6 +29,8 @@ class RouteName {
   static const String splashScreen = "";
   static const String searchScreen = "/search";
   static const String detailvoucherScreen = "/detailvoucher";
+  static const String paymentmethodScreen = "/paymentmethod";
+  static const String forgotPasswordScreen = "/forgotpassword";
 }
 
 class AppRouter {
@@ -73,14 +76,21 @@ class AppRouter {
       //Màn hình chi tiết voucher
       case RouteName.detailvoucherScreen:
         return MaterialPageRoute(builder: (_) => VoucherDetailScreen());
-      //Màn hình ...
+      //Màn hình tìm kiếm
       case RouteName.searchScreen:
         return MaterialPageRoute(builder: (_) => const Searchscreen());
       //Màn hình tìm kiếm món ăn
       case RouteName.detailsearchScreen:
         return MaterialPageRoute(builder: (_) => const Detailsearchscreen());
+      //Man hình giỏ hàng
       case RouteName.cartScreen:
         return MaterialPageRoute(builder: (_) => const Cartscreen());
+      //Man hình phương thức thanh toán
+      case RouteName.paymentmethodScreen:
+        return MaterialPageRoute(builder: (_) => const Paymentmethodscreen());
+      //Man hình quên mật khẩu
+      case RouteName.forgotPasswordScreen:
+        return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

@@ -29,7 +29,7 @@ class Vouchercard extends StatelessWidget {
         children: [
           Card(
             color: AppColors.backgroundColor,
-            elevation: 10, //độ nổi của card
+            elevation: 15, //độ nổi của card
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             child: Column(children: [
@@ -76,11 +76,11 @@ class Vouchercard extends StatelessWidget {
                 height: 30.sp,
                 child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, RouteName.detailvoucherScreen);
+                      Navigator.pushNamed(
+                          context, RouteName.detailvoucherScreen);
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          AppColors.primaryColor,
+                      backgroundColor: AppColors.primaryColor,
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(8),
@@ -88,18 +88,17 @@ class Vouchercard extends StatelessWidget {
                     ),
                     child: Text(
                       "Chi tiết voucher",
-                      style: GoogleFonts.inter(
-                          textStyle: TextStyle(
-                              fontSize: SizeOfWidget.sizeOfH3,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.white)),
+                      style: StylesOfWidgets.textStyle1(
+                          fs: SizeOfWidget.sizeOfH3,
+                          fw: FontWeight.w300,
+                          clr: Colors.white),
                     )),
               ),
             ]),
           ),
           Positioned(
             top: 10.sp,
-            right: 16.sp,
+            right: 20.sp,
             child: Text("Còn $turn lượt",
                 style: GoogleFonts.inter(
                   textStyle:

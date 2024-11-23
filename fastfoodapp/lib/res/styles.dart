@@ -30,7 +30,14 @@ class StylesOfWidgets {
     borderRadius: BorderRadius.circular(8.0),
     borderSide: const BorderSide(
       color: AppColors.primaryColor,
-      width: 1.0,
+      width: 0.8,
+    ),
+  );
+  static OutlineInputBorder errorTextboxStyle = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(8.0),
+    borderSide: const BorderSide(
+      color: Colors.red,
+      width: 0.8,
     ),
   );
 

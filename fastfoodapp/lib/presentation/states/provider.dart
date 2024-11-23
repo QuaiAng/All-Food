@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppProvier extends ChangeNotifier {
+  //Khai báo biến gốc
+
   static bool _isError = false;
   static int _currentIndexPage = 0;
   static final PageController _pageController = PageController(
@@ -9,12 +11,24 @@ class AppProvier extends ChangeNotifier {
   static final FocusNode _focusNode = FocusNode();
   static final TextEditingController _searchTextcontroller =
       TextEditingController();
+  final GlobalKey<FormState> _formKeyLogin = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKeyRegister = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKeyChangePassword = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKeyForgotPassword = GlobalKey<FormState>();
+
+  //Khai tạo getter
 
   bool get isError => _isError;
   int get currentIndexPage => _currentIndexPage;
   PageController get pageController => _pageController;
   FocusNode get focusNode => _focusNode;
   TextEditingController get searchTextcontroller => _searchTextcontroller;
+  GlobalKey<FormState> get formKeyLogin => _formKeyLogin;
+  GlobalKey<FormState> get formKeyRegister => _formKeyRegister;
+  GlobalKey<FormState> get formKeyChangePassword => _formKeyChangePassword;
+  GlobalKey<FormState> get formKeyForgotPassword => _formKeyForgotPassword;
+
+  //Các phương thức
 
   void errorOTP(bool value) {
     _isError = value;
@@ -25,7 +39,7 @@ class AppProvier extends ChangeNotifier {
     _pageController.animateToPage(
       index,
       duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
+      curve: Curves.fastOutSlowIn,
     );
   }
 
@@ -39,6 +53,7 @@ class AppProvier extends ChangeNotifier {
     _focusNode.dispose();
     _searchTextcontroller.dispose();
     _pageController.dispose();
+
     super.dispose();
   }
 }
