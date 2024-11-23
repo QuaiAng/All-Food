@@ -2,6 +2,7 @@ import 'package:fastfoodapp/presentation/pages/cartscreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailistproduct.dart';
 import 'package:fastfoodapp/presentation/pages/detailvoucherscreen.dart';
 import 'package:fastfoodapp/presentation/pages/forgotpassword.dart';
+import 'package:fastfoodapp/presentation/pages/homescreen.dart';
 import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
 import 'package:fastfoodapp/presentation/pages/mainscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentmethodscreen.dart';
@@ -54,7 +55,11 @@ class AppRouter {
       //Màn hình xem chi tiết danh sách sản phẩm
       case RouteName.detaiListProductScreen:
         return MaterialPageRoute(builder: (_) => const Detailistproduct());
+      case RouteName.homeScreen:
+        return MaterialPageRoute(
+            builder: (_) => const Homescreen(address: "address"));
       //Màn hình thanh toán
+
       case RouteName.paymentScreen:
         return MaterialPageRoute(builder: (_) => const Paymentscreen());
       //Màn hình đăng nhập
