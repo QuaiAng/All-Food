@@ -1,6 +1,7 @@
 import 'package:fastfoodapp/presentation/pages/cartscreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailistproduct.dart';
 import 'package:fastfoodapp/presentation/pages/detailvoucherscreen.dart';
+import 'package:fastfoodapp/presentation/pages/editinfoscreen.dart';
 import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
 import 'package:fastfoodapp/presentation/pages/mainscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
@@ -28,6 +29,7 @@ class RouteName {
   static const String splashScreen = "";
   static const String searchScreen = "/search";
   static const String detailvoucherScreen = "/detailvoucher";
+  static const String editinfoScreen = "/editinfo";
 }
 
 class AppRouter {
@@ -81,6 +83,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const Detailsearchscreen());
       case RouteName.cartScreen:
         return MaterialPageRoute(builder: (_) => const Cartscreen());
+      case RouteName.editinfoScreen:
+        return MaterialPageRoute(builder: (_) => const Editinfoscreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

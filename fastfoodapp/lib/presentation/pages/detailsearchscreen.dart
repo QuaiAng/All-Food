@@ -57,13 +57,11 @@ class Detailsearchscreen extends StatelessWidget {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide
-                          .none, // Viền trong suốt khi không được focus
+                      borderSide: BorderSide.none, // Viền trong suốt khi không được focus
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
-                      borderSide:
-                          BorderSide.none, // Viền trong suốt khi được focus
+                      borderSide: BorderSide.none, // Viền trong suốt khi được focus
                     ),
                     fillColor: Colors.transparent,
                     filled: true, // Điều này đảm bảo màu nền là transparent
