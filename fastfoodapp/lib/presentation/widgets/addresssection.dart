@@ -14,31 +14,36 @@ class Address extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: InkWell(
-        onTap: () {},
-        child: ListTile(
-          title: Text(
-            "${name_address} ",
-            style: GoogleFonts.inter(
-                textStyle: TextStyle(
-              fontSize: SizeOfWidget.sizeOfH2,
-              fontWeight: FontWeight.w400,
-              color: Colors.black,
-            )),
-          ),
-          subtitle: Text(
-            address,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.inter(
-              fontSize: SizeOfWidget.sizeOfH4,
-              fontWeight: FontWeight.w400,
-              color: AppColors.gray,
+      child: Column(
+        children: [
+          InkWell(
+            onTap: () {},
+            child: ListTile(
+              title: Text(
+                "${name_address} ",
+                style: GoogleFonts.inter(
+                    textStyle: TextStyle(
+                  fontSize: SizeOfWidget.sizeOfH2,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black,
+                )),
+              ),
+              subtitle: Text(
+                address,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.inter(
+                  fontSize: SizeOfWidget.sizeOfH4,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.gray,
+                ),
+              ),
+              leading: Icon(Icons.location_on,
+                  color: AppColors.gray, size: SizeOfWidget.sizeOfH1),
             ),
           ),
-          leading: Icon(Icons.location_on,
-              color: AppColors.gray, size: SizeOfWidget.sizeOfH1),
-        ),
+          Divider()
+        ],
       ),
     );
   }

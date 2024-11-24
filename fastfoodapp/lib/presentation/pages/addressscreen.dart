@@ -18,6 +18,29 @@ class _Addressscreen extends State<Addressscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "DANH SÁCH ĐỊA CHỈ ",
+          style: GoogleFonts.inter(
+            textStyle: TextStyle(
+              fontSize: SizeOfWidget.sizeOfH1,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            // xử lí chuyển trang
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_rounded,
+            color: AppColors.primaryColor,
+            size: 30,
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
@@ -108,17 +131,19 @@ class _Addressscreen extends State<Addressscreen> {
                       ))
                 ],
               ),
-              Column(
-                children: List.generate(5, (index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 4.sp),
-                    child: Address(
-                        name_address: "Địa chỉ ${index + 1}",
-                        address:
-                            "748 Huynh Tan Phat, Phu Nhuan, Quan 10, Thành Phố Hồ Chí Minh"),
-                  );
-                }),
-              ),
+              ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 20.sp, vertical: 5.sp),
+                      child: Address(
+                          name_address: "Địa chỉ ${index + 1}",
+                          address:
+                              "748 Huynh Tan Phat, Phu Nhuan, Quan 10, Thành Phố Hồ Chí Minh"),
+                    );
+                  })
             ],
           ),
         ),
