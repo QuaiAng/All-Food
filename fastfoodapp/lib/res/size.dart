@@ -19,7 +19,7 @@ class SizeOfWidget {
   /// size: 18
   static double sizeOfH1 = 18.sp;
 
-  /// size: 19
+  /// size: 19g
   static double sizeOfText = 19.sp;
 
   /// size: 20

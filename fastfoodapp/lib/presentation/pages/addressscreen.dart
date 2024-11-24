@@ -55,14 +55,14 @@ class _Addressscreen extends State<Addressscreen> {
                         horizontal: SizeOfWidget.sizeOfLoginHeader),
                     filled: true,
                     fillColor: AppColors.backgroundColor,
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       Icons.location_on,
                       color: AppColors.gray,
                     ),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
                             SizeOfWidget.sizeOfHeightPoint),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                             color: AppColors.placeholderColor, width: 1.0)),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
