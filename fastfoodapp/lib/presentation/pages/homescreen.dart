@@ -111,23 +111,24 @@ class Homescreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                Container(
-                  child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                          children: List.generate(
-                              5,
-                              (index) => InkWell(
-                                    onTap: () {},
-                                    child: Sectionfood(
-                                        name_food: "Gà Rán",
-                                        foodImg: "assets/images/anhga.png",
-                                        foodLocation: "67, Hoàng Diệu",
-                                        foodRating: 4.3,
-                                        time: 25,
-                                        delivery: "Freeship"),
-                                  )))),
-                ),
+                SizedBox(
+                    height: 70.sp,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: 5,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {},
+                            child: Sectionfood(
+                                name_food: "Gà Rán",
+                                foodImg: "assets/images/anhga.png",
+                                foodLocation: "67, Hoàng Diệu",
+                                foodRating: 4.3,
+                                time: 25,
+                                delivery: "Freeship"),
+                          );
+                        })),
                 Row(
                   children: [
                     Expanded(
@@ -164,22 +165,24 @@ class Homescreen extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                          children: List.generate(
-                              5,
-                              (index) => InkWell(
-                                    onTap: () {},
-                                    child: Sectionfood(
-                                        name_food: "Gà Rán",
-                                        foodImg: "assets/images/anhga.png",
-                                        foodLocation: "67, Hoàng Diệu",
-                                        foodRating: 4.3,
-                                        time: 25,
-                                        delivery: "Freeship"),
-                                  )))),
-                ),
+                    height: 70.sp,
+                    width: double.infinity,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: 5,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {},
+                            child: Sectionfood(
+                                name_food: "Gà Rán",
+                                foodImg: "assets/images/anhga.png",
+                                foodLocation: "67, Hoàng Diệu",
+                                foodRating: 4.3,
+                                time: 25,
+                                delivery: "Freeship"),
+                          );
+                        })),
                 Row(
                   children: [
                     Expanded(
@@ -216,10 +219,13 @@ class Homescreen extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  child: Column(
-                      children: List.generate(
-                          5,
-                          (index) => Restaurant(
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return SizedBox(
+                          child: Restaurant(
                               name_restaurant: "McDonal's",
                               images: [
                                 "assets/images/big.png",
@@ -232,7 +238,9 @@ class Homescreen extends StatelessWidget {
                               rating: "4.3",
                               comment: "200+ Đánh giá",
                               time: "25 min",
-                              delivery: "Deshi food"))),
+                              delivery: "Deshi food"),
+                        );
+                      }),
                 ),
               ], // lấy cái này
             ),

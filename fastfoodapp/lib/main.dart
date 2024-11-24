@@ -27,10 +27,10 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
-        initialRoute: RouteName.splashScreen,
-        onGenerateRoute: AppRouter.generateRoute,
+        // initialRoute: RouteName.splashScreen,
+        // onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
-        // home: Addressscreen()
+        home: Homescreen(address: "fhsjhfkjshdflwruweyrweyriuwyreoweyrsahsklahfjkahsfkjsdhjkfs")
       );
     });
   }
