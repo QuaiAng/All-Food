@@ -162,13 +162,13 @@ class _Informationscreen extends State<Informationscreen> {
                   style: TextStyle(fontSize: SizeOfWidget.sizeOfH3),
                 ),
                 Container(
-                  height: 36,
-                  width: 123,
+                  // height: 25.sp,
+                  // width: 42.sp,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: EdgeInsets.symmetric(horizontal: 10.sp),
                   child: DropdownButton<String>(
                     value: selectedLanguage,
                     underline: SizedBox(),
@@ -192,7 +192,7 @@ class _Informationscreen extends State<Informationscreen> {
               ],
             ),
           ),
-          Divider(indent: 50,),
+          Divider(indent: 30.sp,),
           Row(
             children: [
               Padding(
@@ -201,7 +201,7 @@ class _Informationscreen extends State<Informationscreen> {
                   Icons.notifications, size: SizeOfWidget.icon,
                 ),
               ),
-              SizedBox(width: 10),
+              SizedBox(width: 20.sp),
               Expanded(
                 child: SwitchListTile(
                   title: Text(
@@ -213,8 +213,9 @@ class _Informationscreen extends State<Informationscreen> {
                   value: notificationSound,
                   activeColor: Colors.white,
                   activeTrackColor: AppColors.primaryColor,
-                  inactiveThumbColor: AppColors.primaryColor,
-                  inactiveTrackColor: Colors.white,
+                  thumbColor: const WidgetStatePropertyAll(Colors.white),
+                  trackOutlineColor: const WidgetStatePropertyAll(Colors.transparent),
+                  inactiveTrackColor: const Color.fromARGB(255, 222, 222, 222),
                   onChanged: (bool value) {
                     setState(() {
                       notificationSound = value;
@@ -225,7 +226,7 @@ class _Informationscreen extends State<Informationscreen> {
               ),
             ],
           ),
-          Divider(indent: 50.sp,),
+          Divider(indent: 30.sp,),
           Row(
             children: [
               Padding(
@@ -238,19 +239,20 @@ class _Informationscreen extends State<Informationscreen> {
               Expanded(
                 child: SwitchListTile(
                   title: Text(
-                    'Âm thanh trông ứng dụng',
+                    'Âm thanh trong ứng dụng',
                     style: TextStyle(
                       fontSize: SizeOfWidget.sizeOfH3
                     ),
                   ),
-                  value: notificationSound,
+                  value: sound,
                   activeColor: Colors.white,
                   activeTrackColor: AppColors.primaryColor,
-                  inactiveThumbColor: AppColors.primaryColor,
-                  inactiveTrackColor: Colors.white,
+                  thumbColor: const WidgetStatePropertyAll(Colors.white),
+                  trackOutlineColor: const WidgetStatePropertyAll(Colors.transparent),
+                  inactiveTrackColor: const Color.fromARGB(255, 222, 222, 222),
                   onChanged: (bool value) {
                     setState(() {
-                      notificationSound = value;
+                      sound = value;
                       print("Âm thanh trong ứng dụng: $value");
                     });
                   },
@@ -276,15 +278,16 @@ class _Informationscreen extends State<Informationscreen> {
                       fontSize: SizeOfWidget.sizeOfH3
                     ),
                   ),
-                  value: notificationSound,
+                  value: updateNotification,
                   activeColor: Colors.white,
                   activeTrackColor: AppColors.primaryColor,
-                  inactiveThumbColor: AppColors.primaryColor,
-                  inactiveTrackColor: Colors.white,
+                  thumbColor: const WidgetStatePropertyAll(Colors.white),
+                  trackOutlineColor: const WidgetStatePropertyAll(Colors.transparent),
+                  inactiveTrackColor: const Color.fromARGB(255, 222, 222, 222),
                   onChanged: (bool value) {
                     setState(() {
-                      notificationSound = value;
-                      print("Thông báo câp nhật: $value");
+                      updateNotification = value;
+                      print("Thông báo cập nhật: $value");
                     });
                   },
                 ),
