@@ -2,6 +2,7 @@ import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:fastfoodapp/utils/formatmoney.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -14,12 +15,14 @@ class Itemincart extends StatefulWidget {
     required this.note,
     required this.price,
     required this.quantity,
+    required this.shopName,
   });
 
   final VoidCallback onTap;
   final String image;
   final String name;
   final String note;
+  final String shopName;
   final double price;
   final int quantity;
 
@@ -70,6 +73,7 @@ class _ItemincartState extends State<Itemincart> {
               children: [
                 Container(
                   decoration: BoxDecoration(
+                    // color: Colors.amber,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Image.asset(
@@ -103,6 +107,37 @@ class _ItemincartState extends State<Itemincart> {
                       clr: AppColors.gray),
                 ),
                 SizedBox(height: 15.sp),
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "Từ ", // Phần văn bản còn lại
+                        style: StylesOfWidgets.textStyle1(
+                          fs: SizeOfWidget.sizeOfH3,
+                          fw: FontWeight.w400,
+                          clr: Colors.black, // Màu đen hoặc xám
+                        ),
+                      ),
+                      TextSpan(
+                        text: "McDonald's",
+                        style: StylesOfWidgets.textStyle1(
+                            fs: SizeOfWidget.sizeOfH3,
+                            fw: FontWeight.w700,
+                            clr: AppColors.primaryColor),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            // Xử lý sự kiện click
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("You clicked on McDonald's!"),
+                              ),
+                            );
+                          },
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 15.sp),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -111,25 +146,35 @@ class _ItemincartState extends State<Itemincart> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          IconButton(
-                            onPressed: _decreaseQuantity,
-                            icon: Icon(
-                              Icons.remove,
-                              color: AppColors.primaryColor,
-                              size: 20.sp,
+                          Expanded(
+                            flex: 1,
+                            child: IconButton(
+                              onPressed: _decreaseQuantity,
+                              icon: Icon(
+                                Icons.remove,
+                                color: AppColors.primaryColor,
+                                size: 20.sp,
+                              ),
                             ),
                           ),
-                          Text(
-                            _quantity.toString(),
-                            style: StylesOfWidgets.textStyle1(
-                                fs: SizeOfWidget.sizeOfH3),
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              _quantity.toString(),
+                              textAlign: TextAlign.center,
+                              style: StylesOfWidgets.textStyle1(
+                                  fs: SizeOfWidget.sizeOfH3),
+                            ),
                           ),
-                          IconButton(
-                            onPressed: _increaseQuantity,
-                            icon: Icon(
-                              Icons.add,
-                              color: AppColors.primaryColor,
-                              size: 20.sp,
+                          Expanded(
+                            flex: 1,
+                            child: IconButton(
+                              onPressed: _increaseQuantity,
+                              icon: Icon(
+                                Icons.add,
+                                color: AppColors.primaryColor,
+                                size: 20.sp,
+                              ),
                             ),
                           ),
                         ],

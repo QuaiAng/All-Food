@@ -31,7 +31,7 @@ class Verifyotpscreen extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
             color: AppColors.primaryColor,
-            size: 30,
+            size: 20,
           ),
         ),
       ),

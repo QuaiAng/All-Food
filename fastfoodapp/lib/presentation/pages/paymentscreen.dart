@@ -39,12 +39,13 @@ class Paymentscreen extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
             color: AppColors.primaryColor,
-            size: 30,
+            size: 20,
           ),
         ),
         title: Text(
-          "Thanh Toán",
-          style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH1),
+          "THANH TOÁN",
+          style: StylesOfWidgets.textStyle1(
+              fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w600),
         ),
         centerTitle: true,
       ),

@@ -22,12 +22,13 @@ class Voucherscreen extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
             color: AppColors.primaryColor,
-            size: 30,
+            size: 20,
           ),
         ),
         title: Text(
-          "Voucher",
-          style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH1),
+          "VOUCHER",
+          style: StylesOfWidgets.textStyle1(
+              fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w600),
         ),
         centerTitle: true,
       ),

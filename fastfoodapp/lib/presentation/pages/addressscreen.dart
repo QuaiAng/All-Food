@@ -39,12 +39,8 @@ class _Addressscreen extends State<Addressscreen> {
                         children: [
                           Text(
                             "DANH SÁCH ĐỊA CHỈ ",
-                            style: GoogleFonts.inter(
-                                textStyle: TextStyle(
-                              fontSize: SizeOfWidget.sizeOfH1,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            )),
+                            style: StylesOfWidgets.textStyle1(
+                                fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w600),
                           ),
                         ]),
                   ),

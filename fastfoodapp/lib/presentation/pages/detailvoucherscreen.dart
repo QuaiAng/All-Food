@@ -40,8 +40,9 @@ class VoucherDetailScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          "Chi Tiết Voucher",
-          style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH1),
+          "CHI TIẾT VOUHCHER",
+          style: StylesOfWidgets.textStyle1(
+              fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w600),
         ),
         centerTitle: true,
       ),

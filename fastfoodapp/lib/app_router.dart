@@ -5,6 +5,7 @@ import 'package:fastfoodapp/presentation/pages/forgotpassword.dart';
 import 'package:fastfoodapp/presentation/pages/homescreen.dart';
 import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
 import 'package:fastfoodapp/presentation/pages/mainscreen.dart';
+import 'package:fastfoodapp/presentation/pages/orderstatusscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentmethodscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
 import 'package:fastfoodapp/presentation/pages/registerscreen.dart';
@@ -32,6 +33,7 @@ class RouteName {
   static const String detailvoucherScreen = "/detailvoucher";
   static const String paymentmethodScreen = "/paymentmethod";
   static const String forgotPasswordScreen = "/forgotpassword";
+  static const String orderStatusScreen = "/orderstatus";
 }
 
 class AppRouter {
@@ -96,6 +98,9 @@ class AppRouter {
       //Man hình quên mật khẩu
       case RouteName.forgotPasswordScreen:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
+      //Man hình theo dõi trạng thái đơn hàng
+      case RouteName.orderStatusScreen:
+        return MaterialPageRoute(builder: (_) => const Orderstatusscreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

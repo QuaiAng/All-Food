@@ -5,6 +5,7 @@ class AppProvier extends ChangeNotifier {
 
   static bool _isError = false;
   static int _currentIndexPage = 0;
+  static int _orderStatus = 1;
   static final PageController _pageController = PageController(
     initialPage: _currentIndexPage,
   );
@@ -17,7 +18,7 @@ class AppProvier extends ChangeNotifier {
   final GlobalKey<FormState> _formKeyForgotPassword = GlobalKey<FormState>();
 
   //Khai tạo getter
-
+  int get orderStatus => _orderStatus;
   bool get isError => _isError;
   int get currentIndexPage => _currentIndexPage;
   PageController get pageController => _pageController;
@@ -45,6 +46,11 @@ class AppProvier extends ChangeNotifier {
 
   void setCurrentIndexPage(int index) {
     _currentIndexPage = index;
+    notifyListeners();
+  }
+
+  void updateOrderstatus(int value) {
+    _orderStatus = value;
     notifyListeners();
   }
 

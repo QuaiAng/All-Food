@@ -28,119 +28,113 @@ class Restaurant extends StatelessWidget {
   final String time;
   final String delivery;
 
+  @override
   Widget build(BuildContext context) {
-    return Material(
-      child: InkWell(
-        onTap: () {
-          // navigation sang màn hình chi tiết món ăn
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(20.sp),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 60.sp,
-                    width: double.infinity,
-                    child: Listimageindicator(images: images),
-                  ),
-                  SizedBox(height: SizeOfWidget.sizeOfH4),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(restaurantName,
-                          style: StylesOfWidgets.textStyle1(
-                              fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w300)),
-                      SizedBox(height: 10.sp),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsets.only(right: SizeOfWidget.sizeOfH4),
-                            child: Text(price,
-                                style: StylesOfWidgets.textStyle1(
+    return InkWell(
+      onTap: () {
+        // navigation sang màn hình chi tiết món ăn
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(20.sp),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 60.sp,
+                  width: double.infinity,
+                  child: Listimageindicator(images: images),
+                ),
+                SizedBox(height: SizeOfWidget.sizeOfH4),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(restaurantName,
+                        style: StylesOfWidgets.textStyle1(
+                            fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w300)),
+                    SizedBox(height: 10.sp),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: AppColors.gray,
+                              radius: 13.sp,
+                              child: Icon(
+                                Icons.attach_money,
+                                color: Colors.white,
+                                size: SizeOfWidget.sizeOfH3,
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsets.only(right: 10.sp, left: 10.sp),
+                              child: Text(price,
+                                  style: StylesOfWidgets.textStyle1(
+                                      fs: SizeOfWidget.sizeOfH4,
+                                      fw: FontWeight.w400,
+                                      clr: AppColors.gray)),
+                            ),
+                            const Point(),
+                            Padding(
+                              padding:
+                                  EdgeInsets.only(left: 10.sp, right: 10.sp),
+                              child: Text(category,
+                                  style: StylesOfWidgets.textStyle1(
                                     fs: SizeOfWidget.sizeOfH4,
                                     fw: FontWeight.w400,
-                                    clr: AppColors.gray)),
-                          ),
-                          const Point(),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10.sp, right: 10.sp),
-                            child: Text(category,
-                                style: StylesOfWidgets.textStyle1(
-                                  fs: SizeOfWidget.sizeOfH4,
-                                  fw: FontWeight.w400,
-                                  clr: AppColors.gray,
-                                )),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10.sp),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(rating,
-                              style: StylesOfWidgets.textStyle1(
-                                  fs: SizeOfWidget.sizeOfH4,
-                                  fw: FontWeight.w400,
-                                  clr: AppColors.gray)),
-                          SizedBox(width: 10.sp),
-                          Icon(
-                              // icon ngôi sao
-                              Icons.star,
-                              color: AppColors.primaryColor),
-                          SizedBox(width: 10.sp),
-                          Text(comment,
-                              style: StylesOfWidgets.textStyle1(
-                                  fs: SizeOfWidget.sizeOfH4,
-                                  fw: FontWeight.w400,
-                                  clr: AppColors.gray)),
-                          SizedBox(width: 10.sp),
-                          const Point(),
-                          SizedBox(width: 10.sp),
-                          Icon(
-                            // icon đòng hồ
-                            Icons.timer_sharp,
-                            color: AppColors.gray,
-                            size: 20.sp,
-                          ),
-                          Text(time,
-                              style: StylesOfWidgets.textStyle1(
-                                  fs: SizeOfWidget.sizeOfH4,
-                                  fw: FontWeight.w400,
-                                  clr: AppColors.gray)),
-                          SizedBox(width: 10.sp),
-                          const Point(),
-                          SizedBox(width: 10.sp),
-                          CircleAvatar(
-                            // vòng tròn chứa icon dollar
-                            backgroundColor: AppColors.gray,
-                            radius: SizeOfWidget.sizeOfH3,
-                            child: Icon(
-                              Icons.attach_money,
-                              color: Colors.white,
-                              size: SizeOfWidget.sizeOfH4,
+                                    clr: AppColors.gray,
+                                  )),
                             ),
-                          ),
-                          SizedBox(width: 4.sp),
-                          Text(delivery,
-                              style: StylesOfWidgets.textStyle1(
-                                  fs: SizeOfWidget.sizeOfH4,
-                                  fw: FontWeight.w400,
-                                  clr: AppColors.gray)),
-                        ],
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.sp),
+                    Wrap(
+                      spacing: 10.sp, // Khoảng cách giữa các phần tử trong wrap
+                      runSpacing: 10.sp, // Khoảng cách giữa các dòng
+                      crossAxisAlignment: WrapCrossAlignment.center,
+
+                      children: [
+                        Text(rating,
+                            style: StylesOfWidgets.textStyle1(
+                                fs: SizeOfWidget.sizeOfH4,
+                                fw: FontWeight.w400,
+                                clr: AppColors.gray)),
+                        Icon(
+                          Icons.star,
+                          color: AppColors.primaryColor,
+                          size: SizeOfWidget.sizeOfH3,
+                        ),
+                        Text(comment,
+                            style: StylesOfWidgets.textStyle1(
+                                fs: SizeOfWidget.sizeOfH4,
+                                fw: FontWeight.w400,
+                                clr: AppColors.gray)),
+                        const Point(),
+                        Icon(
+                          Icons.timer_sharp,
+                          color: AppColors.gray,
+                          size: 20.sp,
+                        ),
+                        Text(time,
+                            style: StylesOfWidgets.textStyle1(
+                                fs: SizeOfWidget.sizeOfH4,
+                                fw: FontWeight.w400,
+                                clr: AppColors.gray)),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

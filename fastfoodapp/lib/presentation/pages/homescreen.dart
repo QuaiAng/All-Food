@@ -1,9 +1,8 @@
-import 'package:fastfoodapp/main.dart';
 import 'package:fastfoodapp/presentation/widgets/advertisement.dart';
 import 'package:fastfoodapp/presentation/widgets/restaurant.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
-import 'package:flutter/widgets.dart';
+import 'package:fastfoodapp/res/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -24,71 +23,75 @@ class Homescreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-          padding: EdgeInsets.all(SizeOfWidget.sizeOfH3),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Địa điểm của tôi: ",
-                  style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                    fontSize: SizeOfWidget.sizeOfH4,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.primaryColor,
-                  )),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(Icons.location_on,
-                        color: Colors.red, size: SizeOfWidget.sizeOfH1),
-                    Expanded(
-                        child: Text(
-                      address,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.inter(
-                        fontSize: SizeOfWidget.sizeOfH3,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.gray,
-                      ),
-                    )),
-                    IconButton(
-                      onPressed: () {
-                        // thực hiện chuyển trang
-                      },
-                      icon: Icon(
-                        Icons.chevron_right,
-                        color: AppColors.gray,
-                        size: SizeOfWidget.sizeOfH1,
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.all(10.sp),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    width: double.infinity,
-                    child: Listimageindicator(images: images),
+      body: SafeArea(
+        child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.sp),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Vị trí hiện tại: ",
+                    style: StylesOfWidgets.textStyle1(
+                        fs: SizeOfWidget.sizeOfH2,
+                        clr: AppColors.primaryColor,
+                        fw: FontWeight.w400),
                   ),
-                ),
-                // Gần tôi
-                Row(
-                  children: [
-                    Expanded(
-                        child: Text(
-                      "Gần Tôi",
-                      style: GoogleFonts.inter(
-                          fontSize: SizeOfWidget.sizeOfH1,
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.w300,
-                          decoration: TextDecoration.none),
-                    )),
-                    Material(
-                      child: InkWell(
+                  SizedBox(
+                    height: 5.sp,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(Icons.location_on,
+                            color: Colors.red, size: SizeOfWidget.sizeOfH1),
+                        Expanded(
+                            child: Text(
+                          address,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: StylesOfWidgets.textStyle1(
+                              fs: SizeOfWidget.sizeOfH3,
+                              clr: AppColors.gray,
+                              fw: FontWeight.w400),
+                        )),
+                        Icon(
+                          Icons.chevron_right,
+                          color: AppColors.gray,
+                          size: SizeOfWidget.sizeOfH1,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.sp,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10.sp),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      width: double.infinity,
+                      child: Listimageindicator(images: images),
+                    ),
+                  ),
+                  // Gần tôi
+                  SizedBox(
+                    height: 20.sp,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: Text(
+                        "Gần đây",
+                        style: GoogleFonts.inter(
+                            fontSize: SizeOfWidget.sizeOfH1,
+                            color: AppColors.primaryColor,
+                            fontWeight: FontWeight.w400,
+                            decoration: TextDecoration.none),
+                      )),
+                      InkWell(
                         onTap: () {
                           // chuyển trang qua trang chi tiết món ăn
                         },
@@ -108,61 +111,9 @@ class Homescreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                        children: List.generate(
-                            5,
-                            (index) => InkWell(
-                                  onTap: () {},
-                                  child: const Sectionfood(
-                                      name_food: "Gà Rán",
-                                      foodImg: "assets/images/anhga.png",
-                                      foodLocation: "67, Hoàng Diệu",
-                                      foodRating: 4.3,
-                                      time: 25,
-                                      delivery: "Freeship"),
-                                )))),
-                Row(
-                  children: [
-                    Expanded(
-                        child: Text(
-                      "Best Seller",
-                      style: GoogleFonts.inter(
-                        fontSize: SizeOfWidget.sizeOfH1,
-                        color: AppColors.primaryColor,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    )),
-                    Material(
-                      child: InkWell(
-                        onTap: () {
-                          // xử lí chuyển trang
-                        },
-                        child: Row(
-                          children: [
-                            Text(
-                              "Xem tất cả",
-                              style: GoogleFonts.inter(
-                                  fontSize: SizeOfWidget.sizeOfH3,
-                                  color: AppColors.primaryColor),
-                            ),
-                            SizedBox(width: 2.sp),
-                            const Icon(
-                              Icons.chevron_right,
-                              color: AppColors.primaryColor,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  child: SingleChildScrollView(
+                    ],
+                  ),
+                  SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                           children: List.generate(
@@ -177,20 +128,21 @@ class Homescreen extends StatelessWidget {
                                         time: 25,
                                         delivery: "Freeship"),
                                   )))),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                        child: Text(
-                      "Tất Cả Nhà Hàng",
-                      style: GoogleFonts.inter(
-                        fontSize: 20.sp,
-                        color: AppColors.primaryColor,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    )),
-                    Material(
-                      child: InkWell(
+                  SizedBox(
+                    height: 20.sp,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: Text(
+                        "Best Seller",
+                        style: GoogleFonts.inter(
+                          fontSize: SizeOfWidget.sizeOfH1,
+                          color: AppColors.primaryColor,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      )),
+                      InkWell(
                         onTap: () {
                           // xử lí chuyển trang
                         },
@@ -210,11 +162,60 @@ class Homescreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Container(
-                  child: Column(
+                    ],
+                  ),
+                  SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                          children: List.generate(
+                              5,
+                              (index) => InkWell(
+                                    onTap: () {},
+                                    child: const Sectionfood(
+                                        name_food: "Gà Rán",
+                                        foodImg: "assets/images/anhga.png",
+                                        foodLocation: "67, Hoàng Diệu",
+                                        foodRating: 4.3,
+                                        time: 25,
+                                        delivery: "Freeship"),
+                                  )))),
+                  SizedBox(
+                    height: 20.sp,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: Text(
+                        "Tất Cả Nhà Hàng",
+                        style: GoogleFonts.inter(
+                          fontSize: SizeOfWidget.sizeOfH1,
+                          color: AppColors.primaryColor,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      )),
+                      InkWell(
+                        onTap: () {
+                          // xử lí chuyển trang
+                        },
+                        child: Row(
+                          children: [
+                            Text(
+                              "Xem tất cả",
+                              style: GoogleFonts.inter(
+                                  fontSize: SizeOfWidget.sizeOfH3,
+                                  color: AppColors.primaryColor),
+                            ),
+                            SizedBox(width: 2.sp),
+                            const Icon(
+                              Icons.chevron_right,
+                              color: AppColors.primaryColor,
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
                       children: List.generate(
                           5,
                           (index) => const Restaurant(
@@ -231,10 +232,10 @@ class Homescreen extends StatelessWidget {
                               comment: "200+ Đánh giá",
                               time: "25 min",
                               delivery: "Deshi food"))),
-                ),
-              ], // lấy cái này
-            ),
-          )),
+                ], // lấy cái này
+              ),
+            )),
+      ),
     );
   }
 }

@@ -1,8 +1,4 @@
-import 'package:fastfoodapp/main.dart';
 import 'package:flutter/material.dart';
-import 'package:fastfoodapp/res/size.dart';
-import 'package:sizer/sizer.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Listimageindicator extends StatelessWidget {
   const Listimageindicator({
@@ -11,6 +7,7 @@ class Listimageindicator extends StatelessWidget {
   });
   final List<String> images;
 
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       //padding: const EdgeInsets.all(1),
@@ -18,7 +15,7 @@ class Listimageindicator extends StatelessWidget {
       width: MediaQuery.of(context)
           .size
           .width, // Điều chỉnh chiều cao của carousel
-        
+
       child: PageView.builder(
         itemCount: images.length,
         scrollDirection: Axis.horizontal, // Vuốt ngang

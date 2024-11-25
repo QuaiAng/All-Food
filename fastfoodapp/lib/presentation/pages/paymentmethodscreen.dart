@@ -17,7 +17,7 @@ class Paymentmethodscreen extends StatelessWidget {
           title: Text(
             "PHƯƠNG THỨC THANH TOÁN",
             style: StylesOfWidgets.textStyle1(
-                fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w400),
+                fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w600),
           ),
           backgroundColor: AppColors.backgroundColor,
           surfaceTintColor: AppColors.backgroundColor,
@@ -29,7 +29,7 @@ class Paymentmethodscreen extends StatelessWidget {
             icon: const Icon(
               Icons.arrow_back_ios_rounded,
               color: AppColors.primaryColor,
-              size: 30,
+              size: 20,
             ),
           ),
         ),

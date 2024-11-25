@@ -1,8 +1,6 @@
-import 'package:fastfoodapp/main.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:flutter/material.dart';
-import 'package:fastfoodapp/res/images.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart'; // File chứa đường dẫn ảnh
 
@@ -64,27 +62,21 @@ class Sectionfood extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(3),
-                child: Container(
-                  height: SizeOfWidget.sizeOfH1,
-                  width: 21.sp,
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
+              Container(
+                height: SizeOfWidget.sizeOfH1,
+                width: 21.sp,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
                     color: AppColors.primaryColor,
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.sp),
-                    child: Text(
-                      "$foodRating",
-                      style: GoogleFonts.inter(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                          decoration: TextDecoration.none),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                    borderRadius: BorderRadius.circular(4)),
+                child: Text(
+                  "$foodRating",
+                  style: GoogleFonts.inter(
+                      fontSize: SizeOfWidget.sizeOfH4,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                      decoration: TextDecoration.none),
+                  textAlign: TextAlign.center,
                 ),
               ),
               Padding(

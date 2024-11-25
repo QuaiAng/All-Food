@@ -35,7 +35,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
             color: AppColors.primaryColor,
-            size: 30,
+            size: 20,
           ),
         ),
       ),
@@ -69,6 +69,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   obscureText: false,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
+                      return 'Vui lòng nhập số điện thoại hoặc email để tiếp tục';
+                    }
+                    if(value.toString().length < 10){
                       return 'Vui lòng nhập số điện thoại hoặc email để tiếp tục';
                     }
                     return null; // Dữ liệu hợp lệ
