@@ -1,9 +1,15 @@
+import 'package:fastfoodapp/presentation/pages/addressscreen.dart';
 import 'package:fastfoodapp/presentation/pages/cartscreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailistproduct.dart';
 import 'package:fastfoodapp/presentation/pages/detailvoucherscreen.dart';
 import 'package:fastfoodapp/presentation/pages/editinfoscreen.dart';
+import 'package:fastfoodapp/presentation/pages/forgotpassword.dart';
+import 'package:fastfoodapp/presentation/pages/homescreen.dart';
+import 'package:fastfoodapp/presentation/pages/listfoodofshopscreen.dart';
 import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
 import 'package:fastfoodapp/presentation/pages/mainscreen.dart';
+import 'package:fastfoodapp/presentation/pages/orderstatusscreen.dart';
+import 'package:fastfoodapp/presentation/pages/paymentmethodscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
 import 'package:fastfoodapp/presentation/pages/registerscreen.dart';
 import 'package:fastfoodapp/presentation/pages/searchscreen.dart';
@@ -11,7 +17,6 @@ import 'package:fastfoodapp/presentation/pages/detailsearchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/splashscreen.dart';
 import 'package:fastfoodapp/presentation/pages/verifyotpscreen.dart';
 import 'package:fastfoodapp/presentation/pages/voucherscreen.dart';
-import 'package:fastfoodapp/presentation/widgets/itemincart.dart';
 import 'package:flutter/material.dart';
 
 class RouteName {
@@ -30,6 +35,11 @@ class RouteName {
   static const String searchScreen = "/search";
   static const String detailvoucherScreen = "/detailvoucher";
   static const String editinfoScreen = "/editinfo";
+  static const String paymentmethodScreen = "/paymentmethod";
+  static const String forgotPasswordScreen = "/forgotpassword";
+  static const String orderStatusScreen = "/orderstatus";
+  static const String listFoodOfShop = "/listfoodofshop";
+  static const String addressScreen = "/address";
 }
 
 class AppRouter {
@@ -53,7 +63,11 @@ class AppRouter {
       //Màn hình xem chi tiết danh sách sản phẩm
       case RouteName.detaiListProductScreen:
         return MaterialPageRoute(builder: (_) => const Detailistproduct());
+      case RouteName.homeScreen:
+        return MaterialPageRoute(
+            builder: (_) => const Homescreen(address: "address"));
       //Màn hình thanh toán
+
       case RouteName.paymentScreen:
         return MaterialPageRoute(builder: (_) => const Paymentscreen());
       //Màn hình đăng nhập
@@ -75,16 +89,33 @@ class AppRouter {
       //Màn hình chi tiết voucher
       case RouteName.detailvoucherScreen:
         return MaterialPageRoute(builder: (_) => VoucherDetailScreen());
-      //Màn hình ...
+      //Màn hình tìm kiếm
       case RouteName.searchScreen:
         return MaterialPageRoute(builder: (_) => const Searchscreen());
       //Màn hình tìm kiếm món ăn
       case RouteName.detailsearchScreen:
         return MaterialPageRoute(builder: (_) => const Detailsearchscreen());
+      //Man hình giỏ hàng
       case RouteName.cartScreen:
         return MaterialPageRoute(builder: (_) => const Cartscreen());
+
       case RouteName.editinfoScreen:
         return MaterialPageRoute(builder: (_) => const Editinfoscreen());
+
+      //Man hình phương thức thanh toán
+      case RouteName.paymentmethodScreen:
+        return MaterialPageRoute(builder: (_) => const Paymentmethodscreen());
+      //Man hình quên mật khẩu
+      case RouteName.forgotPasswordScreen:
+        return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
+      //Man hình theo dõi trạng thái đơn hàng
+      case RouteName.orderStatusScreen:
+        return MaterialPageRoute(builder: (_) => const Orderstatusscreen());
+      case RouteName.listFoodOfShop:
+        return MaterialPageRoute(builder: (_) => Listfoodofshopscreen());
+
+      case RouteName.addressScreen:
+        return MaterialPageRoute(builder: (_) => const Addressscreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

@@ -1,0 +1,180 @@
+import 'package:fastfoodapp/main.dart';
+import 'package:fastfoodapp/presentation/widgets/addresssection.dart';
+import 'package:fastfoodapp/presentation/widgets/buttonLogin.dart';
+import 'package:fastfoodapp/res/colors.dart';
+import 'package:fastfoodapp/res/size.dart';
+import 'package:fastfoodapp/res/styles.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
+
+class Addressscreen extends StatefulWidget {
+  const Addressscreen({super.key});
+  @override
+  State<Addressscreen> createState() => _Addressscreen();
+}
+
+class _Addressscreen extends State<Addressscreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "DANH SÁCH ĐỊA CHỈ ",
+          style: GoogleFonts.inter(
+            textStyle: TextStyle(
+              fontSize: SizeOfWidget.sizeOfH1,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            // xử lí chuyển trang
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_rounded,
+            color: AppColors.primaryColor,
+            size: 30,
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(
+                    Icons.chevron_left,
+                    color: AppColors.primaryColor,
+                    size: 20.sp,
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "DANH SÁCH ĐỊA CHỈ ",
+                            style: StylesOfWidgets.textStyle1(
+                                fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w600),
+                          ),
+                        ]),
+                  ),
+                ],
+              ),
+              SizedBox(height: SizeOfWidget.sizeOfH1),
+              TextField(
+                decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(
+                        vertical: SizeOfWidget.sizeOfH1,
+                        horizontal: SizeOfWidget.sizeOfLargeHeader),
+                    filled: true,
+                    fillColor: AppColors.backgroundColor,
+                    prefixIcon: const Icon(
+                      Icons.location_on,
+                      color: AppColors.gray,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.sp),
+                        borderSide: const BorderSide(
+                            color: AppColors.placeholderColor, width: 1.0)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.sp),
+                        borderSide: const BorderSide(
+                            color: AppColors.primaryColor, width: 1.0)),
+                    hintText: "Nhập địa chỉ",
+                    hintStyle: const TextStyle(color: AppColors.gray)),
+              ),
+              SizedBox(height: 20.sp),
+              Text(
+                "ĐỊA CHỈ HIỆN TẠI",
+                style: StylesOfWidgets.textStyle1(
+                    clr: Colors.black,
+                    fw: FontWeight.w500,
+                    fs: SizeOfWidget.sizeOfH2),
+              ),
+              SizedBox(height: SizeOfWidget.sizeOfH3),
+              const Address(
+                  name_address: "Địa chỉ hiện tại",
+                  address:
+                      "748 Huynh Tan Phat, Phu Nhuan, Quan 10, Thành Phố Hồ Chí Minh"),
+              SizedBox(height: 20.sp),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "ĐỊA CHỈ ĐÃ LƯU",
+                    style: StylesOfWidgets.textStyle1(
+                        clr: Colors.black,
+                        fw: FontWeight.w500,
+                        fs: SizeOfWidget.sizeOfH2),
+                  ),
+                  TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "XÓA",
+                        style: StylesOfWidgets.textStyle1(
+                            clr: Colors.black,
+                            fw: FontWeight.w300,
+                            fs: SizeOfWidget.sizeOfH4),
+                      ))
+                ],
+              ),
+              ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        InkWell(
+                          onTap: () {},
+                          child: ListTile(
+                            title: Text(
+                              "Địa chỉ ${index + 1} ",
+                              style: GoogleFonts.inter(
+                                  textStyle: TextStyle(
+                                fontSize: SizeOfWidget.sizeOfH2,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              )),
+                            ),
+                            subtitle: Text(
+                              "748 Huynh Tan Phat, Phu Nhuan, Quan 10, Thành Phố Hồ Chí Minh",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.inter(
+                                fontSize: SizeOfWidget.sizeOfH4,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.gray,
+                              ),
+                            ),
+                            leading: Icon(Icons.location_on,
+                                color: AppColors.gray,
+                                size: SizeOfWidget.sizeOfH1),
+                          ),
+                        ),
+                        if (index < 4) const Divider()
+                      ],
+                    );
+                  })
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+          color: AppColors.backgroundColor,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 4.sp),
+            child: Center(child: Buttonlogin(onClick: () {}, text: "LƯU")),
+          )),
+    );
+  }
+}

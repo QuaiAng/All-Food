@@ -1,4 +1,5 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
 import 'package:fastfoodapp/presentation/widgets/itemrow.dart';
 import 'package:fastfoodapp/presentation/widgets/pricerow.dart';
@@ -8,6 +9,7 @@ import 'package:fastfoodapp/res/styles.dart';
 import 'package:fastfoodapp/utils/formatmoney.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 List items = List.generate(12, (index) {
@@ -15,7 +17,7 @@ List items = List.generate(12, (index) {
     quantity: 3,
     name: "Gà cay",
     description: "Lớp da gà giòn, cay Lớp da gà giòn, cay Lớp da gà giòn, cay",
-    price: 320000.0,
+    price: 32000.0,
   );
 });
 
@@ -37,12 +39,13 @@ class Paymentscreen extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
             color: AppColors.primaryColor,
-            size: 30,
+            size: 20,
           ),
         ),
         title: Text(
-          "Thanh Toán",
-          style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH1),
+          "THANH TOÁN",
+          style: StylesOfWidgets.textStyle1(
+              fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w600),
         ),
         centerTitle: true,
       ),
@@ -77,8 +80,28 @@ class Paymentscreen extends StatelessWidget {
                   const Pricerow(label: "Phụ phí", amount: 0, isTotal: false),
                   const Pricerow(
                       label: "Phí giao hàng", amount: 0, isTotal: false),
+                  const Pricerow(label: "Voucher", amount: -0, isTotal: false),
                   const Pricerow(
                       label: "Tổng thanh toán", amount: 96000, isTotal: true),
+                  const Divider(thickness: 0.5),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, RouteName.paymentmethodScreen);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Phương thức thanh toán",
+                              style: StylesOfWidgets.textStyle1(
+                                  fs: SizeOfWidget.sizeOfH3)),
+                          Icon(Icons.arrow_forward_ios, size: 17.sp),
+                        ],
+                      ),
+                    ),
+                  ),
                   const Divider(thickness: 0.5),
                   InkWell(
                     onTap: () {
@@ -99,7 +122,15 @@ class Paymentscreen extends StatelessWidget {
                   ),
                   const Divider(thickness: 0.5),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Provider.of<AppProvier>(context, listen: false)
+                          .setCurrentIndexPage(0);
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        RouteName.mainScreen,
+                        (route) => false, // Xóa tất cả các route trước đó
+                      );
+                    },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Row(

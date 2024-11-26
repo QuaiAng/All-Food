@@ -12,6 +12,9 @@ class Bottomappbar extends StatelessWidget {
   Widget build(BuildContext context) {
     var provider = Provider.of<AppProvier>(context);
     return BottomNavigationBar(
+        backgroundColor: AppColors.backgroundColor,
+        elevation: 20,
+        type: BottomNavigationBarType.fixed,
         onTap: (index) {
           Provider.of<AppProvier>(context, listen: false)
               .setCurrentIndexPage(index);

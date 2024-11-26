@@ -29,8 +29,10 @@ class Infofield extends StatelessWidget {
         TextFormField(
           cursorColor: AppColors.primaryColor,
           obscureText: isPassword,
-          readOnly: (isPassword||isAddress),
+          readOnly: (isPassword || isAddress),
           validator: validator,
+          maxLines: 1,
+          // style: const TextStyle(overflow: TextOverflow.clip),
           decoration: InputDecoration(
             suffixIcon: (isPassword || isAddress)
                 ? TextButton(

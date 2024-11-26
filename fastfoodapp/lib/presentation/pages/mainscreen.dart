@@ -1,6 +1,7 @@
 import 'package:fastfoodapp/presentation/pages/cartscreen.dart';
+import 'package:fastfoodapp/presentation/pages/homescreen.dart';
 import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
-import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
+import 'package:fastfoodapp/presentation/pages/orderstatusscreen.dart';
 import 'package:fastfoodapp/presentation/pages/searchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/voucherscreen.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
@@ -17,16 +18,20 @@ class Mainscreen extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: const Bottomappbar(),
       body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
         controller: provider.pageController,
         onPageChanged: (index) {
           Provider.of<AppProvier>(context, listen: false)
               .setCurrentIndexPage(index);
         },
         children: const [
-          Loginscreen(),
+          Homescreen(
+            address:
+                "749 Huynh Tan Phat, Phu Thua, Quan 7, Thanh Pho Ho Chi Minh",
+          ),
           Searchscreen(),
           Cartscreen(),
-          Voucherscreen()
+          Orderstatusscreen()
         ],
       ),
     );

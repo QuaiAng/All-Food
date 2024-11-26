@@ -6,10 +6,11 @@ class Dataprovider extends ChangeNotifier {
     return Itemincart(
       onTap: () {},
       image: 'assets/images/food.png',
-      name: "McDonald's",
+      name: "Khoai tây chiên",
       note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
       price: 56000.0,
-      quantity: 8,
+      quantity: 1,
+      shopName: "Từ McDonald's",
     );
   });
 

@@ -23,13 +23,13 @@ class Editinfoscreen extends StatelessWidget {
     final TextEditingController password =
         TextEditingController(text: '123456789');
     final TextEditingController address =
-        TextEditingController(text: '749 Huỳnh Tấn Phát, Phú Thuận, Quận 7');
+        TextEditingController(text: '749 Huỳnh Tấn Phát, Phú Thuận, Quận 7 ');
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: AppColors.backgroundColor,
-        surfaceTintColor: AppColors.backgroundColor,
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
         shadowColor: Colors.grey,
         leading: IconButton(
           onPressed: () {
@@ -56,30 +56,41 @@ class Editinfoscreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Ảnh",
+                Text("ẢNH",
                     style: StylesOfWidgets.textStyle1(
                         fs: SizeOfWidget.sizeOfH4, fw: FontWeight.w700)),
                 SizedBox(height: 5.sp),
                 Center(
                   child: Stack(children: [
-                    ClipOval(
-                      child: Material(
-                        color: Colors.transparent,
-                        shape: const CircleBorder(),
-                        child: InkWell(
-                          onTapDown: (details) {
-                            _showPopupMenu(context, details.globalPosition);
-                          },
-                          child: ColorFiltered(
-                            colorFilter: ColorFilter.mode(
-                              Colors.black.withOpacity(0.5), // Lớp phủ tối
-                              BlendMode.darken, // Chế độ blend
-                            ),
-                            child: Image.asset(
-                              Imagepath.burger,
-                              width: 50.sp, // Đường kính của hình tròn
-                              height: 50.sp,
-                              fit: BoxFit.cover,
+                    Container(
+                      width: 50.sp, // Kích thước đường kính hình ảnh
+                      height: 50.sp,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: AppColors.primaryColor, // Màu viền vàng
+                          width: 1, // Độ dày của viền
+                        ),
+                      ),
+                      child: ClipOval(
+                        child: Material(
+                          color: Colors.transparent,
+                          shape: const CircleBorder(),
+                          child: InkWell(
+                            onTapDown: (details) {
+                              _showPopupMenu(context, details.globalPosition);
+                            },
+                            child: ColorFiltered(
+                              colorFilter: ColorFilter.mode(
+                                Colors.black.withOpacity(0.5), // Lớp phủ tối
+                                BlendMode.darken, // Chế độ blend
+                              ),
+                              child: Image.asset(
+                                Imagepath.burger,
+                                width: 50.sp, // Đường kính của hình tròn
+                                height: 50.sp,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
@@ -99,7 +110,7 @@ class Editinfoscreen extends StatelessWidget {
                     )
                   ]),
                 ),
-                const SizedBox(height: 5),
+                SizedBox(height: 10.sp),
                 Infofield(
                   label: 'HỌ TÊN',
                   value: name,
@@ -168,7 +179,7 @@ class Editinfoscreen extends StatelessWidget {
       ),
       bottomNavigationBar: BottomAppBar(
         padding: EdgeInsets.zero,
-        color: AppColors.backgroundColor,
+        color: Colors.white,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 5.sp),
           child: SizedBox(
@@ -196,26 +207,45 @@ class Editinfoscreen extends StatelessWidget {
   void _showPopupMenu(BuildContext context, Offset position) async {
     //final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
     await showMenu(
+      color: Colors.white,
       context: context,
       position: RelativeRect.fromLTRB(position.dx, position.dy, 0, 0),
-      items: [
-        const PopupMenuItem<String>(
+      items: <PopupMenuEntry<String>>[
+        PopupMenuItem<String>(
           value: 'view',
           child: Row(
             children: [
-              Icon(Icons.image),
-              SizedBox(width: 10),
-              Text('Xem ảnh đại diện'),
+              const Icon(Icons.image_outlined),
+              SizedBox(width: 10.sp),
+              Text(
+                'Xem ảnh đại diện',
+                style: StylesOfWidgets.textStyle1(
+                    fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w500),
+              ),
             ],
           ),
         ),
         const PopupMenuItem<String>(
+          height: 0,
+          enabled: false, // Không cho phép chọn
+          child: Divider(
+            height: 1,
+            color: Colors.grey,
+            thickness: 0.5, // Độ dày của divider
+          ),
+        ),
+        // Padding(padding: EdgeInsets.symmetric(horizontal: 20.sp) child: ,)
+        PopupMenuItem<String>(
           value: 'upload',
           child: Row(
             children: [
-              Icon(Icons.upload),
-              SizedBox(width: 10),
-              Text('Tải lên từ thư viện'),
+              const Icon(Icons.file_upload_outlined),
+              SizedBox(width: 10.sp),
+              Text(
+                'Tải lên từ thư viện',
+                style: StylesOfWidgets.textStyle1(
+                    fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w500),
+              ),
             ],
           ),
         ),

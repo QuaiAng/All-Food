@@ -36,12 +36,13 @@ class VoucherDetailScreen extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
             color: AppColors.primaryColor,
-            size: 20,
+            size: 30,
           ),
         ),
         title: Text(
-          "Chi Tiết Voucher",
-          style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH1),
+          "CHI TIẾT VOUHCHER",
+          style: StylesOfWidgets.textStyle1(
+              fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w600),
         ),
         centerTitle: true,
       ),
@@ -51,8 +52,8 @@ class VoucherDetailScreen extends StatelessWidget {
           child: Card(
             color: Colors.white,
             elevation: 10.sp,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
