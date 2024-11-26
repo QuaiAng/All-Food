@@ -40,7 +40,9 @@ class _LoginscreenState extends State<Loginscreen> {
         shadowColor: Colors.grey,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Provider.of<AppProvier>(context, listen: false)
+                .setCurrentIndexPage(0);
+            Navigator.pushNamed(context, RouteName.mainScreen);
           },
           icon: const Icon(
             Icons.arrow_back_ios_rounded,

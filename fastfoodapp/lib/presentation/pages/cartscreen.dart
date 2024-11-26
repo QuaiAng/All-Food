@@ -81,7 +81,6 @@ class Cartscreen extends StatelessWidget {
                             children: [
                               SlidableAction(
                                   backgroundColor: Colors.red,
-                                  icon: Icons.close,
                                   label: "Xóa",
                                   onPressed: (context) {
                                     // items.removeAt(index);

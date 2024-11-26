@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/presentation/pages/addressscreen.dart';
 import 'package:fastfoodapp/presentation/pages/cartscreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailistproduct.dart';
 import 'package:fastfoodapp/presentation/pages/detailvoucherscreen.dart';
@@ -11,6 +12,7 @@ import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
 import 'package:fastfoodapp/presentation/pages/registerscreen.dart';
 import 'package:fastfoodapp/presentation/pages/searchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailsearchscreen.dart';
+import 'package:fastfoodapp/presentation/pages/settingscreen.dart';
 import 'package:fastfoodapp/presentation/pages/splashscreen.dart';
 import 'package:fastfoodapp/presentation/pages/verifyotpscreen.dart';
 import 'package:fastfoodapp/presentation/pages/voucherscreen.dart';
@@ -34,6 +36,8 @@ class RouteName {
   static const String paymentmethodScreen = "/paymentmethod";
   static const String forgotPasswordScreen = "/forgotpassword";
   static const String orderStatusScreen = "/orderstatus";
+  static const String settingScreen = "/setting";
+  static const String addressScreen = "/address";
 }
 
 class AppRouter {
@@ -101,6 +105,17 @@ class AppRouter {
       //Man hình theo dõi trạng thái đơn hàng
       case RouteName.orderStatusScreen:
         return MaterialPageRoute(builder: (_) => const Orderstatusscreen());
+      //Man hình cài đặt
+      case RouteName.settingScreen:
+        return MaterialPageRoute(
+            builder: (_) => const SettingScreen(
+                  email: "caohoaian@gmail.com",
+                  imagePath: "assets/images/icon.png",
+                  name: "Cao Hoai An",
+                ));
+      //Man hình cài đặt
+      case RouteName.addressScreen:
+        return MaterialPageRoute(builder: (_) => const Addressscreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

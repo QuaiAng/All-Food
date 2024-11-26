@@ -42,24 +42,22 @@ class Paymentmethodscreen extends StatelessWidget {
                 onTap: () {},
                 title: Text(
                   "Ví MOMO",
-                  style: GoogleFonts.inter(),
+                  style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
                 ),
                 subtitle: Text(
                   "Thanh toán qua ví MOMO",
-                  style: GoogleFonts.inter(
-                      textStyle: const TextStyle(color: AppColors.gray)),
+                  style: StylesOfWidgets.textStyle1(
+                      fs: SizeOfWidget.sizeOfH3, clr: Colors.grey),
                 ),
-                leading: Container(
-                  width: 25.sp,
-                  height: 25.sp,
+                leading: SizedBox(
+                  width: 24.sp,
+                  height: 24.sp,
                   child: Image.asset(Imagepath.iconMoMo),
                 ),
-                trailing: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 18.sp,
-                    )),
+                trailing: Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: 18.sp,
+                ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.sp),
@@ -69,24 +67,22 @@ class Paymentmethodscreen extends StatelessWidget {
                 onTap: () {},
                 title: Text(
                   "Tiền mặt",
-                  style: GoogleFonts.inter(),
+                  style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
                 ),
                 subtitle: Text(
                   "Thanh toán khi nhận hàng",
-                  style: GoogleFonts.inter(
-                      textStyle: const TextStyle(color: AppColors.gray)),
+                  style: StylesOfWidgets.textStyle1(
+                      fs: SizeOfWidget.sizeOfH3, clr: Colors.grey),
                 ),
                 leading: SizedBox(
-                  width: 25.sp,
-                  height: 25.sp,
+                  width: 24.sp,
+                  height: 24.sp,
                   child: Image.asset(Imagepath.iconCash),
                 ),
-                trailing: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 18.sp,
-                    )),
+                trailing: Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: 18.sp,
+                ),
               ),
             ],
           ),

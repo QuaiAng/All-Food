@@ -23,9 +23,10 @@ class Homescreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.sp),
+            padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 10.sp),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

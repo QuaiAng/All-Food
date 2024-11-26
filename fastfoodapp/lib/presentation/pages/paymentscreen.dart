@@ -24,6 +24,79 @@ List items = List.generate(12, (index) {
 class Paymentscreen extends StatelessWidget {
   const Paymentscreen({super.key});
   final double total = 400000.0;
+
+  Future _showBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      backgroundColor: Colors.white,
+      barrierColor: Colors.black87.withOpacity(0.3),
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      context: context,
+      builder: (context) => Container(
+        height: MediaQuery.of(context).size.height * 0.5,
+        child: Padding(
+          padding: EdgeInsets.all(15.sp),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.amber.withOpacity(0.1),
+            ),
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  alignment: AlignmentDirectional.center,
+                  height: 35.sp,
+                  width: 35.sp,
+                  decoration: const BoxDecoration(
+                      color: AppColors.primaryColor, shape: BoxShape.circle),
+                  child: Icon(
+                    Icons.check_rounded,
+                    color: Colors.white,
+                    size: 25.sp,
+                  ),
+                ),
+                SizedBox(
+                  height: 15.sp,
+                ),
+                Text(
+                  "THÀNH CÔNG",
+                  style: StylesOfWidgets.textStyle1(
+                      fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w400),
+                ),
+                SizedBox(
+                  height: 15.sp,
+                ),
+                Text(
+                  softWrap: true,
+                  textAlign: TextAlign.center,
+                  "Bạn đã đặt hàng thành công. Các bạn sẽ nhận được thức ăn trong vòng 25 phút. Cảm ơn đã sử dụng dịch vụ của chúng tôi. Thưởng thức đồ ăn của bạn ^^",
+                  style: StylesOfWidgets.textStyle1(
+                      fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w400),
+                ),
+                SizedBox(
+                  height: 15.sp,
+                ),
+                TextButton(
+                  onPressed: () {
+                    print('Chỉnh sửa thông tin cá nhân');
+                  },
+                  child: Text(
+                    'Quay lại',
+                    style: StylesOfWidgets.textStyle1(
+                        clr: AppColors.primaryColor, fs: SizeOfWidget.sizeOfH2),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -175,7 +248,11 @@ class Paymentscreen extends StatelessWidget {
                   )
                 ],
               ),
-              Buttonlogin(onClick: () {}, text: "THANH TOÁN")
+              Buttonlogin(
+                  onClick: () {
+                    _showBottomSheet(context);
+                  },
+                  text: "THANH TOÁN")
             ],
           )),
     );

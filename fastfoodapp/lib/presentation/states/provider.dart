@@ -37,11 +37,12 @@ class AppProvier extends ChangeNotifier {
   }
 
   void moveToPage(index) {
-    _pageController.animateToPage(
-      index,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.fastOutSlowIn,
-    );
+    // _pageController.animateToPage(
+    //   index,
+    //   duration: const Duration(milliseconds: 300),
+    //   curve: Curves.fastOutSlowIn,
+    // );
+    _pageController.jumpToPage(index);
   }
 
   void setCurrentIndexPage(int index) {
