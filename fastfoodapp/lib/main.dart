@@ -23,8 +23,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      return const MaterialApp(
-        initialRoute: RouteName.mainScreen,
+      return MaterialApp(
+        initialRoute: RouteName.editinfoScreen,
         onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
       );

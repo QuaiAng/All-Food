@@ -3,6 +3,7 @@ import 'package:fastfoodapp/presentation/widgets/restaurant.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -74,7 +75,7 @@ class Homescreen extends StatelessWidget {
                     child: SizedBox(
                       height: MediaQuery.of(context).size.height * 0.3,
                       width: double.infinity,
-                      child: Listimageindicator(images: images),
+                      child: Listimageindicator(images: images, isShop: false),
                     ),
                   ),
                   // Gần tôi

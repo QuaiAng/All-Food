@@ -136,6 +136,7 @@ class _Addressscreen extends State<Addressscreen> {
               ),
               ListView.builder(
                   shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: 5,
                   itemBuilder: (context, index) {
                     return Column(

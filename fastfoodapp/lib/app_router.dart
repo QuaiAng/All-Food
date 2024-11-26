@@ -2,8 +2,10 @@ import 'package:fastfoodapp/presentation/pages/addressscreen.dart';
 import 'package:fastfoodapp/presentation/pages/cartscreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailistproduct.dart';
 import 'package:fastfoodapp/presentation/pages/detailvoucherscreen.dart';
+import 'package:fastfoodapp/presentation/pages/editinfoscreen.dart';
 import 'package:fastfoodapp/presentation/pages/forgotpassword.dart';
 import 'package:fastfoodapp/presentation/pages/homescreen.dart';
+import 'package:fastfoodapp/presentation/pages/listfoodofshopscreen.dart';
 import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
 import 'package:fastfoodapp/presentation/pages/mainscreen.dart';
 import 'package:fastfoodapp/presentation/pages/orderstatusscreen.dart';
@@ -33,10 +35,12 @@ class RouteName {
   static const String splashScreen = "";
   static const String searchScreen = "/search";
   static const String detailvoucherScreen = "/detailvoucher";
+  static const String editinfoScreen = "/editinfo";
   static const String paymentmethodScreen = "/paymentmethod";
   static const String forgotPasswordScreen = "/forgotpassword";
   static const String orderStatusScreen = "/orderstatus";
   static const String settingScreen = "/setting";
+  static const String detailShopScreen = "/detailShop";
   static const String addressScreen = "/address";
 }
 
@@ -96,6 +100,10 @@ class AppRouter {
       //Man hình giỏ hàng
       case RouteName.cartScreen:
         return MaterialPageRoute(builder: (_) => const Cartscreen());
+
+      case RouteName.editinfoScreen:
+        return MaterialPageRoute(builder: (_) => const Editinfoscreen());
+
       //Man hình phương thức thanh toán
       case RouteName.paymentmethodScreen:
         return MaterialPageRoute(builder: (_) => const Paymentmethodscreen());
@@ -114,6 +122,9 @@ class AppRouter {
                   name: "Cao Hoai An",
                 ));
       //Man hình cài đặt
+      case RouteName.detailShopScreen:
+        return MaterialPageRoute(builder: (_) => Detailshopscreen());
+
       case RouteName.addressScreen:
         return MaterialPageRoute(builder: (_) => const Addressscreen());
       default:

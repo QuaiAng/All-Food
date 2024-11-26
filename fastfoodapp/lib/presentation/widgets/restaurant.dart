@@ -45,7 +45,7 @@ class Restaurant extends StatelessWidget {
                 SizedBox(
                   height: 60.sp,
                   width: double.infinity,
-                  child: Listimageindicator(images: images),
+                  child: Listimageindicator(images: images, isShop: false),
                 ),
                 SizedBox(height: SizeOfWidget.sizeOfH4),
                 Column(
