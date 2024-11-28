@@ -1,5 +1,6 @@
 import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/pages/settingScreen.dart';
+import 'package:fastfoodapp/presentation/pages/waitingforapprovalscreen.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/widgets/foodSection.dart';
 import 'package:fastfoodapp/res/images.dart';
@@ -24,7 +25,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
-        home: Informationscreen(name: 'CAO HOAI AN', email: 'caohoaian@gmail.com', imagePath: Imagepath.logo,),
+        home: Waitingforapprovalscreen(),
         // initialRoute: RouteName.sectionFood,
         // onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,

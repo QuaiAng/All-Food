@@ -6,6 +6,7 @@ class SizeOfWidget {
   static double sizeOfH2 = 17.sp;
   static double sizeOfH3 = 16.sp;
   static double sizeOfH4 = 15.sp;
+  static double sizeOfH5 = 15.sp;
   static double heightSection = 120;
   static double widthSection = 120;
   static double icon = 18.sp;
