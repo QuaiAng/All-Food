@@ -1,5 +1,5 @@
 import 'package:fastfoodapp/app_router.dart';
-import 'package:fastfoodapp/presentation/states/dataprovider.dart';
+import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
@@ -24,7 +24,7 @@ class Cartscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dataProvider = Provider.of<Dataprovider>(context);
+    var cartViewModel = Provider.of<Cartviewmodel>(context, listen: true);
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -69,9 +69,9 @@ class Cartscreen extends StatelessWidget {
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: 10,
+              itemCount: cartViewModel.Itemincarts.length,
               itemBuilder: (context, index) {
-                var item = dataProvider.Itemincarts[index];
+                var item = cartViewModel.Itemincarts[index];
                 return Padding(
                     padding: EdgeInsets.only(
                         bottom: 20.sp, left: 20.sp, right: 20.sp),
@@ -84,6 +84,7 @@ class Cartscreen extends StatelessWidget {
                                   label: "Xóa",
                                   onPressed: (context) {
                                     // items.removeAt(index);
+                                    cartViewModel.removeFromCart(index);
                                     const snackBar = SnackBar(
                                       content: Text(
                                         "Đã xóa",

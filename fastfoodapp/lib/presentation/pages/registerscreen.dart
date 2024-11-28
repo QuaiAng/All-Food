@@ -1,5 +1,5 @@
 import 'package:fastfoodapp/app_router.dart';
-import 'package:fastfoodapp/presentation/states/provider.dart';
+import 'package:fastfoodapp/presentation/states/registerviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
 import 'package:fastfoodapp/presentation/widgets/textbox.dart';
 import 'package:fastfoodapp/presentation/widgets/textheader.dart';
@@ -11,44 +11,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-class Registerscreen extends StatefulWidget {
+class Registerscreen extends StatelessWidget {
   const Registerscreen({super.key});
 
   @override
-  State<Registerscreen> createState() => _RegisterscreenState();
-}
-
-class _RegisterscreenState extends State<Registerscreen> {
-  late bool isAgree;
-
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    isAgree = false;
-  }
-
-  @override
-  void dispose() {
-    nameController.dispose();
-    phoneController.dispose();
-    emailController.dispose();
-    usernameController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final formRegister = Provider.of<AppProvier>(context).formKeyRegister;
+    final registerViewModel = Provider.of<Registerviewmodel>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
@@ -71,7 +39,7 @@ class _RegisterscreenState extends State<Registerscreen> {
         color: AppColors.backgroundColor,
         child: SingleChildScrollView(
           child: Form(
-            key: formRegister,
+            key: registerViewModel.formKeyRegister,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -90,7 +58,7 @@ class _RegisterscreenState extends State<Registerscreen> {
                   height: 25.sp,
                 ),
                 Textbox(
-                  controller: nameController,
+                  controller: registerViewModel.nameController,
                   label: "Họ tên",
                   obscureText: false,
                   validator: (value) {
@@ -104,7 +72,7 @@ class _RegisterscreenState extends State<Registerscreen> {
                   height: 20.sp,
                 ),
                 Textbox(
-                  controller: phoneController,
+                  controller: registerViewModel.phoneController,
                   label: "Số điện thoại",
                   obscureText: false,
                   validator: (value) {
@@ -119,7 +87,7 @@ class _RegisterscreenState extends State<Registerscreen> {
                   height: 20.sp,
                 ),
                 Textbox(
-                  controller: emailController,
+                  controller: registerViewModel.emailController,
                   label: "Email",
                   obscureText: false,
                   validator: (value) {
@@ -140,7 +108,7 @@ class _RegisterscreenState extends State<Registerscreen> {
                   height: 20.sp,
                 ),
                 Textbox(
-                  controller: usernameController,
+                  controller: registerViewModel.usernameController,
                   label: "Tên đăng nhập",
                   obscureText: false,
                   validator: (value) {
@@ -154,7 +122,7 @@ class _RegisterscreenState extends State<Registerscreen> {
                   height: 20.sp,
                 ),
                 Textbox(
-                  controller: passwordController,
+                  controller: registerViewModel.passwordController,
                   label: "Mật khẩu",
                   obscureText: true,
                   validator: (value) {
@@ -168,7 +136,7 @@ class _RegisterscreenState extends State<Registerscreen> {
                   height: 20.sp,
                 ),
                 Textbox(
-                  controller: confirmPasswordController,
+                  controller: registerViewModel.confirmPasswordController,
                   label: "Xác nhận mật khẩu",
                   obscureText: true,
                   validator: (value) {
@@ -176,7 +144,7 @@ class _RegisterscreenState extends State<Registerscreen> {
                       return 'Vui lòng xác nhận mật khẩu để đăng ký';
                     }
 
-                    if (value != passwordController.text) {
+                    if (value != registerViewModel.passwordController.text) {
                       return 'Mật khẩu xác nhận không khớp';
                     }
                     return null; // Dữ liệu hợp lệ
@@ -187,12 +155,7 @@ class _RegisterscreenState extends State<Registerscreen> {
                 ),
                 Buttonlogin(
                     onClick: () {
-                      String t = confirmPasswordController.text;
-                      String t1 = passwordController.text;
-                      print(t);
-                      print(t1);
-
-                      if (formRegister.currentState!.validate()) {
+                      if (registerViewModel.validateForm()) {
                         Navigator.pushNamed(context, RouteName.verifyotpScreen);
                       }
                     },
@@ -205,11 +168,9 @@ class _RegisterscreenState extends State<Registerscreen> {
                   children: [
                     Checkbox(
                         activeColor: AppColors.primaryColor,
-                        value: isAgree,
+                        value: registerViewModel.isAgree,
                         onChanged: (value) {
-                          setState(() {
-                            isAgree = value!;
-                          });
+                          registerViewModel.isAgree = value!;
                         }),
                     Text(
                       "Tôi đồng ý với điều khoản sử dụng",

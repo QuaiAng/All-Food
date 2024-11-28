@@ -1,12 +1,13 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
 import 'package:fastfoodapp/res/colors.dart';
-import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-class SettingScreen extends StatefulWidget {
+class SettingScreen extends StatelessWidget {
   final String name;
   final String email;
   final String imagePath;
@@ -18,17 +19,8 @@ class SettingScreen extends StatefulWidget {
       required this.imagePath});
 
   @override
-  State<StatefulWidget> createState() => _SettingScreen();
-}
-
-class _SettingScreen extends State<SettingScreen> {
-  bool notificationSound = true;
-  bool sound = false;
-  bool updateNotification = true;
-  String selectedLanguage = "Vietnam";
-
-  @override
   Widget build(BuildContext context) {
+    final settingViewModel = Provider.of<Settingviewmodel>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -43,7 +35,7 @@ class _SettingScreen extends State<SettingScreen> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: AssetImage(widget.imagePath),
+                      image: AssetImage(imagePath),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -53,15 +45,15 @@ class _SettingScreen extends State<SettingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.name,
+                      name,
                       style: StylesOfWidgets.textStyle1(
                           fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w500),
                     ),
                     Text(
-                      widget.email,
+                      email,
                       style: StylesOfWidgets.textStyle1(
                           clr: AppColors.placeholderColor,
-                          fs: SizeOfWidget.sizeOfH3),
+                          fs: SizeOfWidget.sizeOfH2),
                     ),
                   ],
                 ),
@@ -69,6 +61,7 @@ class _SettingScreen extends State<SettingScreen> {
                 TextButton(
                   onPressed: () {
                     print('Chỉnh sửa thông tin cá nhân');
+                    Navigator.pushNamed(context, RouteName.editinfoScreen);
                   },
                   child: Text(
                     'Sửa',
@@ -88,7 +81,7 @@ class _SettingScreen extends State<SettingScreen> {
               title: Text(
                 'Shop của tôi',
                 style: StylesOfWidgets.textStyle1(
-                    fs: SizeOfWidget.sizeOfH3, clr: AppColors.primaryColor),
+                    fs: SizeOfWidget.sizeOfH2, clr: AppColors.primaryColor),
               ),
               trailing: const Icon(
                 Icons.chevron_right,
@@ -105,7 +98,7 @@ class _SettingScreen extends State<SettingScreen> {
               leading: Icon(Icons.insert_drive_file, size: 20.sp),
               title: Text(
                 'Lịch sử đơn hàng',
-                style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH3),
+                style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
               ),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
@@ -119,7 +112,7 @@ class _SettingScreen extends State<SettingScreen> {
             //   leading: Icon(Icons.card_giftcard_rounded, size: 20.sp),
             //   title: Text(
             //     'Kho voucher của tôi',
-            //     style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH3),
+            //     style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
             //   ),
             //   trailing: const Icon(Icons.chevron_right),
             //   onTap: () {
@@ -134,7 +127,7 @@ class _SettingScreen extends State<SettingScreen> {
               leading: Icon(Icons.credit_card, size: 20.sp),
               title: Text(
                 'Phương thức thanh toán',
-                style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH3),
+                style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
               ),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
@@ -152,7 +145,7 @@ class _SettingScreen extends State<SettingScreen> {
               ),
               title: Text(
                 'Địa chỉ của tôi',
-                style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH3),
+                style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
               ),
               trailing: Icon(Icons.chevron_right),
               onTap: () {
@@ -170,7 +163,7 @@ class _SettingScreen extends State<SettingScreen> {
               ),
               title: Text(
                 'Bảo mật',
-                style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH3),
+                style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
               ),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
@@ -183,7 +176,7 @@ class _SettingScreen extends State<SettingScreen> {
               children: [
                 Text(
                   'Ngôn ngữ',
-                  style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH3),
+                  style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
                 ),
                 Container(
                   // height: 25.sp,
@@ -195,7 +188,7 @@ class _SettingScreen extends State<SettingScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 10.sp),
                   child: DropdownButton<String>(
                     dropdownColor: Colors.white,
-                    value: selectedLanguage,
+                    value: settingViewModel.selectedLanguage,
                     underline: const SizedBox(),
                     items: ['Vietnam', 'English']
                         .map((String language) => DropdownMenuItem<String>(
@@ -204,18 +197,15 @@ class _SettingScreen extends State<SettingScreen> {
                                 language,
                                 style: StylesOfWidgets.textStyle1(
                                     clr: Colors.black,
-                                    fs: SizeOfWidget.sizeOfH3),
+                                    fs: SizeOfWidget.sizeOfH2),
                               ),
                             ))
                         .toList(),
                     onChanged: (String? newLanguage) {
-                      setState(() {
-                        selectedLanguage = newLanguage!;
-                        print("Ngôn ngữ được chọn: $selectedLanguage");
-                      });
+                      settingViewModel.selectedLanguage = newLanguage!;
                     },
                     style:
-                        StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH3),
+                        StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
                   ),
                 ),
               ],
@@ -238,9 +228,9 @@ class _SettingScreen extends State<SettingScreen> {
                     title: Text(
                       'Âm thanh thông báo',
                       style:
-                          StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH3),
+                          StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
                     ),
-                    value: notificationSound,
+                    value: settingViewModel.notificationSound,
                     activeColor: Colors.white,
                     activeTrackColor: AppColors.primaryColor,
                     thumbColor: const WidgetStatePropertyAll(Colors.white),
@@ -249,10 +239,7 @@ class _SettingScreen extends State<SettingScreen> {
                     inactiveTrackColor:
                         const Color.fromARGB(255, 222, 222, 222),
                     onChanged: (bool value) {
-                      setState(() {
-                        notificationSound = value;
-                        print("Âm thanh thông báo: $value");
-                      });
+                      settingViewModel.notificationSound = value;
                     },
                   ),
                 ),
@@ -276,9 +263,9 @@ class _SettingScreen extends State<SettingScreen> {
                     title: Text(
                       'Âm thanh trong ứng dụng',
                       style:
-                          StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH3),
+                          StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
                     ),
-                    value: sound,
+                    value: settingViewModel.sound,
                     activeColor: Colors.white,
                     activeTrackColor: AppColors.primaryColor,
                     thumbColor: const WidgetStatePropertyAll(Colors.white),
@@ -287,10 +274,7 @@ class _SettingScreen extends State<SettingScreen> {
                     inactiveTrackColor:
                         const Color.fromARGB(255, 222, 222, 222),
                     onChanged: (bool value) {
-                      setState(() {
-                        sound = value;
-                        print("Âm thanh trong ứng dụng: $value");
-                      });
+                      settingViewModel.sound = value;
                     },
                   ),
                 ),
@@ -314,9 +298,9 @@ class _SettingScreen extends State<SettingScreen> {
                     title: Text(
                       'Thông báo cập nhật',
                       style:
-                          StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH3),
+                          StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
                     ),
-                    value: updateNotification,
+                    value: settingViewModel.updateNotification,
                     activeColor: Colors.white,
                     activeTrackColor: AppColors.primaryColor,
                     thumbColor: const WidgetStatePropertyAll(Colors.white),
@@ -325,10 +309,7 @@ class _SettingScreen extends State<SettingScreen> {
                     inactiveTrackColor:
                         const Color.fromARGB(255, 222, 222, 222),
                     onChanged: (bool value) {
-                      setState(() {
-                        updateNotification = value;
-                        print("Thông báo cập nhật: $value");
-                      });
+                      settingViewModel.updateNotification = value;
                     },
                   ),
                 ),
@@ -341,7 +322,7 @@ class _SettingScreen extends State<SettingScreen> {
               leading: Icon(Icons.info_outline, size: 20.sp),
               title: Text(
                 'Thông tin ứng dụng',
-                style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH3),
+                style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
               ),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
@@ -371,7 +352,7 @@ class _SettingScreen extends State<SettingScreen> {
               child: Text(
                 'ĐĂNG XUẤT',
                 style: StylesOfWidgets.textStyle1(
-                    fs: SizeOfWidget.sizeOfH3,
+                    fs: SizeOfWidget.sizeOfH2,
                     clr: AppColors.primaryColor,
                     fw: FontWeight.w600),
               ),

@@ -9,12 +9,9 @@ class AppProvier extends ChangeNotifier {
   static final PageController _pageController = PageController(
     initialPage: _currentIndexPage,
   );
-  static final FocusNode _focusNode = FocusNode();
-  static final TextEditingController _searchTextcontroller =
-      TextEditingController();
+
   final GlobalKey<FormState> _formKeyLogin = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKeyRegister = GlobalKey<FormState>();
-  final GlobalKey<FormState> _formKeyChangePassword = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKeyForgotPassword = GlobalKey<FormState>();
 
   //Khai tạo getter
@@ -22,11 +19,10 @@ class AppProvier extends ChangeNotifier {
   bool get isError => _isError;
   int get currentIndexPage => _currentIndexPage;
   PageController get pageController => _pageController;
+  static final FocusNode _focusNode = FocusNode();
   FocusNode get focusNode => _focusNode;
-  TextEditingController get searchTextcontroller => _searchTextcontroller;
   GlobalKey<FormState> get formKeyLogin => _formKeyLogin;
   GlobalKey<FormState> get formKeyRegister => _formKeyRegister;
-  GlobalKey<FormState> get formKeyChangePassword => _formKeyChangePassword;
   GlobalKey<FormState> get formKeyForgotPassword => _formKeyForgotPassword;
 
   //Các phương thức
@@ -57,8 +53,6 @@ class AppProvier extends ChangeNotifier {
 
   @override
   void dispose() {
-    _focusNode.dispose();
-    _searchTextcontroller.dispose();
     _pageController.dispose();
 
     super.dispose();

@@ -1,4 +1,5 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/states/loginviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
 import 'package:fastfoodapp/presentation/widgets/textbox.dart';
@@ -12,26 +13,12 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Loginscreen extends StatefulWidget {
+class Loginscreen extends StatelessWidget {
   const Loginscreen({super.key});
 
   @override
-  State<Loginscreen> createState() => _LoginscreenState();
-}
-
-class _LoginscreenState extends State<Loginscreen> {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  @override
-  void dispose() {
-    super.dispose();
-    usernameController.dispose();
-    passwordController.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final formLogin = Provider.of<AppProvier>(context).formKeyLogin;
+    final loginViewModel = Provider.of<Loginviewmodel>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -57,7 +44,7 @@ class _LoginscreenState extends State<Loginscreen> {
         color: AppColors.backgroundColor,
         child: SingleChildScrollView(
           child: Form(
-            key: formLogin,
+            key: loginViewModel.formKeyLogin,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -76,7 +63,7 @@ class _LoginscreenState extends State<Loginscreen> {
                   height: 25.sp,
                 ),
                 Textbox(
-                  controller: usernameController,
+                  controller: loginViewModel.usernameController,
                   label: "Tên đăng nhập",
                   obscureText: false,
                   validator: (value) {
@@ -90,7 +77,7 @@ class _LoginscreenState extends State<Loginscreen> {
                   height: 20.sp,
                 ),
                 Textbox(
-                  controller: passwordController,
+                  controller: loginViewModel.passwordController,
                   label: "Mật khẩu",
                   obscureText: true,
                   validator: (value) {
@@ -105,7 +92,7 @@ class _LoginscreenState extends State<Loginscreen> {
                 ),
                 Buttonlogin(
                     onClick: () {
-                      if (formLogin.currentState!.validate()) {
+                      if (loginViewModel.validateForm()) {
                         Navigator.pushNamed(
                             context, RouteName.detaiListProductScreen);
                       }

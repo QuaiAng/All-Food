@@ -16,7 +16,7 @@ class Textbox extends StatefulWidget {
   final String label;
   final bool obscureText;
   final FormFieldValidator validator;
-  final TextEditingController controller;
+  final TextEditingController? controller;
 
   @override
   State<StatefulWidget> createState() {
@@ -44,6 +44,7 @@ class TextboxState extends State<Textbox> {
     return TextFormField(
       validator: widget.validator,
       maxLines: 1,
+      controller: widget.controller,
       obscureText: isPassword,
       decoration: InputDecoration(
           contentPadding:

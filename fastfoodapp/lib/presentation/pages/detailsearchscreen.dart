@@ -1,5 +1,4 @@
-import 'package:fastfoodapp/presentation/states/dataprovider.dart';
-import 'package:fastfoodapp/presentation/states/provider.dart';
+import 'package:fastfoodapp/presentation/states/detailsearchviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/searchedrecent.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -14,11 +13,10 @@ class Detailsearchscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var appProvider = Provider.of<AppProvier>(context);
-    var dataProvider = Provider.of<Dataprovider>(context);
+    var detailSearchViewModel = Provider.of<Detailsearchviewmodel>(context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      FocusScope.of(context).requestFocus(appProvider.focusNode);
+      FocusScope.of(context).requestFocus(detailSearchViewModel.focusNode);
     });
 
     return Scaffold(
@@ -42,8 +40,8 @@ class Detailsearchscreen extends StatelessWidget {
             children: [
               Expanded(
                 child: TextField(
-                  controller: appProvider.searchTextcontroller,
-                  focusNode: appProvider.focusNode,
+                  controller: detailSearchViewModel.searchTextcontroller,
+                  focusNode: detailSearchViewModel.focusNode,
                   cursorColor: AppColors.primaryColor,
                   decoration: InputDecoration(
                     hintText: "Tìm kiếm",
@@ -57,11 +55,13 @@ class Detailsearchscreen extends StatelessWidget {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide.none, // Viền trong suốt khi không được focus
+                      borderSide: BorderSide
+                          .none, // Viền trong suốt khi không được focus
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide.none, // Viền trong suốt khi được focus
+                      borderSide:
+                          BorderSide.none, // Viền trong suốt khi được focus
                     ),
                     fillColor: Colors.transparent,
                     filled: true, // Điều này đảm bảo màu nền là transparent
@@ -70,8 +70,8 @@ class Detailsearchscreen extends StatelessWidget {
               ),
               TextButton(
                   onPressed: () {
-                    dataProvider
-                        .addSearchItem(appProvider.searchTextcontroller.text);
+                    detailSearchViewModel.addSearchItem(
+                        detailSearchViewModel.searchTextcontroller.text);
                   },
                   child: Text("Tìm kiếm",
                       style: StylesOfWidgets.textStyle1(
@@ -98,8 +98,7 @@ class Detailsearchscreen extends StatelessWidget {
                   ),
                   TextButton(
                       onPressed: () {
-                        Provider.of<Dataprovider>(context, listen: false)
-                            .removeAllSearchItem();
+                        detailSearchViewModel.removeAllSearchItem();
                       },
                       child: Text(
                         "Xóa tất cả",
@@ -112,16 +111,16 @@ class Detailsearchscreen extends StatelessWidget {
               ),
               ListView.builder(
                   shrinkWrap: true,
-                  itemCount: dataProvider.recentSearch.length,
+                  itemCount: detailSearchViewModel.recentSearch.length,
                   itemBuilder: (context, index) {
                     return Searchedrecent(
-                      name: dataProvider.recentSearch[index],
+                      name: detailSearchViewModel.recentSearch[index],
                       onTap: () {
-                        appProvider.searchTextcontroller.text =
-                            dataProvider.recentSearch[index];
+                        detailSearchViewModel.searchTextcontroller.text =
+                            detailSearchViewModel.recentSearch[index];
                       },
                       onDeleteTap: () {
-                        dataProvider.removeSearchItem(index);
+                        detailSearchViewModel.removeSearchItem(index);
 
                         print("Xóa $index");
                       },

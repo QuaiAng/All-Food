@@ -4,8 +4,8 @@ import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:fastfoodapp/res/colors.dart';
 
-class Detailistproduct extends StatelessWidget {
-  const Detailistproduct({super.key});
+class Bestsellerlist extends StatelessWidget {
+  const Bestsellerlist({super.key});
 
   @override
   Widget build(BuildContext context) {

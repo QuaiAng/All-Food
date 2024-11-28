@@ -1,5 +1,5 @@
 import 'package:fastfoodapp/app_router.dart';
-import 'package:fastfoodapp/presentation/states/provider.dart';
+import 'package:fastfoodapp/presentation/states/forgotpasswordviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
 import 'package:fastfoodapp/presentation/widgets/textbox.dart';
 import 'package:fastfoodapp/presentation/widgets/textheader.dart';
@@ -8,20 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
+class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});
 
   @override
-  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
-}
-
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final TextEditingController emailOrPhoneController = TextEditingController();
-
-  @override
   Widget build(BuildContext context) {
-    final formForgotPassword =
-        Provider.of<AppProvier>(context).formKeyForgotPassword;
+    final forgotPasswordViewModel =
+        Provider.of<Forgotpasswordviewmodel>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -45,7 +38,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         color: AppColors.backgroundColor,
         child: SingleChildScrollView(
           child: Form(
-            key: formForgotPassword,
+            key: forgotPasswordViewModel.formKeyForgotPassword,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -64,14 +57,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   height: 25.sp,
                 ),
                 Textbox(
-                  controller: emailOrPhoneController,
+                  controller: forgotPasswordViewModel.emailOrPhoneController,
                   label: "Email hoặc số điện thoại",
                   obscureText: false,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Vui lòng nhập số điện thoại hoặc email để tiếp tục';
                     }
-                    if(value.toString().length < 10){
+                    if (value.toString().length < 10) {
                       return 'Vui lòng nhập số điện thoại hoặc email để tiếp tục';
                     }
                     return null; // Dữ liệu hợp lệ
@@ -82,8 +75,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
                 Buttonlogin(
                     onClick: () {
-                      if (formForgotPassword.currentState!.validate()) {
+                      if (forgotPasswordViewModel.validateForm()) {
                         Navigator.pushNamed(context, RouteName.verifyotpScreen);
+                        forgotPasswordViewModel.submit();
                       }
                     },
                     text: "TIẾP TỤC"),

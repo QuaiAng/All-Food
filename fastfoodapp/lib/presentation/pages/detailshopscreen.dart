@@ -1,4 +1,5 @@
 import 'package:fastfoodapp/main.dart';
+import 'package:fastfoodapp/presentation/widgets/productinshop.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +22,14 @@ class Detailshopscreen extends StatefulWidget {
   State<StatefulWidget> createState() => Detailshopscreenn_State();
 }
 
-class Detailshopscreenn_State extends State<Detailshopscreen> {
+class Detailshopscreenn_State extends State<Detailshopscreen>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    TabController _tabController = TabController(length: 6, vsync: this);
+
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
         child: SafeArea(
           child:
@@ -84,7 +89,7 @@ class Detailshopscreenn_State extends State<Detailshopscreen> {
                     Text(
                       "Tiệm Bánh Hoàng Tử Bé",
                       style: StylesOfWidgets.textStyle1(
-                          fs: 20.sp, fw: FontWeight.bold),
+                          fs: 20.sp, fw: FontWeight.w600),
                     ),
                     SizedBox(height: 10.sp),
                     Text(
@@ -122,7 +127,7 @@ class Detailshopscreenn_State extends State<Detailshopscreen> {
                     ),
                     SizedBox(height: 20.sp),
                     Text(
-                      "Featured Items",
+                      "Được đánh giá cao nhất",
                       style: StylesOfWidgets.textStyle1(
                           fs: 19.sp, fw: FontWeight.w300),
                     ),
@@ -149,7 +154,57 @@ class Detailshopscreenn_State extends State<Detailshopscreen> {
                                 )))),
               ),
               SizedBox(height: 15.sp),
-              // TabBar(tabs: )
+              Column(
+                children: [
+                  // TabBar trong SingleChildScrollView để có thể cuộn ngang
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: TabBar(
+                      tabAlignment: TabAlignment.start,
+                      labelStyle: StylesOfWidgets.textStyle1(
+                          fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w600),
+                      unselectedLabelStyle: StylesOfWidgets.textStyle1(
+                          fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w600),
+                      controller: _tabController,
+                      indicator: const BoxDecoration(),
+                      dividerHeight: 0,
+                      labelColor: Colors.black,
+                      unselectedLabelColor: Colors.grey,
+                      isScrollable: true, // Cho phép cuộn ngang
+                      tabs: const [
+                        Tab(text: "Lẩu"),
+                        Tab(text: "Ăn vặt"),
+                        Tab(text: "Món nướng"),
+                        Tab(text: "Món nước"),
+                        Tab(text: "Mì"),
+                        Tab(text: "Hải sản"),
+                      ],
+                    ),
+                  ),
+                  // Đảm bảo TabBarView chiếm toàn bộ không gian còn lại
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height *
+                        0.5, // Chiều cao tùy chỉnh
+                    child: TabBarView(
+                      controller: _tabController,
+                      // children: const [
+                      //   Center(child: Text("Lẩu")),
+                      //   Center(child: Text("Ăn vặt")),
+                      //   Center(child: Text("Món nướng")),
+                      //   Center(child: Text("Món nước")),
+                      //   Center(child: Text("Mì")),
+                      //   Center(child: Text("Nước uống")),
+                      // ],
+                      children: List.generate(
+                        6,
+                        (index) {
+                          return const Productinshop();
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ])
           ]),
         ),

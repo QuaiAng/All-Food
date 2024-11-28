@@ -1,21 +1,21 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonLogin.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-class Addressscreen extends StatefulWidget {
+class Addressscreen extends StatelessWidget {
   const Addressscreen({super.key});
-  @override
-  State<Addressscreen> createState() => _Addressscreen();
-}
 
-class _Addressscreen extends State<Addressscreen> {
   @override
   Widget build(BuildContext context) {
+    final addressViewModel = Provider.of<Addressviewmodel>(context);
+    // addressViewModel.getListAddress();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -137,7 +137,7 @@ class _Addressscreen extends State<Addressscreen> {
               ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 5,
+                  itemCount: addressViewModel.listAddress.length,
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
@@ -176,7 +176,7 @@ class _Addressscreen extends State<Addressscreen> {
                             subtitle: Text(
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              "748 Huynh Tan Phat, Phu Nhuan, Quan 10, Thành Phố Hồ Chí Minh",
+                              addressViewModel.listAddress[index],
                               style: StylesOfWidgets.textStyle1(
                                   clr: Colors.grey,
                                   fw: FontWeight.w400,

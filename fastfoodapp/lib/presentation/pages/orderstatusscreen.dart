@@ -1,4 +1,4 @@
-import 'package:fastfoodapp/presentation/states/provider.dart';
+import 'package:fastfoodapp/presentation/states/orderstatusviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/timeline.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -8,29 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-class Orderstatusscreen extends StatefulWidget {
+class Orderstatusscreen extends StatelessWidget {
   const Orderstatusscreen({super.key});
 
   @override
-  State<Orderstatusscreen> createState() => _OrderstatusscreenState();
-}
-
-class _OrderstatusscreenState extends State<Orderstatusscreen> {
-  String h1 = "Thời gian dự kiến...";
-  String h2 = "23m";
-  String h3 =
-      "Đơn hàng của bạn có thể được giao muộn hơn thời gian dự kiến do các yếu tố bên ngoài !";
-  Color backColor = AppColors.primaryColor;
-  @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<AppProvier>(context);
-    String h1 = provider.orderStatus != 5 ? "Thời gian dự kiến..." : "Đã giao";
-    String h2 = provider.orderStatus != 5 ? "23m" : "--";
-    String h3 = provider.orderStatus != 5
-        ? "Đơn hàng của bạn có thể được giao muộn hơn thời gian dự kiến do các yếu tố bên ngoài !"
-        : "Đơn hàng của bạn đã được giao";
-    Color backColor =
-        provider.orderStatus != 5 ? AppColors.primaryColor : Colors.green;
+    var orderStatusViewModel = Provider.of<OrderStatusViewModel>(context);
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -63,7 +47,8 @@ class _OrderstatusscreenState extends State<Orderstatusscreen> {
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      color: backColor, borderRadius: BorderRadius.circular(8)),
+                      color: orderStatusViewModel.backColor,
+                      borderRadius: BorderRadius.circular(8)),
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(vertical: 20.sp),
                   child: Padding(
@@ -73,7 +58,7 @@ class _OrderstatusscreenState extends State<Orderstatusscreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          h1,
+                          "Thời gian dự kiến",
                           style: StylesOfWidgets.textStyle1(
                               fs: 20.sp,
                               clr: Colors.black54,
@@ -94,7 +79,7 @@ class _OrderstatusscreenState extends State<Orderstatusscreen> {
                               width: 10.sp,
                             ),
                             Text(
-                              h2,
+                              orderStatusViewModel.estimatedTime,
                               style: StylesOfWidgets.textStyle1(
                                   fs: 20.sp, fw: FontWeight.w600),
                             ),
@@ -106,7 +91,7 @@ class _OrderstatusscreenState extends State<Orderstatusscreen> {
                         Text(
                           softWrap: true,
                           textAlign: TextAlign.center,
-                          h3,
+                          orderStatusViewModel.orderStatusDescription,
                           style: StylesOfWidgets.textStyle1(
                               fs: SizeOfWidget.sizeOfH3),
                         ),

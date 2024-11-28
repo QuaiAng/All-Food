@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/widgets/advertisement.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -33,6 +34,7 @@ class Restaurant extends StatelessWidget {
     return InkWell(
       onTap: () {
         // navigation sang màn hình chi tiết món ăn
+        Navigator.pushNamed(context, RouteName.detailShopScreen);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

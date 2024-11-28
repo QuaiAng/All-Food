@@ -1,11 +1,11 @@
 import 'package:fastfoodapp/presentation/pages/addressscreen.dart';
 import 'package:fastfoodapp/presentation/pages/cartscreen.dart';
-import 'package:fastfoodapp/presentation/pages/detailistproduct.dart';
+import 'package:fastfoodapp/presentation/pages/bestsellerlist.dart';
 import 'package:fastfoodapp/presentation/pages/detailvoucherscreen.dart';
 import 'package:fastfoodapp/presentation/pages/editinfoscreen.dart';
 import 'package:fastfoodapp/presentation/pages/forgotpassword.dart';
 import 'package:fastfoodapp/presentation/pages/homescreen.dart';
-import 'package:fastfoodapp/presentation/pages/listfoodofshopscreen.dart';
+import 'package:fastfoodapp/presentation/pages/detailshopscreen.dart';
 import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
 import 'package:fastfoodapp/presentation/pages/mainscreen.dart';
 import 'package:fastfoodapp/presentation/pages/orderstatusscreen.dart';
@@ -64,7 +64,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const Mainscreen());
       //Màn hình xem chi tiết danh sách sản phẩm
       case RouteName.detaiListProductScreen:
-        return MaterialPageRoute(builder: (_) => const Detailistproduct());
+        return MaterialPageRoute(builder: (_) => const Bestsellerlist());
       case RouteName.homeScreen:
         return MaterialPageRoute(
             builder: (_) => const Homescreen(address: "address"));
@@ -90,7 +90,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const Voucherscreen());
       //Màn hình chi tiết voucher
       case RouteName.detailvoucherScreen:
-        return MaterialPageRoute(builder: (_) => VoucherDetailScreen());
+        return MaterialPageRoute(builder: (_) => const VoucherDetailScreen());
       //Màn hình tìm kiếm
       case RouteName.searchScreen:
         return MaterialPageRoute(builder: (_) => const Searchscreen());
@@ -123,7 +123,7 @@ class AppRouter {
                 ));
       //Man hình cài đặt
       case RouteName.detailShopScreen:
-        return MaterialPageRoute(builder: (_) => Detailshopscreen());
+        return MaterialPageRoute(builder: (_) => const Detailshopscreen());
 
       case RouteName.addressScreen:
         return MaterialPageRoute(builder: (_) => const Addressscreen());

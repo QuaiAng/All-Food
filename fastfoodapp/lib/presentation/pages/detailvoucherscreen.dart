@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class VoucherDetailScreen extends StatelessWidget {
+  const VoucherDetailScreen({super.key});
+
   // const VoucherDetailScreen(
   //     {super.key,
   //     required this.startOfExpire,

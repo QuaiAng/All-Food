@@ -1,9 +1,11 @@
+import 'package:fastfoodapp/presentation/states/editinfoviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/infofield.dart';
 import 'package:fastfoodapp/res/images.dart';
 import 'package:flutter/material.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonLogin.dart';
 
@@ -12,19 +14,7 @@ class Editinfoscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-    final TextEditingController name =
-        TextEditingController(text: 'CAO HOAI AN');
-    final TextEditingController email =
-        TextEditingController(text: 'caohoaian@gmail.com');
-    final TextEditingController phone =
-        TextEditingController(text: '0785763022');
-    final TextEditingController password =
-        TextEditingController(text: '123456789');
-    final TextEditingController address =
-        TextEditingController(text: '749 Huỳnh Tấn Phát, Phú Thuận, Quận 7 ');
-
+    final editInfoViewModel = Provider.of<Editinfoviewmodel>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -52,7 +42,7 @@ class Editinfoscreen extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 14.sp, horizontal: 18.sp),
           child: Form(
-            key: formKey,
+            key: editInfoViewModel.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -113,7 +103,7 @@ class Editinfoscreen extends StatelessWidget {
                 SizedBox(height: 10.sp),
                 Infofield(
                   label: 'HỌ TÊN',
-                  value: name,
+                  value: editInfoViewModel.nameController,
                   isPassword: false,
                   isAddress: false,
                   validator: (value) {
@@ -125,7 +115,7 @@ class Editinfoscreen extends StatelessWidget {
                 ),
                 Infofield(
                   label: 'EMAIL',
-                  value: email,
+                  value: editInfoViewModel.emailController,
                   isPassword: false,
                   isAddress: false,
                   validator: (value) {
@@ -145,7 +135,7 @@ class Editinfoscreen extends StatelessWidget {
                 ),
                 Infofield(
                   label: 'ĐIỆN THOẠI',
-                  value: phone,
+                  value: editInfoViewModel.phoneController,
                   isPassword: false,
                   isAddress: false,
                   validator: (value) {
@@ -162,13 +152,13 @@ class Editinfoscreen extends StatelessWidget {
                 ),
                 Infofield(
                   label: 'MẬT KHẨU',
-                  value: password,
+                  value: editInfoViewModel.passwordController,
                   isPassword: true,
                   isAddress: false,
                 ),
                 Infofield(
                   label: 'ĐỊA CHỈ',
-                  value: address,
+                  value: editInfoViewModel.addressController,
                   isPassword: false,
                   isAddress: true,
                 ),
@@ -186,7 +176,7 @@ class Editinfoscreen extends StatelessWidget {
             child: Center(
               child: Buttonlogin(
                   onClick: () {
-                    if (formKey.currentState!.validate()) {
+                    if (editInfoViewModel.validateForm()) {
                       // Xử lý lưu thông tin khi dữ liệu hợp lệ
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

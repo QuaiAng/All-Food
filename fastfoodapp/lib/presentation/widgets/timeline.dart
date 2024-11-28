@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/presentation/states/orderstatusviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:flutter/material.dart';
@@ -96,9 +97,10 @@ class TimelineState extends State<Timeline> {
                           setState(() {
                             mapTimeLine[mapTimeLine.keys.toList()[index]] =
                                 !mapTimeLine[mapTimeLine.keys.toList()[index]]!;
-                            var provider =
-                                Provider.of<AppProvier>(context, listen: false);
-                            provider.updateOrderstatus(index + 1);
+                            var provider = Provider.of<OrderStatusViewModel>(
+                                context,
+                                listen: false);
+                            provider.updateOrderStatus(index + 1);
                             print("Trạng thái đơn hàng: ${index + 1}");
                           });
                         },
