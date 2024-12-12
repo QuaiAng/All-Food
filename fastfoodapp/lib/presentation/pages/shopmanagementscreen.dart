@@ -107,13 +107,13 @@ class Shopmanagementscreen extends StatelessWidget {
       onTap: () {},
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.black26.withOpacity(0.1),
+          color: const Color.fromARGB(255, 235, 235, 235),
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1), // Màu của bóng
+              color: Colors.black.withOpacity(0.3), // Màu của bóng
               blurRadius: 4, // Độ mờ của bóng
-              offset: Offset(2, 2), // Độ dịch chuyển của bóng (x, y)
+              offset: Offset(0, 2), // Độ dịch chuyển của bóng (x, y)
             ),
           ],
         ),
@@ -130,7 +130,7 @@ class Shopmanagementscreen extends StatelessWidget {
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, size: 25.sp, color: Colors.black),
+              child: Icon(icon, size: 25.sp, color: Colors.black, weight: 0.5),
             ),
             SizedBox(height: 8),
             // Tiêu đề giới hạn diện tích
@@ -140,7 +140,7 @@ class Shopmanagementscreen extends StatelessWidget {
                   maxLines: 2, // Tối đa 2 dòng
                   overflow: TextOverflow.ellipsis, // Cắt bớt nếu quá dài
                   style: StylesOfWidgets.textStyle1(
-                      fs: SizeOfWidget.sizeOfH3, fw: FontWeight.w600)),
+                      fs: SizeOfWidget.sizeOfH3, fw: FontWeight.w500)),
             ),
           ],
         ),
