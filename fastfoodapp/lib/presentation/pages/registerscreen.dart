@@ -220,7 +220,7 @@ class Registerscreen extends StatelessWidget {
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         side: const BorderSide(
-                            color: AppColors.placeholderColor, width: 0.5),
+                            color: AppColors.placeholderColor, width: 1),
                         backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8))),

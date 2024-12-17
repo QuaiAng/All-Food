@@ -8,6 +8,7 @@ import 'package:fastfoodapp/presentation/states/editinfoviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/forgotpasswordviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/loginviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/orderstatusviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/paymentviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/states/registerviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
@@ -33,6 +34,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => Verifyotpviewmodel()),
         ChangeNotifierProvider(create: (_) => Settingviewmodel()),
         ChangeNotifierProvider(create: (_) => Addressviewmodel()),
+        ChangeNotifierProvider(create: (_) => Paymentviewmodel()),
       ],
       child: const MainApp(),
     ),

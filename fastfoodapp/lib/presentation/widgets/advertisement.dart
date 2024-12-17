@@ -24,13 +24,15 @@ class Listimageindicator extends StatelessWidget {
             child: ColorFiltered(
               colorFilter: ColorFilter.mode(
                 isShop
-                  ? Colors.black.withOpacity(0.5) // Màu đen với độ trong suốt khi `isShop` là true
-                  : Colors.black.withOpacity(0), // Không làm tối khi `isShop` là false
+                    ? Colors.black.withOpacity(
+                        0.5) // Màu đen với độ trong suốt khi `isShop` là true
+                    : Colors.black
+                        .withOpacity(0), // Không làm tối khi `isShop` là false
                 BlendMode.darken,
               ),
               child: Image.asset(
                 images[index],
-                fit: BoxFit.fill, // Điều chỉnh cách hiển thị ảnh
+                fit: BoxFit.cover, // Điều chỉnh cách hiển thị ảnh
               ),
             ),
           );

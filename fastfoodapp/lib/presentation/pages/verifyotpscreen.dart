@@ -1,5 +1,3 @@
-import 'package:fastfoodapp/app_router.dart';
-import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/states/verifyotpviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
 import 'package:fastfoodapp/res/colors.dart';

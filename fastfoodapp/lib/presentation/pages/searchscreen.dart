@@ -70,7 +70,7 @@ class Searchscreen extends StatelessWidget {
                   style: StylesOfWidgets.textStyle1(
                       fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w500)),
               SizedBox(
-                height: 25.sp,
+                height: 15.sp,
               ),
               GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),

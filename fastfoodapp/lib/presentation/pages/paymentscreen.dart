@@ -1,4 +1,5 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/states/paymentviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
 import 'package:fastfoodapp/presentation/widgets/itemrow.dart';
@@ -11,15 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
-List items = List.generate(12, (index) {
-  return const Itemrow(
-    quantity: 3,
-    name: "Gà cay",
-    description: "Lớp da gà giòn, cay Lớp da gà giòn, cay Lớp da gà giòn, cay",
-    price: 32000.0,
-  );
-});
 
 class Paymentscreen extends StatelessWidget {
   const Paymentscreen({super.key});
@@ -69,18 +61,22 @@ class Paymentscreen extends StatelessWidget {
                 SizedBox(
                   height: 15.sp,
                 ),
-                Text(
-                  softWrap: true,
-                  textAlign: TextAlign.center,
-                  "Bạn đã đặt hàng thành công. Các bạn sẽ nhận được thức ăn trong vòng 25 phút. Cảm ơn đã sử dụng dịch vụ của chúng tôi. Thưởng thức đồ ăn của bạn ^^",
-                  style: StylesOfWidgets.textStyle1(
-                      fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w400),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                  child: Text(
+                    softWrap: true,
+                    textAlign: TextAlign.center,
+                    "Bạn đã đặt hàng thành công. Các bạn sẽ nhận được thức ăn trong vòng 25 phút. Cảm ơn đã sử dụng dịch vụ của chúng tôi. Thưởng thức đồ ăn của bạn ^^",
+                    style: StylesOfWidgets.textStyle1(
+                        fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w400),
+                  ),
                 ),
                 SizedBox(
                   height: 15.sp,
                 ),
                 TextButton(
                   onPressed: () {
+                    Navigator.pop(context);
                     print('Chỉnh sửa thông tin cá nhân');
                   },
                   child: Text(
@@ -99,6 +95,7 @@ class Paymentscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final paymentViewModel = Provider.of<Paymentviewmodel>(context);
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -128,9 +125,9 @@ class Paymentscreen extends StatelessWidget {
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: items.length,
+              itemCount: paymentViewModel.listProduct.length,
               itemBuilder: (context, index) {
-                final item = items[index];
+                final item = paymentViewModel.listProduct[index];
 
                 return Column(
                   children: [

@@ -3,7 +3,6 @@ import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 class Paymentmethodscreen extends StatelessWidget {

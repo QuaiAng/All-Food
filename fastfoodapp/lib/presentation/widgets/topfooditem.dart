@@ -26,7 +26,8 @@ class Topfooditem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
+          Expanded(
+            flex: 3,
             child: Image.asset(
               image,
               fit: BoxFit.cover,
@@ -35,32 +36,36 @@ class Topfooditem extends StatelessWidget {
           SizedBox(
             height: 10.sp,
           ),
-          Row(
-            children: [
-              Text(
-                foodName,
-                style: StylesOfWidgets.textStyle1(
-                    clr: Colors.black, fs: SizeOfWidget.sizeOfH1),
-              ),
-            ],
+          Expanded(
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  foodName,
+                  style: StylesOfWidgets.textStyle1(
+                      clr: Colors.black, fs: SizeOfWidget.sizeOfH1),
+                ),
+                SizedBox(
+                  height: 10.sp,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "$price - ",
+                      style: StylesOfWidgets.textStyle1(
+                          clr: AppColors.gray, fs: SizeOfWidget.sizeOfH3),
+                    ),
+                    Text(
+                      address,
+                      style: StylesOfWidgets.textStyle1(
+                          clr: AppColors.gray, fs: SizeOfWidget.sizeOfH3),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
-          SizedBox(
-            height: 10.sp,
-          ),
-          Row(
-            children: [
-              Text(
-                "$price - ",
-                style: StylesOfWidgets.textStyle1(
-                    clr: AppColors.gray, fs: SizeOfWidget.sizeOfH3),
-              ),
-              Text(
-                "$address",
-                style: StylesOfWidgets.textStyle1(
-                    clr: AppColors.gray, fs: SizeOfWidget.sizeOfH3),
-              ),
-            ],
-          )
         ],
       ),
     );

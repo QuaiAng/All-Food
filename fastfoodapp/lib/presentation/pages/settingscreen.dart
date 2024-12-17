@@ -339,7 +339,7 @@ class SettingScreen extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                padding: EdgeInsets.symmetric(vertical: 20.sp),
+                padding: EdgeInsets.symmetric(vertical: 15.sp),
               ),
               onPressed: () {
                 print("Đăng xuất");
@@ -352,7 +352,7 @@ class SettingScreen extends StatelessWidget {
               child: Text(
                 'ĐĂNG XUẤT',
                 style: StylesOfWidgets.textStyle1(
-                    fs: SizeOfWidget.sizeOfH2,
+                    fs: SizeOfWidget.sizeOfH3,
                     clr: AppColors.primaryColor,
                     fw: FontWeight.w600),
               ),

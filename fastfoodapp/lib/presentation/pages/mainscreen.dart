@@ -1,7 +1,7 @@
 import 'package:fastfoodapp/presentation/pages/cartscreen.dart';
 import 'package:fastfoodapp/presentation/pages/homescreen.dart';
 import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
-import 'package:fastfoodapp/presentation/pages/orderstatusscreen.dart';
+import 'package:fastfoodapp/presentation/pages/searchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/settingscreen.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/widgets/bottomappbar.dart';
@@ -28,7 +28,7 @@ class Mainscreen extends StatelessWidget {
             address:
                 "749 Huynh Tan Phat, Phu Thua, Quan 7, Thanh Pho Ho Chi Minh",
           ),
-          Loginscreen(),
+          Searchscreen(),
           Cartscreen(),
           SettingScreen(
             email: "caohoaian@gmail.com",

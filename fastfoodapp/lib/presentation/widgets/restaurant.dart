@@ -40,7 +40,7 @@ class Restaurant extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.all(20.sp),
+            padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 15.sp),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

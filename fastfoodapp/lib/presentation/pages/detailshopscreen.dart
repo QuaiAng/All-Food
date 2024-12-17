@@ -1,4 +1,3 @@
-import 'package:fastfoodapp/main.dart';
 import 'package:fastfoodapp/presentation/widgets/productinshop.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
@@ -187,18 +186,20 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
                         0.5, // Chiều cao tùy chỉnh
                     child: TabBarView(
                       controller: _tabController,
-                      // children: const [
-                      //   Center(child: Text("Lẩu")),
-                      //   Center(child: Text("Ăn vặt")),
-                      //   Center(child: Text("Món nướng")),
-                      //   Center(child: Text("Món nước")),
-                      //   Center(child: Text("Mì")),
-                      //   Center(child: Text("Nước uống")),
-                      // ],
                       children: List.generate(
                         6,
                         (index) {
-                          return const Productinshop();
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: 5,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 10.sp),
+                                child: Productinshop(),
+                              );
+                            },
+                          );
                         },
                       ),
                     ),
