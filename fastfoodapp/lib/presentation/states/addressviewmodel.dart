@@ -9,16 +9,4 @@ class Addressviewmodel extends ChangeNotifier {
     "749/19 Huỳnh Tấn Phát, Phú Thuận, Quận 7, Thành Phố Hồ Chí Minh",
     "749/19 Huỳnh Tấn Phát, Phú Thuận, Quận 7, Thành Phố Hồ Chí Minh",
   ];
-
-  void getListAddress() {
-    List<String> list = [
-      "749/19 Huỳnh Tấn Phát, Phú Thuận, Quận 7, Thành Phố Hồ Chí Minh",
-      "749/19 Huỳnh Tấn Phát, Phú Thuận, Quận 7, Thành Phố Hồ Chí Minh",
-      "749/19 Huỳnh Tấn Phát, Phú Thuận, Quận 7, Thành Phố Hồ Chí Minh",
-      "749/19 Huỳnh Tấn Phát, Phú Thuận, Quận 7, Thành Phố Hồ Chí Minh",
-      "749/19 Huỳnh Tấn Phát, Phú Thuận, Quận 7, Thành Phố Hồ Chí Minh",
-      "749/19 Huỳnh Tấn Phát, Phú Thuận, Quận 7, Thành Phố Hồ Chí Minh",
-    ];
-    listAddress.addAll(list);
-  }
 }

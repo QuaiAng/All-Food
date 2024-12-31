@@ -88,7 +88,8 @@ class SettingScreen extends StatelessWidget {
                 color: AppColors.primaryColor,
               ),
               onTap: () {
-                print("Shop của tôi được nhấn");
+                // print("Shop của tôi được nhấn");
+                Navigator.pushNamed(context, RouteName.ShopManagementScreen);
               },
             ),
             const Divider(

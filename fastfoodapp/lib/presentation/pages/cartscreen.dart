@@ -28,27 +28,27 @@ class Cartscreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar: AppBar(
-        backgroundColor: AppColors.backgroundColor,
-        surfaceTintColor: AppColors.backgroundColor,
-        shadowColor: Colors.grey,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios_rounded,
-            color: AppColors.primaryColor,
-            size: 20,
-          ),
-        ),
-        title: Text(
-          "GIỎ HÀNG",
-          style: StylesOfWidgets.textStyle1(
-              fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w600),
-        ),
-        centerTitle: true,
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: AppColors.backgroundColor,
+      //   surfaceTintColor: AppColors.backgroundColor,
+      //   shadowColor: Colors.grey,
+      //   leading: IconButton(
+      //     onPressed: () {
+      //       Navigator.pop(context);
+      //     },
+      //     icon: const Icon(
+      //       Icons.arrow_back_ios_rounded,
+      //       color: AppColors.primaryColor,
+      //       size: 20,
+      //     ),
+      //   ),
+      //   title: Text(
+      //     "GIỎ HÀNG",
+      //     style: StylesOfWidgets.textStyle1(
+      //         fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w600),
+      //   ),
+      //   centerTitle: true,
+      // ),
       body: SingleChildScrollView(
         child: Column(
           children: [

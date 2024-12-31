@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
 
 class Loginviewmodel extends ChangeNotifier {
@@ -14,11 +15,8 @@ class Loginviewmodel extends ChangeNotifier {
     return _formKeyLogin.currentState?.validate() ?? false;
   }
 
-  // Hàm xử lý khi người dùng nhấn Đăng nhập
-  void login() {
-    if (validateForm()) {
-      //TODO
-    }
+  Future<String> login(String username, String password) async {
+    return await Userrepository().login(username, password);
   }
 
   @override

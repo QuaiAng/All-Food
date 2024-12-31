@@ -129,7 +129,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const Addressscreen());
 
       case RouteName.ShopManagementScreen:
-        return MaterialPageRoute(builder: (_) => Shopmanagementscreen());
+        return MaterialPageRoute(builder: (_) => const Shopmanagementscreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

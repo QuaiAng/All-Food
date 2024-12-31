@@ -1,3 +1,5 @@
+import 'package:fastfoodapp/data/models/UserModel.dart';
+import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
 
 class Registerviewmodel with ChangeNotifier {
@@ -40,6 +42,17 @@ class Registerviewmodel with ChangeNotifier {
       return true;
     }
     return false;
+  }
+
+  Future<bool> register(Usermodel user) async {
+    if (user.fullName.isEmpty ||
+        user.email.isEmpty ||
+        user.phone.isEmpty ||
+        user.password.isEmpty) {
+      return false;
+    }
+
+    return await Userrepository().register(user);
   }
 
   void disposeControllers() {

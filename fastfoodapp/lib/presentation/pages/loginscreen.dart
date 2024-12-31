@@ -91,10 +91,23 @@ class Loginscreen extends StatelessWidget {
                   height: 20.sp,
                 ),
                 Buttonlogin(
-                    onClick: () {
+                    onClick: () async {
+                      // Đợi kiểm tra thông tin login và kết quả trả về
                       if (loginViewModel.validateForm()) {
-                        Navigator.pushNamed(
-                            context, RouteName.detaiListProductScreen);
+                        String result = await loginViewModel.login(
+                          loginViewModel.usernameController.text,
+                          loginViewModel.passwordController.text,
+                        );
+
+                        // Kiểm tra xem chuỗi trả về có rỗng không
+                        if (result.isNotEmpty) {
+                          // Nếu login thành công, chuyển hướng đến màn hình mới
+                          Navigator.pushNamed(context, RouteName.mainScreen);
+                          print(result); // In ra kết quả từ login
+                        } else {
+                          // Xử lý khi login không thành công (chuỗi rỗng)
+                          print("Đăng nhập không thành công.");
+                        }
                       }
                     },
                     text: "ĐĂNG NHẬP"),

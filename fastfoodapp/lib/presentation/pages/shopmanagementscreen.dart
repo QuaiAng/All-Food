@@ -1,5 +1,5 @@
-import 'package:fastfoodapp/presentation/pages/listfoodofshopscreen.dart';
 import 'package:fastfoodapp/res/colors.dart';
+import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
@@ -39,10 +39,18 @@ class Shopmanagementscreen extends StatelessWidget {
           child: Column(
             children: [
               ListTile(
-                leading: CircleAvatar(
-                  radius: 30,
-                  backgroundImage: AssetImage('assets/images/anhga.png'),
-                ),
+                leading: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: const BoxDecoration(shape: BoxShape.circle),
+                    child: ClipOval(
+                      // Đảm bảo hình ảnh được cắt theo hình tròn
+                      child: Image.asset(
+                        Imagepath.iconMoMo,
+                        fit: BoxFit
+                            .contain, // Đảm bảo hình ảnh nằm gọn trong container
+                      ),
+                    )),
                 title: Text(
                   "ABC SHOP",
                   style: StylesOfWidgets.textStyle1(

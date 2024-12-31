@@ -10,10 +10,6 @@ class AppProvier extends ChangeNotifier {
     initialPage: _currentIndexPage,
   );
 
-  final GlobalKey<FormState> _formKeyLogin = GlobalKey<FormState>();
-  final GlobalKey<FormState> _formKeyRegister = GlobalKey<FormState>();
-  final GlobalKey<FormState> _formKeyForgotPassword = GlobalKey<FormState>();
-
   //Khai tạo getter
   int get orderStatus => _orderStatus;
   bool get isError => _isError;
@@ -21,9 +17,6 @@ class AppProvier extends ChangeNotifier {
   PageController get pageController => _pageController;
   static final FocusNode _focusNode = FocusNode();
   FocusNode get focusNode => _focusNode;
-  GlobalKey<FormState> get formKeyLogin => _formKeyLogin;
-  GlobalKey<FormState> get formKeyRegister => _formKeyRegister;
-  GlobalKey<FormState> get formKeyForgotPassword => _formKeyForgotPassword;
 
   //Các phương thức
 

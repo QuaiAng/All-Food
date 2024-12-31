@@ -1,4 +1,5 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/data/models/UserModel.dart';
 import 'package:fastfoodapp/presentation/states/registerviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
 import 'package:fastfoodapp/presentation/widgets/textbox.dart';
@@ -154,9 +155,21 @@ class Registerscreen extends StatelessWidget {
                   height: 20.sp,
                 ),
                 Buttonlogin(
-                    onClick: () {
+                    onClick: () async {
+                      final user = Usermodel.withoutIdAndImage(
+                        userName: registerViewModel.usernameController.text,
+                        password: registerViewModel.passwordController.text,
+                        fullName: registerViewModel.nameController.text,
+                        email: registerViewModel.emailController.text,
+                        phone: registerViewModel.phoneController.text,
+                      );
                       if (registerViewModel.validateForm()) {
-                        Navigator.pushNamed(context, RouteName.verifyotpScreen);
+                        var result = await registerViewModel.register(user);
+
+                        if (result == true) {
+                          Navigator.pushNamed(
+                              context, RouteName.verifyotpScreen);
+                        }
                       }
                     },
                     text: "ĐĂNG KÝ"),
