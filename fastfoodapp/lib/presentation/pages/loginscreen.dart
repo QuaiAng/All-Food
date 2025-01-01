@@ -94,13 +94,13 @@ class Loginscreen extends StatelessWidget {
                     onClick: () async {
                       // Đợi kiểm tra thông tin login và kết quả trả về
                       if (loginViewModel.validateForm()) {
-                        String result = await loginViewModel.login(
+                        bool result = await loginViewModel.login(
                           loginViewModel.usernameController.text,
                           loginViewModel.passwordController.text,
                         );
 
                         // Kiểm tra xem chuỗi trả về có rỗng không
-                        if (result.isNotEmpty) {
+                        if (result) {
                           // Nếu login thành công, chuyển hướng đến màn hình mới
                           Navigator.pushNamed(context, RouteName.mainScreen);
                           print(result); // In ra kết quả từ login

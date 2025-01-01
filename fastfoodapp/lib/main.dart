@@ -1,5 +1,6 @@
 import 'package:fastfoodapp/app_router.dart';
-import 'package:fastfoodapp/presentation/pages/forgotpassword.dart';
+import 'package:fastfoodapp/data/repositories/UserRepository.dart';
+import 'package:fastfoodapp/data/services/UserService.dart';
 import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/changepasswordviewmodel.dart';
@@ -18,27 +19,35 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => AppProvier()),
-        ChangeNotifierProvider(create: (_) => Cartviewmodel()),
-        ChangeNotifierProvider(create: (_) => Changepasswordviewmodel()),
-        ChangeNotifierProvider(create: (_) => Detailsearchviewmodel()),
-        ChangeNotifierProvider(create: (_) => Editinfoviewmodel()),
-        ChangeNotifierProvider(create: (_) => Forgotpasswordviewmodel()),
-        ChangeNotifierProvider(create: (_) => Loginviewmodel()),
-        ChangeNotifierProvider(create: (_) => OrderStatusViewModel()),
-        ChangeNotifierProvider(create: (_) => Registerviewmodel()),
-        ChangeNotifierProvider(create: (_) => Verifyotpviewmodel()),
-        ChangeNotifierProvider(create: (_) => Verifyotpviewmodel()),
-        ChangeNotifierProvider(create: (_) => Settingviewmodel()),
-        ChangeNotifierProvider(create: (_) => Addressviewmodel()),
-        ChangeNotifierProvider(create: (_) => Paymentviewmodel()),
-      ],
-      child: const MainApp(),
-    ),
-  );
+  runApp(MultiProvider(
+    providers: [
+      // Cung cấp UserService
+      Provider(create: (_) => UserService()),
+
+      // Cung cấp UserRepository (phụ thuộc vào UserService)
+      ProxyProvider<UserService, Userrepository>(
+        update: (context, userService, _) => Userrepository(userService),
+      ),
+
+      ChangeNotifierProvider(create: (_) => AppProvier()),
+      ChangeNotifierProvider(create: (_) => Cartviewmodel()),
+      ChangeNotifierProvider(create: (_) => Changepasswordviewmodel()),
+      ChangeNotifierProvider(create: (_) => Detailsearchviewmodel()),
+      ChangeNotifierProvider(create: (_) => Editinfoviewmodel()),
+      ChangeNotifierProvider(create: (_) => Forgotpasswordviewmodel()),
+      ChangeNotifierProvider(
+          create: (context) => Loginviewmodel(context.read<Userrepository>())),
+      ChangeNotifierProvider(create: (_) => OrderStatusViewModel()),
+      ChangeNotifierProvider(
+          create: (context) =>
+              Registerviewmodel(context.read<Userrepository>())),
+      ChangeNotifierProvider(create: (_) => Verifyotpviewmodel()),
+      ChangeNotifierProvider(create: (_) => Settingviewmodel()),
+      ChangeNotifierProvider(create: (_) => Addressviewmodel()),
+      ChangeNotifierProvider(create: (_) => Paymentviewmodel()),
+    ],
+    child: const MainApp(),
+  ));
 }
 
 class MainApp extends StatelessWidget {

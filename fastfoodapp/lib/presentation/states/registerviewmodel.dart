@@ -3,6 +3,10 @@ import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
 
 class Registerviewmodel with ChangeNotifier {
+  final Userrepository _userrepository;
+
+  Registerviewmodel(this._userrepository);
+
   // Các thuộc tính private
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
@@ -52,7 +56,7 @@ class Registerviewmodel with ChangeNotifier {
       return false;
     }
 
-    return await Userrepository().register(user);
+    return await _userrepository.register(user);
   }
 
   void disposeControllers() {

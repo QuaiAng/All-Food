@@ -13,7 +13,8 @@ class Detailsearchscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var detailSearchViewModel = Provider.of<Detailsearchviewmodel>(context);
+    var detailSearchViewModel =
+        Provider.of<Detailsearchviewmodel>(context, listen: true); //instance
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       FocusScope.of(context).requestFocus(detailSearchViewModel.focusNode);

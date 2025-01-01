@@ -2,6 +2,10 @@ import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
 
 class Loginviewmodel extends ChangeNotifier {
+  final Userrepository _userrepository;
+
+  Loginviewmodel(this._userrepository);
+
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -15,8 +19,12 @@ class Loginviewmodel extends ChangeNotifier {
     return _formKeyLogin.currentState?.validate() ?? false;
   }
 
-  Future<String> login(String username, String password) async {
-    return await Userrepository().login(username, password);
+  Future<bool> login(String username, String password) async {
+    var rp = await _userrepository.login(username, password);
+    if (rp == null) return false;
+    // Thực hiện lưu vào share_preferences
+    //Lưu thành công trả về true, ngược lại trả về false
+    return true;
   }
 
   @override
