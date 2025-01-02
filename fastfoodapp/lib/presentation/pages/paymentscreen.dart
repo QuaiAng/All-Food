@@ -1,8 +1,8 @@
 import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
-import 'package:fastfoodapp/presentation/widgets/itemrow.dart';
-import 'package:fastfoodapp/presentation/widgets/pricerow.dart';
+import 'package:fastfoodapp/presentation/widgets/iteminpaymentscreen.dart';
+import 'package:fastfoodapp/presentation/widgets/otherprice.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';

@@ -1,5 +1,6 @@
 import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/states/dataprovider.dart';
+import 'package:fastfoodapp/presentation/states/feedbackviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => AppProvier()),
         ChangeNotifierProvider(create: (_) => Dataprovider()),
+        ChangeNotifierProvider(create: (_) => Feedbackviewmodel()),
       ],
       child: const MainApp(),
     ),
@@ -24,7 +26,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
-        initialRoute: RouteName.ShopManagementScreen,
+        initialRoute: RouteName.feedBackscreen,
         onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
       );

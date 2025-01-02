@@ -3,6 +3,7 @@ import 'package:fastfoodapp/presentation/pages/cartscreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailistproduct.dart';
 import 'package:fastfoodapp/presentation/pages/detailvoucherscreen.dart';
 import 'package:fastfoodapp/presentation/pages/editinfoscreen.dart';
+import 'package:fastfoodapp/presentation/pages/feedbackscreen.dart';
 import 'package:fastfoodapp/presentation/pages/forgotpassword.dart';
 import 'package:fastfoodapp/presentation/pages/homescreen.dart';
 import 'package:fastfoodapp/presentation/pages/listfoodofshopscreen.dart';
@@ -43,7 +44,8 @@ class RouteName {
   static const String settingScreen = "/setting";
   static const String detailShopScreen = "/detailShop";
   static const String addressScreen = "/address";
-  static const String ShopManagementScreen = "/shopmanagement";
+  static const String shopManagementScreen = "/shopmanagement";
+  static const String feedBackscreen = "/feedback";
 }
 
 class AppRouter {
@@ -128,8 +130,10 @@ class AppRouter {
       case RouteName.addressScreen:
         return MaterialPageRoute(builder: (_) => const Addressscreen());
 
-      case RouteName.ShopManagementScreen:
+      case RouteName.shopManagementScreen:
         return MaterialPageRoute(builder: (_) => Shopmanagementscreen());
+      case RouteName.feedBackscreen:
+        return MaterialPageRoute(builder: (_) => Feedbackscreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(
