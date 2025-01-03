@@ -1,14 +1,15 @@
-import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
 import 'package:fastfoodapp/presentation/states/feedbackviewmodel.dart';
-import 'package:fastfoodapp/presentation/widgets/buttonLogin.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
+import 'package:fastfoodapp/utils/formatmoney.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class Feedbackscreen extends StatelessWidget {
+  const Feedbackscreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     var feedbackviewmodel =
@@ -89,7 +90,7 @@ class Feedbackscreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Bánh mì chả cá",
+                        feedbackviewmodel.foodName,
                         style: StylesOfWidgets.textStyle1(
                             fs: SizeOfWidget.sizeOfH2,
                             fw: FontWeight.w500,
@@ -97,7 +98,7 @@ class Feedbackscreen extends StatelessWidget {
                       ),
                       SizedBox(height: 15.sp),
                       Text(
-                        "Bà Tư Shop",
+                        feedbackviewmodel.shopName,
                         style: StylesOfWidgets.textStyle1(
                             fs: SizeOfWidget.sizeOfH2,
                             fw: FontWeight.w500,
@@ -105,7 +106,7 @@ class Feedbackscreen extends StatelessWidget {
                       ),
                       SizedBox(height: 15.sp),
                       Text(
-                        "56,000",
+                        Formatmoney.formatCurrency(56000),
                         style: StylesOfWidgets.textStyle1(
                             fs: SizeOfWidget.sizeOfH2,
                             fw: FontWeight.w500,
@@ -152,9 +153,10 @@ class Feedbackscreen extends StatelessWidget {
                     fw: FontWeight.w400,
                     clr: AppColors.gray,
                   ),
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                 ),
                 maxLines: 4,
+                controller: feedbackviewmodel.feedbackController,
               ),
               SizedBox(height: 15.sp),
               Row(
@@ -165,7 +167,7 @@ class Feedbackscreen extends StatelessWidget {
                     onPressed: () {
                       // Xử lý gửi đánh giá
 
-                      print('Số sao đã chọn: ${feedbackviewmodel.selectedStars}');
+                      // print('Số sao đã chọn: ${feedbackviewmodel.selectedStars}');
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryColor,
