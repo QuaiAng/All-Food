@@ -23,13 +23,13 @@ class Vouchercard extends StatelessWidget {
     return InkWell(
       onTap: () {
         print("Chi tiết voucher");
-        Navigator.pushNamed(context, RouteName.paymentScreen);
+        //Navigator.pushNamed(context, RouteName.paymentScreen);
       },
       child: Stack(
         children: [
           Card(
             color: AppColors.backgroundColor,
-            elevation: 10, //độ nổi của card
+            elevation: 15, //độ nổi của card
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             child: Column(children: [
@@ -38,12 +38,11 @@ class Vouchercard extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // Icon(
-                      //   Icons.percent,
-                      //   color: AppColors.primaryColor,
-                      //   size: 20.sp,
-                      // ),
-                      Image.asset(Imagepath.iconVoucher, width: 22.sp, height: 22.sp,),
+                      Image.asset(
+                        Imagepath.iconVoucher,
+                        width: 22.sp,
+                        height: 22.sp,
+                      ),
                       SizedBox(width: 15.sp),
                       Expanded(
                           child: Column(
@@ -51,31 +50,37 @@ class Vouchercard extends StatelessWidget {
                         children: [
                           Text(
                             name,
-                            style: StylesOfWidgets.textStyle1(fs: 17.sp, fw: FontWeight.w400),
+                            style: StylesOfWidgets.textStyle1(
+                                fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w400),
                           ),
                           SizedBox(height: 10.sp),
-                          Container(
+                          SizedBox(
                             width: 60.sp,
                             child: Text(
                               description,
-                              style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w400, clr: Colors.grey),),
+                              style: StylesOfWidgets.textStyle1(
+                                  fs: SizeOfWidget.sizeOfH3,
+                                  fw: FontWeight.w400,
+                                  clr: Colors.grey),
+                            ),
                           ),
-                          
                         ],
                       )),
                     ],
                   )),
-                  SizedBox(height: 20.sp,),
+              SizedBox(
+                height: 20.sp,
+              ),
               SizedBox(
                 width: double.infinity,
                 height: 30.sp,
                 child: ElevatedButton(
                     onPressed: () {
-                      print("Chi tiết voucher");
+                      Navigator.pushNamed(
+                          context, RouteName.detailvoucherScreen);
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          AppColors.primaryColor, // Màu nền cam giống hình mẫu
+                      backgroundColor: AppColors.primaryColor,
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(8),
@@ -83,18 +88,17 @@ class Vouchercard extends StatelessWidget {
                     ),
                     child: Text(
                       "Chi tiết voucher",
-                      style: GoogleFonts.inter(
-                          textStyle: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.white)),
+                      style: StylesOfWidgets.textStyle1(
+                          fs: SizeOfWidget.sizeOfH3,
+                          fw: FontWeight.w300,
+                          clr: Colors.white),
                     )),
               ),
             ]),
           ),
           Positioned(
             top: 10.sp,
-            right: 16.sp,
+            right: 20.sp,
             child: Text("Còn $turn lượt",
                 style: GoogleFonts.inter(
                   textStyle:

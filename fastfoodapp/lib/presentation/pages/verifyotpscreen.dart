@@ -1,6 +1,5 @@
-import 'package:fastfoodapp/app_router.dart';
-import 'package:fastfoodapp/presentation/states/provider.dart';
-import 'package:fastfoodapp/presentation/widgets/buttonLogin.dart';
+import 'package:fastfoodapp/presentation/states/verifyotpviewmodel.dart';
+import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
@@ -17,10 +16,12 @@ class Verifyotpscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController ctrl = TextEditingController();
-    var provider = Provider.of<AppProvier>(context);
+    var verifyotpViewModel = Provider.of<Verifyotpviewmodel>(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.backgroundColor,
+        surfaceTintColor: AppColors.backgroundColor,
+        shadowColor: Colors.grey,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -28,7 +29,7 @@ class Verifyotpscreen extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
             color: AppColors.primaryColor,
-            size: 30,
+            size: 20,
           ),
         ),
       ),
@@ -71,9 +72,9 @@ class Verifyotpscreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Pinput(
-                      controller: ctrl,
+                      controller: verifyotpViewModel.otpController,
                       length: 4,
-                      forceErrorState: provider.isError,
+                      forceErrorState: verifyotpViewModel.isError,
                       errorPinTheme: StylesOfWidgets.errorPinTheme,
                       defaultPinTheme: StylesOfWidgets.defaultPinTheme,
                     )
@@ -85,14 +86,7 @@ class Verifyotpscreen extends StatelessWidget {
               ),
               Buttonlogin(
                   onClick: () {
-                    if (ctrl.text.toString() != otp) {
-                      Provider.of<AppProvier>(context, listen: false)
-                          .errorOTP(true);
-                    } else {
-                      Provider.of<AppProvier>(context, listen: false)
-                          .errorOTP(false);
-                      Navigator.pushNamed(context, RouteName.paymentScreen);
-                    }
+                    verifyotpViewModel.validateOtp();
                   },
                   text: "XÁC NHẬN"),
               SizedBox(
@@ -111,16 +105,16 @@ class Verifyotpscreen extends StatelessWidget {
                     width: 8.sp,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      verifyotpViewModel.resendOtp();
+                    },
                     child: Text(
                       "Gửi lại",
                       textAlign: TextAlign.left,
-                      style: GoogleFonts.inter(
-                          textStyle: TextStyle(
-                        color: AppColors.primaryColor,
-                        fontSize: SizeOfWidget.sizeOfH3,
-                        fontWeight: FontWeight.w600,
-                      )),
+                      style: StylesOfWidgets.textStyle1(
+                          fs: SizeOfWidget.sizeOfH3,
+                          fw: FontWeight.w600,
+                          clr: AppColors.primaryColor),
                     ),
                   ),
                 ],

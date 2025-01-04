@@ -1,21 +1,53 @@
 import 'package:fastfoodapp/app_router.dart';
-import 'package:fastfoodapp/presentation/pages/settingScreen.dart';
-import 'package:fastfoodapp/presentation/pages/waitingforapprovalscreen.dart';
+import 'package:fastfoodapp/data/repositories/UserRepository.dart';
+import 'package:fastfoodapp/data/services/UserService.dart';
+import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/changepasswordviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/detailsearchviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/editinfoviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/forgotpasswordviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/loginviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/orderstatusviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/paymentviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
-import 'package:fastfoodapp/presentation/widgets/foodSection.dart';
-import 'package:fastfoodapp/res/images.dart';
+import 'package:fastfoodapp/presentation/states/registerviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/verifyotpviewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import 'package:fastfoodapp/presentation/pages/informationscreen.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => AppProvier(),
-      child: const MainApp(),
-    ),
-  );
+  runApp(MultiProvider(
+    providers: [
+      // Cung cấp UserService
+      Provider(create: (_) => UserService()),
+
+      // Cung cấp UserRepository (phụ thuộc vào UserService)
+      ProxyProvider<UserService, Userrepository>(
+        update: (context, userService, _) => Userrepository(userService),
+      ),
+
+      ChangeNotifierProvider(create: (_) => AppProvier()),
+      ChangeNotifierProvider(create: (_) => Cartviewmodel()),
+      ChangeNotifierProvider(create: (_) => Changepasswordviewmodel()),
+      ChangeNotifierProvider(create: (_) => Detailsearchviewmodel()),
+      ChangeNotifierProvider(create: (_) => Editinfoviewmodel()),
+      ChangeNotifierProvider(create: (_) => Forgotpasswordviewmodel()),
+      ChangeNotifierProvider(
+          create: (context) => Loginviewmodel(context.read<Userrepository>())),
+      ChangeNotifierProvider(create: (_) => OrderStatusViewModel()),
+      ChangeNotifierProvider(
+          create: (context) =>
+              Registerviewmodel(context.read<Userrepository>())),
+      ChangeNotifierProvider(create: (_) => Verifyotpviewmodel()),
+      ChangeNotifierProvider(create: (_) => Settingviewmodel()),
+      ChangeNotifierProvider(create: (_) => Addressviewmodel()),
+      ChangeNotifierProvider(create: (_) => Paymentviewmodel()),
+    ],
+    child: const MainApp(),
+  ));
 }
 
 class MainApp extends StatelessWidget {
@@ -24,10 +56,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      return MaterialApp(
-        home: Waitingforapprovalscreen(),
-        // initialRoute: RouteName.sectionFood,
-        // onGenerateRoute: AppRouter.generateRoute,
+      return const MaterialApp(
+        initialRoute: RouteName.loginScreen,
+        onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
       );
     });

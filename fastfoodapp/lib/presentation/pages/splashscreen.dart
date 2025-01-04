@@ -1,5 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
+import 'package:fastfoodapp/presentation/pages/mainscreen.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/images.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +15,7 @@ class Splashscreen extends StatelessWidget {
         splashIconSize: 90.sp,
         backgroundColor: AppColors.primaryColor,
         splash: Lottie.asset(Imagepath.animatedSplash, repeat: true),
-        nextScreen: const Loginscreen());
+        duration: 2000,
+        nextScreen: const Mainscreen());
   }
 }

@@ -4,14 +4,17 @@ import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:fastfoodapp/res/colors.dart';
 
-class Detailistproduct extends StatelessWidget {
-  const Detailistproduct({super.key});
+class Bestsellerlist extends StatelessWidget {
+  const Bestsellerlist({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
+        backgroundColor: AppColors.backgroundColor,
+        surfaceTintColor: AppColors.backgroundColor,
+        shadowColor: Colors.grey,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -19,12 +22,13 @@ class Detailistproduct extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
             color: AppColors.primaryColor,
-            size: 30,
+            size: 20,
           ),
         ),
         title: Text(
-          "Bán chạy nhất",
-          style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH1),
+          "BÁN CHẠY NHẤT",
+          style: StylesOfWidgets.textStyle1(
+              fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w600),
         ),
         centerTitle: true,
       ),
@@ -32,8 +36,8 @@ class Detailistproduct extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, // Số cột hiển thị
-          childAspectRatio: 0.7, // Tỷ lệ khung hình mỗi item
-          mainAxisSpacing: 1, // Khoảng cách giữa các hàng
+          childAspectRatio: 0.6, // Tỷ lệ khung hình mỗi item
+          mainAxisSpacing: 4, // Khoảng cách giữa các hàng
           crossAxisSpacing: 10, // Khoảng cách giữa các cột
         ),
         itemCount: 11,

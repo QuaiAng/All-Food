@@ -1,148 +1,365 @@
-
-import 'package:fastfoodapp/presentation/widgets/settingcom_notifition.dart';
-import 'package:flutter/material.dart';
+import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
+import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
-import 'package:fastfoodapp/presentation/widgets/settings_component.dart';
+import 'package:fastfoodapp/res/styles.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
-class Settingscreen extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => Setting_Screen();
-}
+class SettingScreen extends StatelessWidget {
+  final String name;
+  final String email;
+  final String imagePath;
 
-class Setting_Screen extends State<Settingscreen>{
+  const SettingScreen(
+      {super.key,
+      required this.name,
+      required this.email,
+      required this.imagePath});
+
   @override
   Widget build(BuildContext context) {
+    final settingViewModel = Provider.of<Settingviewmodel>(context);
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(left: 16, right: 32, top: 32),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 10, left: 16),
-                child: Text(
-                  "Setting",
-                  style: TextStyle(
-                    fontSize: SizeOfWidget.sizeOfLargeHeader,
-                    fontWeight: FontWeight.bold
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.all(16.sp),
+          children: [
+            Row(
+              children: [
+                Container(
+                  height: 35.sp,
+                  width: 35.sp,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: AssetImage(imagePath),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
+                SizedBox(width: 15.sp),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: StylesOfWidgets.textStyle1(
+                          fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w500),
+                    ),
+                    Text(
+                      email,
+                      style: StylesOfWidgets.textStyle1(
+                          clr: AppColors.placeholderColor,
+                          fs: SizeOfWidget.sizeOfH2),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                TextButton(
+                  onPressed: () {
+                    print('Chỉnh sửa thông tin cá nhân');
+                    Navigator.pushNamed(context, RouteName.editinfoScreen);
+                  },
+                  child: Text(
+                    'Sửa',
+                    style: StylesOfWidgets.textStyle1(
+                        clr: AppColors.primaryColor, fs: SizeOfWidget.sizeOfH2),
+                  ),
+                )
+              ],
+            ),
+            Padding(padding: EdgeInsets.only(top: 10.sp)),
+            ListTile(
+              leading: Icon(
+                Icons.shopping_cart_outlined,
+                size: 20.sp,
+                color: AppColors.primaryColor,
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 5, bottom: 10),
-                child: Text(
-                  "Update your settings like notifications, "
-                      "\npayments, profile edit etc.",
-                  style: TextStyle(
-                    fontSize: SizeOfWidget.sizeOfH3,
-                    color: Colors.grey
+              title: Text(
+                'Shop của tôi',
+                style: StylesOfWidgets.textStyle1(
+                    fs: SizeOfWidget.sizeOfH2, clr: AppColors.primaryColor),
+              ),
+              trailing: const Icon(
+                Icons.chevron_right,
+                color: AppColors.primaryColor,
+              ),
+              onTap: () {
+                // print("Shop của tôi được nhấn");
+                Navigator.pushNamed(context, RouteName.shopManagementScreen);
+              },
+            ),
+            const Divider(
+              indent: 50,
+            ),
+            ListTile(
+              leading: Icon(Icons.insert_drive_file, size: 20.sp),
+              title: Text(
+                'Lịch sử đơn hàng',
+                style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () {
+                print("Shop của tôi được nhấn");
+              },
+            ),
+            const Divider(
+              indent: 50,
+            ),
+            // ListTile(
+            //   leading: Icon(Icons.card_giftcard_rounded, size: 20.sp),
+            //   title: Text(
+            //     'Kho voucher của tôi',
+            //     style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
+            //   ),
+            //   trailing: const Icon(Icons.chevron_right),
+            //   onTap: () {
+            //     print("Ưu đãi của tôi được nhấn");
+            //     Navigator.pushNamed(context, RouteName.voucherScreen);
+            //   },
+            // ),
+            // const Divider(
+            //   indent: 50,
+            // ),
+            ListTile(
+              leading: Icon(Icons.credit_card, size: 20.sp),
+              title: Text(
+                'Phương thức thanh toán',
+                style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () {
+                print("Phương thức thanh toán được nhấn");
+                Navigator.pushNamed(context, RouteName.paymentmethodScreen);
+              },
+            ),
+            const Divider(
+              indent: 50,
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.location_on,
+                size: 20.sp,
+              ),
+              title: Text(
+                'Địa chỉ của tôi',
+                style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
+              ),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () {
+                print("Địa chỉ của tôi được nhấn");
+                Navigator.pushNamed(context, RouteName.addressScreen);
+              },
+            ),
+            const Divider(
+              indent: 50,
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.lock,
+                size: 20.sp,
+              ),
+              title: Text(
+                'Bảo mật',
+                style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () {
+                print("Bảo mật được nhấn");
+              },
+            ),
+            const Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Ngôn ngữ',
+                  style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
+                ),
+                Container(
+                  // height: 25.sp,
+                  // width: 42.sp,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                  child: DropdownButton<String>(
+                    dropdownColor: Colors.white,
+                    value: settingViewModel.selectedLanguage,
+                    underline: const SizedBox(),
+                    items: ['Vietnam', 'English']
+                        .map((String language) => DropdownMenuItem<String>(
+                              value: language,
+                              child: Text(
+                                language,
+                                style: StylesOfWidgets.textStyle1(
+                                    clr: Colors.black,
+                                    fs: SizeOfWidget.sizeOfH2),
+                              ),
+                            ))
+                        .toList(),
+                    onChanged: (String? newLanguage) {
+                      settingViewModel.selectedLanguage = newLanguage!;
+                    },
+                    style:
+                        StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
                   ),
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: SettingsComponent(
-                    SIcon: 0,
-                    STitle: "Profile Setting",
-                    SContent: "Change your account information"
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: SettingsComponent(
-                    SIcon: 1,
-                    STitle: "Change Password",
-                    SContent: "Change your password"
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: SettingsComponent(
-                    SIcon: 2,
-                    STitle: "Payment Methods",
-                    SContent: "Add your credit & debit cards"
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: SettingsComponent(
-                    SIcon: 3,
-                    STitle: "Locations",
-                    SContent: "Add or remove your delivery locations"
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Text(
-                  "NOTIFICATIONS",
-                  style: TextStyle(
-                    fontSize: SizeOfWidget.sizeOfH1,
-                    fontWeight: FontWeight.w600
+              ],
+            ),
+            Divider(
+              indent: 30.sp,
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 16.sp),
+                  child: Icon(
+                    Icons.notifications,
+                    size: 20.sp,
                   ),
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: SettingcomNotifition(
-                    SIcon: 4,
-                    STitle: "Push Not",
-                    SContent: "Add or remove your delivery locations"
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: SettingcomNotifition(
-                    SIcon: 4,
-                    STitle: "Push Not",
-                    SContent: "Add or remove your delivery locations"
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: SettingcomNotifition(
-                    SIcon: 4,
-                    STitle: "Push Not",
-                    SContent: "Add or remove your delivery locations"
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Text(
-                  "MORE",
-                  style: TextStyle(
-                    fontSize: SizeOfWidget.sizeOfH1,
-                    fontWeight: FontWeight.w600
+                // SizedBox(width: 20.sp),
+                Expanded(
+                  child: SwitchListTile(
+                    title: Text(
+                      'Âm thanh thông báo',
+                      style:
+                          StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
+                    ),
+                    value: settingViewModel.notificationSound,
+                    activeColor: Colors.white,
+                    activeTrackColor: AppColors.primaryColor,
+                    thumbColor: const WidgetStatePropertyAll(Colors.white),
+                    trackOutlineColor:
+                        const WidgetStatePropertyAll(Colors.transparent),
+                    inactiveTrackColor:
+                        const Color.fromARGB(255, 222, 222, 222),
+                    onChanged: (bool value) {
+                      settingViewModel.notificationSound = value;
+                    },
                   ),
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: SettingsComponent(
-                    SIcon: 5,
-                    STitle: "Rate",
-                    SContent: "Rate us playstore, appstor"
+              ],
+            ),
+            Divider(
+              indent: 30.sp,
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 16.sp),
+                  child: Icon(
+                    Icons.notifications,
+                    size: 20.sp,
+                  ),
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: SettingsComponent(
-                    SIcon: 6,
-                    STitle: "FAQ",
-                    SContent: "Frequently asked questions"
+                // SizedBox(width: 10.sp),
+                Expanded(
+                  child: SwitchListTile(
+                    title: Text(
+                      'Âm thanh trong ứng dụng',
+                      style:
+                          StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
+                    ),
+                    value: settingViewModel.sound,
+                    activeColor: Colors.white,
+                    activeTrackColor: AppColors.primaryColor,
+                    thumbColor: const WidgetStatePropertyAll(Colors.white),
+                    trackOutlineColor:
+                        const WidgetStatePropertyAll(Colors.transparent),
+                    inactiveTrackColor:
+                        const Color.fromARGB(255, 222, 222, 222),
+                    onChanged: (bool value) {
+                      settingViewModel.sound = value;
+                    },
+                  ),
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: SettingsComponent(
-                    SIcon: 7,
-                    STitle: "Logout",
-                    SContent: "Log out of your account"
+              ],
+            ),
+            const Divider(
+              indent: 50,
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 16.sp),
+                  child: Icon(
+                    Icons.notifications,
+                    size: 20.sp,
+                  ),
                 ),
+                // SizedBox(width: 10),
+                Expanded(
+                  child: SwitchListTile(
+                    title: Text(
+                      'Thông báo cập nhật',
+                      style:
+                          StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
+                    ),
+                    value: settingViewModel.updateNotification,
+                    activeColor: Colors.white,
+                    activeTrackColor: AppColors.primaryColor,
+                    thumbColor: const WidgetStatePropertyAll(Colors.white),
+                    trackOutlineColor:
+                        const WidgetStatePropertyAll(Colors.transparent),
+                    inactiveTrackColor:
+                        const Color.fromARGB(255, 222, 222, 222),
+                    onChanged: (bool value) {
+                      settingViewModel.updateNotification = value;
+                    },
+                  ),
+                ),
+              ],
+            ),
+            const Divider(
+              indent: 50,
+            ),
+            ListTile(
+              leading: Icon(Icons.info_outline, size: 20.sp),
+              title: Text(
+                'Thông tin ứng dụng',
+                style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
               ),
-            ],
-          )
-        )
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () {
+                print("Ưu đãi của tôi được nhấn");
+              },
+            ),
+            SizedBox(
+              height: 20.sp,
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                side: const BorderSide(color: AppColors.primaryColor, width: 1),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 15.sp),
+              ),
+              onPressed: () {
+                print("Đăng xuất");
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  RouteName.loginScreen,
+                  (route) => false, // Xóa tất cả các route trước đó
+                );
+              },
+              child: Text(
+                'ĐĂNG XUẤT',
+                style: StylesOfWidgets.textStyle1(
+                    fs: SizeOfWidget.sizeOfH3,
+                    clr: AppColors.primaryColor,
+                    fw: FontWeight.w600),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

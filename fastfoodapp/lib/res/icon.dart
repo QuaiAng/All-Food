@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ficonsax/ficonsax.dart';
 
 class IconList {
   static List<IconData> icons = [
@@ -7,7 +6,6 @@ class IconList {
     Icons.lock,
     Icons.payment,
     Icons.location_on,
-    IconsaxBold.notification,
     Icons.star,
     Icons.book,
     Icons.logout
