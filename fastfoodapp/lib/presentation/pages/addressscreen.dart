@@ -15,7 +15,6 @@ class Addressscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final addressViewModel = Provider.of<Addressviewmodel>(context);
-    // addressViewModel.getListAddress();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -134,63 +133,74 @@ class Addressscreen extends StatelessWidget {
                       ))
                 ],
               ),
-              ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: addressViewModel.listAddress.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Slidable(
-                          endActionPane: ActionPane(
-                              motion: const StretchMotion(),
-                              children: [
-                                SlidableAction(
-                                    backgroundColor: Colors.red,
-                                    label: "Xóa",
-                                    onPressed: (context) {
-                                      // items.removeAt(index);
-                                      const snackBar = SnackBar(
-                                        content: Text(
-                                          "Đã xóa",
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        backgroundColor: Colors.red,
-                                      );
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
-                                    })
-                              ]),
-                          child: ListTile(
-                            leading: Icon(
-                              Icons.location_on,
-                              size: 20.sp,
-                            ),
-                            title: Text(
-                              "Địa chỉ ${index + 1}",
-                              style: StylesOfWidgets.textStyle1(
-                                  clr: Colors.black,
-                                  fw: FontWeight.w400,
-                                  fs: SizeOfWidget.sizeOfH2),
-                            ),
-                            subtitle: Text(
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              addressViewModel.listAddress[index],
-                              style: StylesOfWidgets.textStyle1(
-                                  clr: Colors.grey,
-                                  fw: FontWeight.w400,
-                                  fs: SizeOfWidget.sizeOfH3),
-                            ),
-                          ),
-                        ),
-                        if (index < 4)
-                          const Divider(
-                            indent: 50,
-                          )
-                      ],
-                    );
-                  })
+              FutureBuilder(
+                future: addressViewModel.getAddress(),
+                builder: (BuildContext context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  } else {
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: addressViewModel.listAddress.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              Slidable(
+                                endActionPane: ActionPane(
+                                    motion: const StretchMotion(),
+                                    children: [
+                                      SlidableAction(
+                                          backgroundColor: Colors.red,
+                                          label: "Xóa",
+                                          onPressed: (context) {
+                                            // items.removeAt(index);
+                                            const snackBar = SnackBar(
+                                              content: Text(
+                                                "Đã xóa",
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              backgroundColor: Colors.red,
+                                            );
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(snackBar);
+                                          })
+                                    ]),
+                                child: ListTile(
+                                  leading: Icon(
+                                    Icons.location_on,
+                                    size: 20.sp,
+                                  ),
+                                  title: Text(
+                                    "Địa chỉ ${index + 1}",
+                                    style: StylesOfWidgets.textStyle1(
+                                        clr: Colors.black,
+                                        fw: FontWeight.w400,
+                                        fs: SizeOfWidget.sizeOfH2),
+                                  ),
+                                  subtitle: Text(
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    addressViewModel.listAddress[index],
+                                    style: StylesOfWidgets.textStyle1(
+                                        clr: Colors.grey,
+                                        fw: FontWeight.w400,
+                                        fs: SizeOfWidget.sizeOfH3),
+                                  ),
+                                ),
+                              ),
+                              if (index < 4)
+                                const Divider(
+                                  indent: 50,
+                                )
+                            ],
+                          );
+                        });
+                  }
+                },
+              )
             ],
           ),
         ),
