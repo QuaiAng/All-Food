@@ -7,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class Addressservice {
-  
   Future<List<dynamic>?> getAddress() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     final response = await http.get(Uri.parse(
@@ -21,6 +20,22 @@ class Addressservice {
       return null;
     } else if (response.statusCode == 404) {
       return throw Exception("Not Found Data");
+    }
+  }
+
+  Future<Map<String, dynamic>?> getAddressId() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    final response = await http.get(Uri.parse(
+        "${AppStrings.urlAPI}/address/addressId=22"));
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else if (response.statusCode == 400) {
+      var data = jsonDecode(response.body);
+      return data;
+    } else if (response.statusCode == 404) {
+      var data = jsonDecode(response.body);
+      return data;
     }
   }
 }
