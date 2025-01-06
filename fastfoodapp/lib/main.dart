@@ -2,6 +2,7 @@ import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:fastfoodapp/data/services/UserService.dart';
 import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/addvoucherviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/changepasswordviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/detailsearchviewmodel.dart';
@@ -45,6 +46,7 @@ void main() {
       ChangeNotifierProvider(create: (_) => Settingviewmodel()),
       ChangeNotifierProvider(create: (_) => Addressviewmodel()),
       ChangeNotifierProvider(create: (_) => Paymentviewmodel()),
+      ChangeNotifierProvider(create: (_) => Addvoucherviewmodel()),
     ],
     child: const MainApp(),
   ));
@@ -57,7 +59,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return const MaterialApp(
-        initialRoute: RouteName.loginScreen,
+        initialRoute: RouteName.addvoucherscreen,
         onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
       );

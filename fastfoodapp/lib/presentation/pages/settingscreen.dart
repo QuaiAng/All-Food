@@ -89,7 +89,7 @@ class SettingScreen extends StatelessWidget {
               ),
               onTap: () {
                 // print("Shop của tôi được nhấn");
-                Navigator.pushNamed(context, RouteName.ShopManagementScreen);
+                Navigator.pushNamed(context, RouteName.shopManagementScreen);
               },
             ),
             const Divider(
