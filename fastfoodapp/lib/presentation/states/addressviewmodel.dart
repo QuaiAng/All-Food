@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Addressviewmodel extends ChangeNotifier {
   List<Address> listAddressUser = [];
-  String addressCurrent = '';
+  Future<String>? addressCurrent = null;
 
   Addressrepository _addressrepository;
   Addressviewmodel(this._addressrepository);
@@ -14,22 +14,40 @@ class Addressviewmodel extends ChangeNotifier {
     List<Address>? _address = await _addressrepository
         .getAddress(); // tạo ra 1 list để hứng hoặc copy từ list bên repository qua.
     if (_address != null) {
-      for (int i = 0; i < _address!.length; i++) {
-        listAddressUser.add(_address[i]); // sau đó in ra.
+      if (listAddressUser.isNotEmpty) {
+        for (int i = 0; i < _address!.length; i++) {
+          if (listAddressUser[i].addressId != _address[i].addressId) {
+            listAddressUser.add(_address[i]); // sau đó in ra.
+          }
+        }
+      } else {
+        for (int i = 0; i < _address!.length; i++) {
+          listAddressUser.add(_address[i]); // sau đó in ra.
+        }
       }
     }
   }
 
-  Future<void> getAddressId() async {
-    Address? _address = await _addressrepository.getAddressId();
-    if (_address != null) {
-      addressCurrent = _address.address;
+  Future<String> getAddressCurrent() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    if (!_prefs.containsKey('addressCurrent')) {
+      return '';
     }
+    Address? _address = await _addressrepository
+        .getAddressById(_prefs.getInt('addressCurrent')!);
+    return _address == null ? '' : _address.address;
   }
 
-  Future<bool> saveAddressId(int addressId) async {
+  Future<bool> deleteAddressById(int addressId) async {
+    listAddressUser.removeWhere((item) => item.addressId == addressId);
+    final flag = await _addressrepository.deleteAddressById(addressId);
+    notifyListeners();
+    return flag;
+  }
+
+  Future<bool> saveAddressByIdCurrent(int addressIdCurrent) async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
-    final result = await _prefs.setInt('addressId', addressId);
+    final result = await _prefs.setInt('addressCurrent', addressIdCurrent);
     return result;
   }
 }

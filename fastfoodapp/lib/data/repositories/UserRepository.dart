@@ -18,15 +18,14 @@ class Userrepository {
   }
 
   Future<User?> getUser() async {
-  
     var response = await _userService.getUser();
     // if(response != null){
     //   if (response['fullName'] == ) {
 
     //   } // kiểm tra
     // }
-  
-    User user = User.fromJson(
+
+    User? user = User.fromJson(
         response as Map<String, dynamic>); // chuyển từ json sang đối tượng
 
     return user;

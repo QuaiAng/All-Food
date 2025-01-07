@@ -42,7 +42,7 @@ class UserService {
       },
     );
     if (response.statusCode == 200) {
-      return jsonDecode(response.body) as Map<String, dynamic>;
+      return jsonDecode(response.body)['data'] as Map<String, dynamic>;
     } else if (response.statusCode == 400) {
       var data = jsonDecode(response.body);
       return throw Exception(data['title']);

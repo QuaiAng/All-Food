@@ -15,7 +15,7 @@ class Addressservice {
     if (response.statusCode == 200) {
       // return jsonDecode(response.body)[
       //     0]; // trả ra một list bên trong nó là các map địa chỉ, mà mỗi đại chỉ có kiểu dữ liệu là map theo dạng key = value.
-      return jsonDecode(response.body);
+      return jsonDecode(response.body)['value'];
     } else if (response.statusCode == 400) {
       return null;
     } else if (response.statusCode == 404) {
@@ -23,11 +23,23 @@ class Addressservice {
     }
   }
 
-  Future<Map<String, dynamic>?> getAddressId() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    final response = await http.get(Uri.parse(
-        "${AppStrings.urlAPI}/address/addressId=22"));
+  Future<Map<String, dynamic>?> getAddressById(int addressId) async {
+    final response = await http
+        .get(Uri.parse("${AppStrings.urlAPI}/address/addressId=${addressId}"));
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['value'];
+    } else if (response.statusCode == 400) {
+      var data = jsonDecode(response.body);
+      return data;
+    } else if (response.statusCode == 404) {
+      var data = jsonDecode(response.body);
+      return data;
+    }
+  }
 
+  Future<Map<String, dynamic>?> deleteAddressById(int addressId) async {
+    final response = await http
+        .delete(Uri.parse("${AppStrings.urlAPI}/address/remove/${addressId}"));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else if (response.statusCode == 400) {

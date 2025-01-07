@@ -6,8 +6,8 @@ import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 class Addressscreen extends StatelessWidget {
@@ -90,70 +90,57 @@ class Addressscreen extends StatelessWidget {
                     fs: SizeOfWidget.sizeOfH2),
               ),
               SizedBox(height: 15.sp),
-              Material(
-                child: ListTile(
-                  leading: Icon(
-                    Icons.location_on,
-                    size: 20.sp,
-                  ),
-                  title: Text(
-                    "Địa chỉ hiện tại",
-                    style: StylesOfWidgets.textStyle1(
-                        clr: Colors.black,
-                        fw: FontWeight.w400,
-                        fs: SizeOfWidget.sizeOfH2),
-                  ),
-                  subtitle: FutureBuilder(
-                    future: addressViewModel.getAddressId(),
-                    builder: (BuildContext context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else if (snapshot.hasError) {
-                        return Text("${snapshot.error}");
-                      } else {
-                        return Text(
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          addressViewModel.addressCurrent,
-                          style: StylesOfWidgets.textStyle1(
-                              clr: Colors.grey,
-                              fw: FontWeight.w400,
-                              fs: SizeOfWidget.sizeOfH3),
-                        );
-                      }
-                    },
-                  ),
+              ListTile(
+                leading: Icon(
+                  Icons.location_on,
+                  size: 20.sp,
+                ),
+                title: Text(
+                  "Địa chỉ hiện tại",
+                  style: StylesOfWidgets.textStyle1(
+                      clr: Colors.black,
+                      fw: FontWeight.w400,
+                      fs: SizeOfWidget.sizeOfH2),
+                ),
+                subtitle: FutureBuilder(
+                  future: addressViewModel.getAddressCurrent(),
+                  builder: (BuildContext context, snapshot) {
+                    // String currentAddress = snapshot.data == null
+                    //     ? 'Chưa có địa chỉ hiện tại'
+                    //     : snapshot.data!;
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
+                    } else {
+                      return Text(
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        snapshot.data!,
+                        style: StylesOfWidgets.textStyle1(
+                            clr: Colors.grey,
+                            fw: FontWeight.w400,
+                            fs: SizeOfWidget.sizeOfH3),
+                      );
+                    }
+                  },
                 ),
               ),
               SizedBox(height: 20.sp),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "ĐỊA CHỈ ĐÃ LƯU",
-                    style: StylesOfWidgets.textStyle1(
-                        clr: Colors.black,
-                        fw: FontWeight.w500,
-                        fs: SizeOfWidget.sizeOfH2),
-                  ),
-                  TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "XÓA",
-                        style: StylesOfWidgets.textStyle1(
-                            clr: Colors.black,
-                            fw: FontWeight.w300,
-                            fs: SizeOfWidget.sizeOfH4),
-                      ))
-                ],
+              Text(
+                "ĐỊA CHỈ ĐÃ LƯU",
+                style: StylesOfWidgets.textStyle1(
+                    clr: Colors.black,
+                    fw: FontWeight.w500,
+                    fs: SizeOfWidget.sizeOfH2),
               ),
               FutureBuilder(
                 future: addressViewModel.getAddress(),
                 builder: (BuildContext context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return Text('${snapshot.error}');
                   } else {
@@ -168,7 +155,79 @@ class Addressscreen extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: CupertinoContextMenu(
+                                      actions: [
+                                        CupertinoContextMenuAction(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                  "Chọn làm địa chỉ hiện tại  "),
+                                              Icon(
+                                                Icons.location_on,
+                                                size: 18.sp,
+                                              )
+                                            ],
+                                          ),
+                                          onPressed: () async {
+                                            final result =
+                                                await addressViewModel
+                                                    .saveAddressByIdCurrent(
+                                                        addressViewModel
+                                                            .listAddressUser[
+                                                                index]
+                                                            .addressId);
+                                          },
+                                        ),
+                                        CupertinoContextMenuAction(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                  "Xóa địa chỉ tại danh sách "),
+                                              Icon(
+                                                Icons.delete,
+                                                color: Colors.red,
+                                                size: 18.sp,
+                                              )
+                                            ],
+                                          ),
+                                          onPressed: () async {
+                                            final result =
+                                                await addressViewModel
+                                                    .deleteAddressById(
+                                                        addressViewModel
+                                                            .listAddressUser[
+                                                                index]
+                                                            .addressId);
+                                            if (result == true) {
+                                              return showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title: const Text(
+                                                          "Thông báo"),
+                                                      content: const Text(
+                                                          "Đã xóa thành công"),
+                                                      actions: [
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context,
+                                                                  true);
+                                                            },
+                                                            child: Text("OK"))
+                                                      ],
+                                                    );
+                                                  });
+                                            }
+                                          },
+                                        ),
+                                      ],
                                       child: Material(
+                                        color: AppColors.backgroundColor,
                                         child: ConstrainedBox(
                                           constraints: BoxConstraints(
                                             maxWidth: MediaQuery.of(context)
@@ -182,8 +241,7 @@ class Addressscreen extends StatelessWidget {
                                             ),
                                             title: Text(
                                               "Địa chỉ ${index + 1}",
-                                              style: StylesOfWidgets
-                                                  .textStyle1(
+                                              style: StylesOfWidgets.textStyle1(
                                                 clr: Colors.black,
                                                 fw: FontWeight.w400,
                                                 fs: SizeOfWidget.sizeOfH2,
@@ -191,13 +249,11 @@ class Addressscreen extends StatelessWidget {
                                             ),
                                             subtitle: Text(
                                               maxLines: 1,
-                                              overflow:
-                                                  TextOverflow.ellipsis,
+                                              overflow: TextOverflow.ellipsis,
                                               addressViewModel
                                                   .listAddressUser[index]
                                                   .address,
-                                              style: StylesOfWidgets
-                                                  .textStyle1(
+                                              style: StylesOfWidgets.textStyle1(
                                                 clr: Colors.grey,
                                                 fw: FontWeight.w400,
                                                 fs: SizeOfWidget.sizeOfH3,
@@ -206,18 +262,6 @@ class Addressscreen extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      actions: [
-                                        CupertinoContextMenuAction(
-                                          child: Text(
-                                              "Chọn làm địa chỉ hiện tại"),
-                                          onPressed: () {
-                                            addressViewModel.saveAddressId(
-                                                addressViewModel
-                                                    .listAddressUser[index]
-                                                    .addressId);
-                                          },
-                                        ),
-                                      ],
                                     ),
                                   ),
                                 ],
