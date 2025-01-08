@@ -119,9 +119,7 @@ class AppRouter {
       case RouteName.settingScreen:
         return MaterialPageRoute(
             builder: (_) => const SettingScreen(
-                  email: "caohoaian@gmail.com",
                   imagePath: "assets/images/icon.png",
-                  name: "Cao Hoai An",
                 ));
       //Man hình cài đặt
       case RouteName.detailShopScreen:

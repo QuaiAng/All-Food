@@ -15,6 +15,7 @@ class Editinfoscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final editInfoViewModel = Provider.of<Editinfoviewmodel>(context);
+    editInfoViewModel.getUser();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
