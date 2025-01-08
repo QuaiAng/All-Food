@@ -1,4 +1,4 @@
-import 'package:fastfoodapp/presentation/widgets/itemRow.dart';
+import 'package:fastfoodapp/presentation/widgets/iteminpaymentscreen.dart';
 import 'package:flutter/material.dart';
 
 class Paymentviewmodel extends ChangeNotifier {

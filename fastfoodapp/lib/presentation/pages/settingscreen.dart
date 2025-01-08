@@ -89,7 +89,7 @@ class SettingScreen extends StatelessWidget {
               ),
               onTap: () {
                 // print("Shop của tôi được nhấn");
-                Navigator.pushNamed(context, RouteName.ShopManagementScreen);
+                Navigator.pushNamed(context, RouteName.shopManagementScreen);
               },
             ),
             const Divider(
@@ -132,7 +132,7 @@ class SettingScreen extends StatelessWidget {
               ),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
-                print("Phương thức thanh toán được nhấn");
+                // print("Phương thức thanh toán được nhấn");
                 Navigator.pushNamed(context, RouteName.paymentmethodScreen);
               },
             ),
@@ -148,9 +148,9 @@ class SettingScreen extends StatelessWidget {
                 'Địa chỉ của tôi',
                 style: StylesOfWidgets.textStyle1(fs: SizeOfWidget.sizeOfH2),
               ),
-              trailing: Icon(Icons.chevron_right),
+              trailing: const Icon(Icons.chevron_right),
               onTap: () {
-                print("Địa chỉ của tôi được nhấn");
+                // print("Địa chỉ của tôi được nhấn");
                 Navigator.pushNamed(context, RouteName.addressScreen);
               },
             ),
@@ -168,7 +168,7 @@ class SettingScreen extends StatelessWidget {
               ),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
-                print("Bảo mật được nhấn");
+                // print("Bảo mật được nhấn");
               },
             ),
             const Divider(),
