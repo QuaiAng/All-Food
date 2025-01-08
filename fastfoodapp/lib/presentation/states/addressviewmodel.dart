@@ -15,7 +15,7 @@ class Addressviewmodel extends ChangeNotifier {
         .getAddress(); // tạo ra 1 list để hứng hoặc copy từ list bên repository qua.
     if (_address != null) {
       if (listAddressUser.isNotEmpty) {
-        for (int i = 0; i < _address!.length; i++) {
+        for (int i = 0; i < _address.length; i++) {
           if (listAddressUser[i].addressId != _address[i].addressId) {
             listAddressUser.add(_address[i]); // sau đó in ra.
           }
@@ -31,7 +31,7 @@ class Addressviewmodel extends ChangeNotifier {
   Future<String> getAddressCurrent() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     if (!_prefs.containsKey('addressCurrent')) {
-      return '';
+      return 'Chưa chọn địa chỉ mặc định';
     }
     Address? _address = await _addressrepository
         .getAddressById(_prefs.getInt('addressCurrent')!);
@@ -48,6 +48,7 @@ class Addressviewmodel extends ChangeNotifier {
   Future<bool> saveAddressByIdCurrent(int addressIdCurrent) async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     final result = await _prefs.setInt('addressCurrent', addressIdCurrent);
+    notifyListeners();
     return result;
   }
 }

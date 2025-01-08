@@ -27,7 +27,7 @@ class Addressservice {
     final response = await http
         .get(Uri.parse("${AppStrings.urlAPI}/address/addressId=${addressId}"));
     if (response.statusCode == 200) {
-      return jsonDecode(response.body)['value'];
+      return jsonDecode(response.body);
     } else if (response.statusCode == 400) {
       var data = jsonDecode(response.body);
       return data;
