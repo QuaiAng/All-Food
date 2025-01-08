@@ -15,7 +15,7 @@ class Addressservice {
     if (response.statusCode == 200) {
       // return jsonDecode(response.body)[
       //     0]; // trả ra một list bên trong nó là các map địa chỉ, mà mỗi đại chỉ có kiểu dữ liệu là map theo dạng key = value.
-      return jsonDecode(response.body)['value'];
+      return jsonDecode(response.body)['data'];
     } else if (response.statusCode == 400) {
       return null;
     } else if (response.statusCode == 404) {

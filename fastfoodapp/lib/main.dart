@@ -3,7 +3,6 @@ import 'package:fastfoodapp/data/repositories/AddressRepository.dart';
 import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:fastfoodapp/data/services/AddressService.dart';
 import 'package:fastfoodapp/data/services/UserService.dart';
-import 'package:fastfoodapp/presentation/pages/detailproductscreen.dart';
 import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/changepasswordviewmodel.dart';
@@ -17,7 +16,6 @@ import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/states/registerviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/verifyotpviewmodel.dart';
-import 'package:fastfoodapp/presentation/widgets/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -71,17 +69,10 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      return MaterialApp(
-        initialRoute: RouteName.loginScreen,
+      return const MaterialApp(
+        initialRoute: RouteName.mainScreen,
         onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
-        // home: Detailproductscreen(
-        //     image: "assets/images/anhdai.jpeg",
-        //     nameFood: "Bánh Mì Kẹp Thịt",
-        //     comment:
-        //         "Shortbread, chocolate turtle cookies, and red velvet, Shortbread, chocolate turtle cookies, and red velvet 8 ounces cream cheese , softened",
-        //     rating: 4.3,
-        //     quantity: 253)
       );
     });
   }
