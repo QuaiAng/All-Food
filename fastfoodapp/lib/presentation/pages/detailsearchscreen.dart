@@ -1,3 +1,5 @@
+import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/pages/resultsearchscreen.dart';
 import 'package:fastfoodapp/presentation/states/detailsearchviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/searchedrecent.dart';
 import 'package:fastfoodapp/res/colors.dart';
@@ -73,6 +75,15 @@ class Detailsearchscreen extends StatelessWidget {
                   onPressed: () {
                     detailSearchViewModel.addSearchItem(
                         detailSearchViewModel.searchTextcontroller.text);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Resultsearchscreen(),
+                        settings: RouteSettings(
+                            arguments: detailSearchViewModel
+                                .searchTextcontroller.text),
+                      ),
+                    );
                   },
                   child: Text("Tìm kiếm",
                       style: StylesOfWidgets.textStyle1(

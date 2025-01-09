@@ -14,6 +14,7 @@ import 'package:fastfoodapp/presentation/pages/orderstatusscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentmethodscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
 import 'package:fastfoodapp/presentation/pages/registerscreen.dart';
+import 'package:fastfoodapp/presentation/pages/resultsearchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/searchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailsearchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/settingscreen.dart';
@@ -48,6 +49,7 @@ class RouteName {
   static const String shopManagementScreen = "/shopmanagement";
   static const String feedBackscreen = "/feedback";
   static const String changePasswordScreen = "/changepassword";
+  static const String resultSearchScreen = "/resultsearch";
 }
 
 class AppRouter {
@@ -65,6 +67,9 @@ class AppRouter {
       //Màn hình chờ
       case RouteName.splashScreen:
         return MaterialPageRoute(builder: (_) => const Splashscreen());
+      //Màn hình chờ
+      case RouteName.resultSearchScreen:
+        return MaterialPageRoute(builder: (_) => const Resultsearchscreen());
       //Màn hình chính dùng để điều hướng đến các màn hình khác
       case RouteName.mainScreen:
         return MaterialPageRoute(builder: (_) => const Mainscreen());

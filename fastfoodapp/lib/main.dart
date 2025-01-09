@@ -1,7 +1,9 @@
 import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/data/repositories/AddressRepository.dart';
+import 'package:fastfoodapp/data/repositories/ProductRepository.dart';
 import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:fastfoodapp/data/services/AddressService.dart';
+import 'package:fastfoodapp/data/services/ProductService.dart';
 import 'package:fastfoodapp/data/services/UserService.dart';
 import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
@@ -14,6 +16,7 @@ import 'package:fastfoodapp/presentation/states/orderstatusviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/paymentviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/states/registerviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/resultsearchviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/verifyotpviewmodel.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +29,7 @@ void main() {
       // Cung cấp UserService
       Provider(create: (_) => UserService()),
       Provider(create: (_) => Addressservice()),
+      Provider(create: (_) => Productservice()),
 
       // Cung cấp UserRepository (phụ thuộc vào UserService)
       ProxyProvider<UserService, Userrepository>(
@@ -35,6 +39,9 @@ void main() {
       ProxyProvider<Addressservice, Addressrepository>(
           update: (context, addressService, _) =>
               Addressrepository(addressService)),
+      ProxyProvider<Productservice, Productrepository>(
+          update: (context, productService, _) =>
+              Productrepository(productService)),
 
       ChangeNotifierProvider(create: (_) => AppProvier()),
       ChangeNotifierProvider(create: (_) => Cartviewmodel()),
@@ -57,6 +64,10 @@ void main() {
       ChangeNotifierProvider(
           create: (context) =>
               Addressviewmodel(context.read<Addressrepository>())),
+
+      ChangeNotifierProvider(
+          create: (context) =>
+              Resultsearchviewmodel(context.read<Productrepository>())),
       ChangeNotifierProvider(create: (_) => Paymentviewmodel()),
     ],
     child: const MainApp(),
