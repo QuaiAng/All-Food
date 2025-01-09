@@ -10,11 +10,13 @@ class Detailproductscreen extends StatelessWidget {
   Detailproductscreen(
       {required this.image,
       required this.nameFood,
+      required this.categoryFoodName,
       required this.comment,
       required this.rating,
       required this.quantity});
 
   late String image;
+  late String categoryFoodName;
   late String nameFood;
   late String comment;
   late double rating;
@@ -41,7 +43,7 @@ class Detailproductscreen extends StatelessWidget {
             children: [
               SizedBox(
                 // hình nền
-                height: 58.sp,
+                height: 60.sp,
                 width: double.infinity,
                 child: Image.network(
                   image,
@@ -85,7 +87,17 @@ class Detailproductscreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 20.sp,
+                  height: 15.sp,
+                ),
+                Text(
+                  categoryFoodName,
+                  style: StylesOfWidgets.textStyle1(
+                      fs: 16.sp,
+                      fw: FontWeight.w400,
+                      clr: AppColors.placeholderColor),
+                ),
+                SizedBox(
+                  height: 15.sp,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -145,7 +157,6 @@ class Detailproductscreen extends StatelessWidget {
                         ]);
                       }),
                 ),
-                
               ],
             ),
           )

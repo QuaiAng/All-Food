@@ -3,6 +3,8 @@ import 'package:fastfoodapp/data/repositories/AddressRepository.dart';
 import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:fastfoodapp/data/services/AddressService.dart';
 import 'package:fastfoodapp/data/services/UserService.dart';
+import 'package:fastfoodapp/presentation/pages/detailproductscreen.dart';
+import 'package:fastfoodapp/presentation/pages/detailsearchscreen.dart';
 import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/changepasswordviewmodel.dart';
@@ -69,10 +71,19 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      return const MaterialApp(
-        initialRoute: RouteName.mainScreen,
-        onGenerateRoute: AppRouter.generateRoute,
+      return MaterialApp(
+        // initialRoute: RouteName.mainScreen,
+        // onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
+        home: Detailproductscreen(
+          image: "assets/images/anhdai.jpeg",
+          nameFood: "Bánh Kẹp Kem",
+          categoryFoodName: "Bánh ngọt",
+          comment:
+              "Shortbread, chocolate turtle cookies, and red velret. 8 ounces cream cheese, softened",
+          rating: 4.3,
+          quantity: 273,
+        ),
       );
     });
   }
