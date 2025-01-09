@@ -1,6 +1,7 @@
 import 'package:fastfoodapp/presentation/pages/addressscreen.dart';
 import 'package:fastfoodapp/presentation/pages/cartscreen.dart';
 import 'package:fastfoodapp/presentation/pages/bestsellerlist.dart';
+import 'package:fastfoodapp/presentation/pages/changepasswordscreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailvoucherscreen.dart';
 import 'package:fastfoodapp/presentation/pages/editinfoscreen.dart';
 import 'package:fastfoodapp/presentation/pages/feedbackscreen.dart';
@@ -13,6 +14,7 @@ import 'package:fastfoodapp/presentation/pages/orderstatusscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentmethodscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
 import 'package:fastfoodapp/presentation/pages/registerscreen.dart';
+import 'package:fastfoodapp/presentation/pages/resultsearchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/searchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailsearchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/settingscreen.dart';
@@ -20,6 +22,7 @@ import 'package:fastfoodapp/presentation/pages/shopmanagementscreen.dart';
 import 'package:fastfoodapp/presentation/pages/splashscreen.dart';
 import 'package:fastfoodapp/presentation/pages/verifyotpscreen.dart';
 import 'package:fastfoodapp/presentation/pages/voucherscreen.dart';
+import 'package:fastfoodapp/presentation/pages/filterrevenuescreen.dart';
 import 'package:flutter/material.dart';
 
 class RouteName {
@@ -46,6 +49,9 @@ class RouteName {
   static const String addressScreen = "/address";
   static const String shopManagementScreen = "/shopmanagement";
   static const String feedBackscreen = "/feedback";
+  static const String changePasswordScreen = "/changepassword";
+  static const String resultSearchScreen = "/resultsearch";
+  static const String filterRevenue = "/filterrevenue";
 }
 
 class AppRouter {
@@ -63,6 +69,9 @@ class AppRouter {
       //Màn hình chờ
       case RouteName.splashScreen:
         return MaterialPageRoute(builder: (_) => const Splashscreen());
+      //Màn hình chờ
+      case RouteName.resultSearchScreen:
+        return MaterialPageRoute(builder: (_) => const Resultsearchscreen());
       //Màn hình chính dùng để điều hướng đến các màn hình khác
       case RouteName.mainScreen:
         return MaterialPageRoute(builder: (_) => const Mainscreen());
@@ -115,13 +124,13 @@ class AppRouter {
       //Man hình theo dõi trạng thái đơn hàng
       case RouteName.orderStatusScreen:
         return MaterialPageRoute(builder: (_) => const Orderstatusscreen());
+      case RouteName.changePasswordScreen:
+        return MaterialPageRoute(builder: (_) => const Changepasswordscreen());
       //Man hình cài đặt
       case RouteName.settingScreen:
         return MaterialPageRoute(
             builder: (_) => const SettingScreen(
-                  email: "caohoaian@gmail.com",
                   imagePath: "assets/images/icon.png",
-                  name: "Cao Hoai An",
                 ));
       //Man hình cài đặt
       case RouteName.detailShopScreen:
@@ -131,9 +140,11 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const Addressscreen());
 
       case RouteName.shopManagementScreen:
-        return MaterialPageRoute(builder: (_) => Shopmanagementscreen());
+        return MaterialPageRoute(builder: (_) => const Shopmanagementscreen());
       case RouteName.feedBackscreen:
-        return MaterialPageRoute(builder: (_) => Feedbackscreen());
+        return MaterialPageRoute(builder: (_) => const Feedbackscreen());
+      case RouteName.filterRevenue:
+        return MaterialPageRoute(builder: (_) => const Filterrevenuescreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

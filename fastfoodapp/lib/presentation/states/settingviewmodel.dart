@@ -1,7 +1,14 @@
+import 'package:fastfoodapp/data/models/User.dart';
+import 'package:fastfoodapp/data/models/UserModel.dart';
+import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Settingviewmodel with ChangeNotifier {
   // Các trạng thái của màn hình
+  final Userrepository _userRepository;
+  Settingviewmodel(this._userRepository);
+
   bool _notificationSound = true;
   bool _sound = false;
   bool _updateNotification = true;
@@ -12,6 +19,10 @@ class Settingviewmodel with ChangeNotifier {
   bool get sound => _sound;
   bool get updateNotification => _updateNotification;
   String get selectedLanguage => _selectedLanguage;
+
+  Future<User?> getUser() async {
+    return await _userRepository.getUser();
+  }
 
   set selectedLanguage(String value) {
     _selectedLanguage = value;

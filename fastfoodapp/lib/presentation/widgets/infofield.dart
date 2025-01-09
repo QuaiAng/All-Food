@@ -10,9 +10,11 @@ class Infofield extends StatelessWidget {
       required this.value,
       required this.isPassword,
       required this.isAddress,
-      this.validator});
+      this.validator,
+      required this.onClick});
 
   final String label;
+  final VoidCallback onClick;
   final TextEditingController value;
   final bool isPassword;
   final bool isAddress;
@@ -36,7 +38,7 @@ class Infofield extends StatelessWidget {
           decoration: InputDecoration(
             suffixIcon: (isPassword || isAddress)
                 ? TextButton(
-                    onPressed: () {},
+                    onPressed: onClick,
                     child: Text('Thay đổi',
                         style: StylesOfWidgets.textStyle1(
                             fw: FontWeight.w400,

@@ -31,9 +31,7 @@ class Mainscreen extends StatelessWidget {
           Searchscreen(),
           Cartscreen(),
           SettingScreen(
-            email: "caohoaian@gmail.com",
             imagePath: "assets/images/icon.png",
-            name: "Cao Hoai An",
           )
         ],
       ),

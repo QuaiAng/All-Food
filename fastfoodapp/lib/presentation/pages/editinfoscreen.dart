@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/states/editinfoviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/infofield.dart';
 import 'package:fastfoodapp/res/images.dart';
@@ -15,6 +16,7 @@ class Editinfoscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final editInfoViewModel = Provider.of<Editinfoviewmodel>(context);
+    editInfoViewModel.getUser();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -103,6 +105,7 @@ class Editinfoscreen extends StatelessWidget {
                 SizedBox(height: 10.sp),
                 Infofield(
                   label: 'HỌ TÊN',
+                  onClick: () {},
                   value: editInfoViewModel.nameController,
                   isPassword: false,
                   isAddress: false,
@@ -115,6 +118,7 @@ class Editinfoscreen extends StatelessWidget {
                 ),
                 Infofield(
                   label: 'EMAIL',
+                  onClick: () {},
                   value: editInfoViewModel.emailController,
                   isPassword: false,
                   isAddress: false,
@@ -135,6 +139,7 @@ class Editinfoscreen extends StatelessWidget {
                 ),
                 Infofield(
                   label: 'ĐIỆN THOẠI',
+                  onClick: () {},
                   value: editInfoViewModel.phoneController,
                   isPassword: false,
                   isAddress: false,
@@ -152,12 +157,17 @@ class Editinfoscreen extends StatelessWidget {
                 ),
                 Infofield(
                   label: 'MẬT KHẨU',
+                  onClick: () {
+                    Navigator.pushNamed(
+                        context, RouteName.changePasswordScreen);
+                  },
                   value: editInfoViewModel.passwordController,
                   isPassword: true,
                   isAddress: false,
                 ),
                 Infofield(
                   label: 'ĐỊA CHỈ',
+                  onClick: () {},
                   value: editInfoViewModel.addressController,
                   isPassword: false,
                   isAddress: true,
