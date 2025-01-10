@@ -1,6 +1,6 @@
 import 'package:fastfoodapp/data/models/VoucherModel.dart';
 import 'package:fastfoodapp/presentation/states/voucherviewmodel.dart';
-import 'package:fastfoodapp/presentation/widgets/vouchercard.dart';
+import 'package:fastfoodapp/presentation/widgets/voucherCard.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
@@ -55,10 +55,10 @@ class Voucherscreen extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 16, left: 30, right: 30),
                   child: Vouchercard(
-                    name: voucher.Title,
-                    description: voucher.Description,
-                    turn: voucher.Quantity,
-                  ),
+                    name: voucher.Title, 
+                    description: voucher.Description, 
+                    turn: voucher.Quantity, 
+                    voucher: voucher,)
                 );
               },
             );

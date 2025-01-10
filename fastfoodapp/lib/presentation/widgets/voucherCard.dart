@@ -1,4 +1,6 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/data/models/VoucherModel.dart';
+import 'package:fastfoodapp/presentation/pages/detailvoucherscreen.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -8,22 +10,30 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 class Vouchercard extends StatelessWidget {
-  const Vouchercard(
-      {super.key,
-      required this.name,
-      required this.description,
-      required this.turn});
-
+  
+  final Vouchermodel voucher;//đối tượng voucher
   final String name;
   final String description;
   final int turn;
+
+  const Vouchercard(
+      {Key? key,
+      required this.name,
+      required this.description,
+      required this.turn,
+      required this.voucher
+      }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        print("Chi tiết voucher");
-        //Navigator.pushNamed(context, RouteName.paymentScreen);
+        Navigator.push(
+          context, 
+          MaterialPageRoute(
+            builder: (context) => VoucherDetailScreen(voucher: voucher)
+          )
+        );
       },
       child: Stack(
         children: [
@@ -76,8 +86,12 @@ class Vouchercard extends StatelessWidget {
                 height: 30.sp,
                 child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(
-                          context, RouteName.detailvoucherScreen);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => VoucherDetailScreen(voucher: voucher),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryColor,

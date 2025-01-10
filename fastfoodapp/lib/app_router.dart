@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/data/models/VoucherModel.dart';
 import 'package:fastfoodapp/presentation/pages/addressscreen.dart';
 import 'package:fastfoodapp/presentation/pages/cartscreen.dart';
 import 'package:fastfoodapp/presentation/pages/bestsellerlist.dart';
@@ -103,7 +104,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const Voucherscreen());
       //Màn hình chi tiết voucher
       case RouteName.detailvoucherScreen:
-        return MaterialPageRoute(builder: (_) => const VoucherDetailScreen());
+        final voucher = settings.arguments as Vouchermodel;
+        return MaterialPageRoute(builder: (_) => VoucherDetailScreen(voucher: voucher,));
       //Màn hình tìm kiếm
       case RouteName.searchScreen:
         return MaterialPageRoute(builder: (_) => const Searchscreen());
