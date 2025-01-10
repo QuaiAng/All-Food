@@ -16,9 +16,7 @@ class UserService {
     final response = await http.post(
       Uri.parse("${AppStrings.urlAPI}/user/login"),
       headers: {
-        "Content-Type":
-            "application/json", // Tiêu đề yêu cầu (tuỳ chỉnh nếu cần)
-        'Authorization': 'Bearer ${_prefs.getString('token')}'
+        "Content-Type": "application/json",
       },
       body: jsonEncode(requestBody), // Chuyển đổi dữ liệu sang dạng JSON
     );
@@ -36,7 +34,7 @@ class UserService {
   Future<Map<String, dynamic>?> getUser() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     final response = await http.get(
-      Uri.parse("https://localhost:7024/api/user/${_prefs.getInt('userId')}"),
+      Uri.parse("${AppStrings.urlAPI}/user/${_prefs.getInt('userId')}"),
       headers: {
         "Content-Type": "application/json",
       },
