@@ -1,3 +1,5 @@
+import 'package:fastfoodapp/app_router.dart';
+
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -89,16 +91,38 @@ class Shopmanagementscreen extends StatelessWidget {
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
                   children: [
-                    _buildGridItem(Icons.inbox_outlined, 'Đơn hàng chờ duyệt'),
                     _buildGridItem(
-                        Icons.text_snippet_outlined, 'Lịch sử đơn hàng'),
+                      Icons.inbox_outlined,
+                      'Đơn hàng chờ duyệt',
+                      () {},
+                    ),
                     _buildGridItem(
-                        Icons.inventory_2_outlined, 'Quản lý sản phẩm'),
-                    _buildGridItem(Icons.menu, 'Quản lý danh mục'),
+                      Icons.text_snippet_outlined,
+                      'Lịch sử đơn hàng',
+                      () {},
+                    ),
                     _buildGridItem(
-                        Icons.local_offer_outlined, 'Quản lý ưu đãi'),
+                      Icons.inventory_2_outlined,
+                      'Quản lý sản phẩm',
+                      () {},
+                    ),
                     _buildGridItem(
-                        Icons.attach_money_outlined, 'Thống kê doanh thu'),
+                      Icons.menu,
+                      'Quản lý danh mục',
+                      () {},
+                    ),
+                    _buildGridItem(
+                      Icons.local_offer_outlined,
+                      'Quản lý ưu đãi',
+                      () {
+                        Navigator.pushNamed(context, RouteName.voucherScreen);
+                      },
+                    ),
+                    _buildGridItem(
+                      Icons.attach_money_outlined,
+                      'Thống kê doanh thu',
+                      () {},
+                    )
                   ],
                 ),
               ),
@@ -110,9 +134,9 @@ class Shopmanagementscreen extends StatelessWidget {
     );
   }
 
-  Widget _buildGridItem(IconData icon, String title) {
+  Widget _buildGridItem(IconData icon, String title, VoidCallback onTap) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 235, 235, 235),
@@ -134,7 +158,7 @@ class Shopmanagementscreen extends StatelessWidget {
             Container(
               width: 30.sp,
               height: 30.sp,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),

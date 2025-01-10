@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:fastfoodapp/data/models/UserModel.dart';
 import 'package:fastfoodapp/res/strings.dart';
 import 'package:http/http.dart' as http;

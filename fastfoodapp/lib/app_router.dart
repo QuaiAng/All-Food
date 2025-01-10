@@ -22,6 +22,7 @@ import 'package:fastfoodapp/presentation/pages/shopmanagementscreen.dart';
 import 'package:fastfoodapp/presentation/pages/splashscreen.dart';
 import 'package:fastfoodapp/presentation/pages/verifyotpscreen.dart';
 import 'package:fastfoodapp/presentation/pages/voucherscreen.dart';
+import 'package:fastfoodapp/presentation/pages/filterrevenuescreen.dart';
 import 'package:flutter/material.dart';
 
 class RouteName {
@@ -50,6 +51,7 @@ class RouteName {
   static const String feedBackscreen = "/feedback";
   static const String changePasswordScreen = "/changepassword";
   static const String resultSearchScreen = "/resultsearch";
+  static const String filterRevenue = "/filterrevenue";
 }
 
 class AppRouter {
@@ -141,6 +143,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const Shopmanagementscreen());
       case RouteName.feedBackscreen:
         return MaterialPageRoute(builder: (_) => const Feedbackscreen());
+      case RouteName.filterRevenue:
+        return MaterialPageRoute(builder: (_) => const Filterrevenuescreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

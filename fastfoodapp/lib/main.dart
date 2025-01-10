@@ -4,9 +4,11 @@ import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/data/repositories/AddressRepository.dart';
 import 'package:fastfoodapp/data/repositories/ProductRepository.dart';
 import 'package:fastfoodapp/data/repositories/UserRepository.dart';
+import 'package:fastfoodapp/data/repositories/VoucherRepository.dart';
 import 'package:fastfoodapp/data/services/AddressService.dart';
 import 'package:fastfoodapp/data/services/ProductService.dart';
 import 'package:fastfoodapp/data/services/UserService.dart';
+import 'package:fastfoodapp/data/services/VoucherService.dart';
 import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/changepasswordviewmodel.dart';
@@ -21,6 +23,8 @@ import 'package:fastfoodapp/presentation/states/registerviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/resultsearchviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/verifyotpviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/filterrevenueviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/voucherviewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -42,6 +46,7 @@ void main() {
       Provider(create: (_) => UserService()),
       Provider(create: (_) => Addressservice()),
       Provider(create: (_) => Productservice()),
+      Provider(create: (_) => Voucherservice()),
 
       // Cung cấp UserRepository (phụ thuộc vào UserService)
       ProxyProvider<UserService, Userrepository>(
@@ -54,6 +59,9 @@ void main() {
       ProxyProvider<Productservice, Productrepository>(
           update: (context, productService, _) =>
               Productrepository(productService)),
+      ProxyProvider<Voucherservice, Voucherrepository>(
+          update: (context, voucherService, _) =>
+              Voucherrepository(voucherService)),
 
       ChangeNotifierProvider(create: (_) => AppProvier()),
       ChangeNotifierProvider(create: (_) => Cartviewmodel()),
@@ -81,6 +89,10 @@ void main() {
           create: (context) =>
               Resultsearchviewmodel(context.read<Productrepository>())),
       ChangeNotifierProvider(create: (_) => Paymentviewmodel()),
+      ChangeNotifierProvider(create: (_) => Filterrevenueviewmodel()),
+      ChangeNotifierProvider(
+          create: (context) =>
+              Voucherviewmodel(context.read<Voucherrepository>()))
     ],
     child: const MainApp(),
   ));
