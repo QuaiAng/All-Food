@@ -34,7 +34,7 @@ class RouteName {
   static const String verifyotpScreen = "/verifyotp";
   static const String detaiListProductScreen = "/detaillistproduct";
   static const String paymentScreen = "/payment";
-  static const String voucherScreen = "/vouchers";
+  static const String voucherScreen = "/voucher";
   static const String mainScreen = "/main";
   static const String detailsearchScreen = "/detailsearch";
   static const String splashScreen = "";

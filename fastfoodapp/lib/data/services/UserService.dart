@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:fastfoodapp/data/models/UserModel.dart';
 import 'package:fastfoodapp/res/strings.dart';
 import 'package:http/http.dart' as http;
@@ -36,7 +35,7 @@ class UserService {
   Future<Map<String, dynamic>?> getUser() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     final response = await http.get(
-      Uri.parse("https://localhost:7024/api/user/${_prefs.getInt('userId')}"),
+      Uri.parse("${AppStrings.urlAPI}/user/${_prefs.getInt('userId')}"),
       headers: {
         "Content-Type": "application/json",
       },

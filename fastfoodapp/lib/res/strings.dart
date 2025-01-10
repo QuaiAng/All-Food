@@ -1,3 +1,3 @@
 class AppStrings {
-  static String urlAPI = "https://localhost:7024/api";
+  static String urlAPI = "http://192.168.245.237:7024/api";
 }
