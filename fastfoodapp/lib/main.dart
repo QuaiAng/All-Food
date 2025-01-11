@@ -14,6 +14,7 @@ import 'package:fastfoodapp/presentation/pages/detailsearchscreen.dart';
 import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/changepasswordviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/detailproductscreenviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/detailsearchviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/editinfoviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/forgotpasswordviewmodel.dart';
@@ -81,6 +82,7 @@ void main() {
           create: (context) =>
               Resultsearchviewmodel(context.read<Productrepository>())),
       ChangeNotifierProvider(create: (_) => Paymentviewmodel()),
+      ChangeNotifierProvider(create: (_) => Detailproductscreenviewmodel())
     ],
     child: const MainApp(),
   ));
@@ -97,6 +99,9 @@ class MainApp extends StatelessWidget {
         onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
         // home: Detailproductscreen(
+        //   imageShop: "assets/images/anhchandung.jpg",
+        //   ratingShop: 4.3,
+        //   nameShop: "Quán Bà Tám Quận 8",
         //   image: "assets/images/anhdai.jpeg",
         //   nameFood: "Bánh Kẹp Kem",
         //   categoryFoodName: "Bánh ngọt",

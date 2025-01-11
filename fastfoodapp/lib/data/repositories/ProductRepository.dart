@@ -12,4 +12,12 @@ class Productrepository {
         response.map((product) => Productmodel.fromJSON(product)).toList();
     return list;
   }
+
+  Future<List<Productmodel>> getListProductBestSeller() async {
+    final response = await _productservice.getListProductBestSeller();
+
+    List<Productmodel> products =
+        response.map((product) => Productmodel.fromJSON(product)).toList();
+    return products;
+  }
 }

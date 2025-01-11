@@ -14,8 +14,8 @@ class Shopservice {
   }
 
   Future<Map<String, dynamic>> getShopByShopId(int shopId) async {
-    final response = await http.get(
-        Uri.parse("https://192.168.120.107:7024/api/shop/shopId=${shopId}"));
+    final response =
+        await http.get(Uri.parse("${AppStrings.urlAPI}/shop/shopId=${shopId}"));
 
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
