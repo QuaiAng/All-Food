@@ -15,7 +15,12 @@ class UserService {
     final response = await http.post(
       Uri.parse("${AppStrings.urlAPI}/user/login"),
       headers: {
+<<<<<<< HEAD
         "Content-Type": "application/json",
+=======
+        "Content-Type":
+            "application/json", // Tiêu đề yêu cầu (tuỳ chỉnh nếu cần)
+>>>>>>> origin/BranchOfCan
       },
       body: jsonEncode(requestBody), // Chuyển đổi dữ liệu sang dạng JSON
     );
@@ -77,6 +82,28 @@ class UserService {
       var data = jsonDecode(response.body);
       print(data['message']);
       throw Exception(data['message']);
+    }
+  }
+
+  Future<Map<String, dynamic>> updateInfoUser(
+      String name, String email, String phone, int userId) async {
+    Map<String, dynamic> resquestBody = {
+      "fullName": name,
+      "email": email,
+      "phone": phone,
+      "imageUrl": "string"
+    };
+    final response = await http.put(
+      Uri.parse("${AppStrings.urlAPI}/user/update/${userId}"),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonEncode(resquestBody), // Chuyển đổi dữ liệu sang dạng JSON
+    );
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      return jsonDecode(response.body);
     }
   }
 }

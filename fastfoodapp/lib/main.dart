@@ -3,15 +3,20 @@ import 'dart:io';
 import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/data/repositories/AddressRepository.dart';
 import 'package:fastfoodapp/data/repositories/ProductRepository.dart';
+import 'package:fastfoodapp/data/repositories/ShopRepository.dart';
 import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:fastfoodapp/data/repositories/VoucherRepository.dart';
 import 'package:fastfoodapp/data/services/AddressService.dart';
 import 'package:fastfoodapp/data/services/ProductService.dart';
+import 'package:fastfoodapp/data/services/ShopService.dart';
 import 'package:fastfoodapp/data/services/UserService.dart';
+
 import 'package:fastfoodapp/data/services/VoucherService.dart';
+
 import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/changepasswordviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/detailproductscreenviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/detailsearchviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/editinfoviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/forgotpasswordviewmodel.dart';
@@ -22,6 +27,7 @@ import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/states/registerviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/resultsearchviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/shopviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/verifyotpviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/filterrevenueviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/voucherviewmodel.dart';
@@ -47,6 +53,7 @@ void main() {
       Provider(create: (_) => Addressservice()),
       Provider(create: (_) => Productservice()),
       Provider(create: (_) => Voucherservice()),
+      Provider(create: (_) => Shopservice()),
 
       // Cung cấp UserRepository (phụ thuộc vào UserService)
       ProxyProvider<UserService, Userrepository>(
@@ -62,6 +69,9 @@ void main() {
       ProxyProvider<Voucherservice, Voucherrepository>(
           update: (context, voucherService, _) =>
               Voucherrepository(voucherService)),
+
+      ProxyProvider<Shopservice, Shoprepository>(
+          update: (context, shopService, _) => Shoprepository(shopService)),
 
       ChangeNotifierProvider(create: (_) => AppProvier()),
       ChangeNotifierProvider(create: (_) => Cartviewmodel()),
@@ -84,15 +94,19 @@ void main() {
       ChangeNotifierProvider(
           create: (context) =>
               Addressviewmodel(context.read<Addressrepository>())),
-
+      ChangeNotifierProvider(
+          create: (context) => Shopviewmodel(context.read<Shoprepository>())),
       ChangeNotifierProvider(
           create: (context) =>
               Resultsearchviewmodel(context.read<Productrepository>())),
       ChangeNotifierProvider(create: (_) => Paymentviewmodel()),
+
       ChangeNotifierProvider(create: (_) => Filterrevenueviewmodel()),
       ChangeNotifierProvider(
           create: (context) =>
-              Voucherviewmodel(context.read<Voucherrepository>()))
+              Voucherviewmodel(context.read<Voucherrepository>())),
+
+      ChangeNotifierProvider(create: (_) => Detailproductscreenviewmodel())
     ],
     child: const MainApp(),
   ));
@@ -108,6 +122,18 @@ class MainApp extends StatelessWidget {
         initialRoute: RouteName.loginScreen,
         onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
+        // home: Detailproductscreen(
+        //   imageShop: "assets/images/anhchandung.jpg",
+        //   ratingShop: 4.3,
+        //   nameShop: "Quán Bà Tám Quận 8",
+        //   image: "assets/images/anhdai.jpeg",
+        //   nameFood: "Bánh Kẹp Kem",
+        //   categoryFoodName: "Bánh ngọt",
+        //   comment:
+        //       "Shortbread, chocolate turtle cookies, and red velret. 8 ounces cream cheese, softened",
+        //   rating: 4.3,
+        //   quantity: 273,
+        // ),
       );
     });
   }

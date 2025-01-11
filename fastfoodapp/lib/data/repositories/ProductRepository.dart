@@ -7,10 +7,17 @@ class Productrepository {
 
   Future<List<Productmodel>> SearchProductByName(String keyword) async {
     //Thêm các bước kiểm tra nghiệp vụ ở đây nha
-
     final response = await _productservice.SearchProductByName(keyword);
     List<Productmodel> list =
         response.map((product) => Productmodel.fromJSON(product)).toList();
     return list;
+  }
+
+  Future<List<Productmodel>> getListProductBestSeller() async {
+    final response = await _productservice.getListProductBestSeller();
+
+    List<Productmodel> products =
+        response.map((product) => Productmodel.fromJSON(product)).toList();
+    return products;
   }
 }

@@ -17,4 +17,15 @@ class Productservice {
       return jsonDecode(response.body);
     }
   }
+
+  Future<List<dynamic>> getListProductBestSeller() async {
+    final response = await http.get(Uri.parse(
+        "${AppStrings.urlAPI}/product/Get5HighestProducts")); // lấy ra 5 sản phẩm best seller
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      return jsonDecode(response.body);
+    }
+  }
 }

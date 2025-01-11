@@ -23,12 +23,7 @@ class Comment extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircleAvatar(
-              radius: 16.sp,
-              backgroundImage: NetworkImage(
-                image,
-              ),
-            ),
+            CircleAvatar(radius: 16.sp, backgroundImage: AssetImage(image)),
             SizedBox(
               width: 5.sp,
             ),
