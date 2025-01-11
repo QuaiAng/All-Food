@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fastfoodapp/res/strings.dart';
 import 'package:http/http.dart' as http;
 
 class Productservice {
@@ -7,7 +8,7 @@ class Productservice {
 
   Future<List<dynamic>> SearchProductByName(String keyword) async {
     final response = await http
-        .get(Uri.parse("https://localhost:7024/api/product/name=${keyword}"));
+        .get(Uri.parse("${AppStrings.urlAPI}/product/name=${keyword}"));
 
     //Check status code
     if (response.statusCode == 200) {

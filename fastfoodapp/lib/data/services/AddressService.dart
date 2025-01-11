@@ -10,11 +10,7 @@ class Addressservice {
   Future<List<dynamic>?> getAddress() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     final response = await http.get(Uri.parse(
-<<<<<<< HEAD
         "${AppStrings.urlAPI}/address/userId=${_prefs.getInt('userId')}"));
-=======
-        "https://localhost:7024/api/address/userId=${_prefs.getInt('userId')}"));
->>>>>>> origin/BranchOfNguyen
 
     if (response.statusCode == 200) {
       // return jsonDecode(response.body)[
