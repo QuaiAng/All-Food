@@ -5,6 +5,7 @@ class User {
   final String email;
   final String phone;
   final String imageURL;
+  final String password = "";
 
   const User({
     required this.userId,

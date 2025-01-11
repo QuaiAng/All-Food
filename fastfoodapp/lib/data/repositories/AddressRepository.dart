@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:fastfoodapp/data/models/Address.dart';
+import 'package:fastfoodapp/data/models/AddressModel.dart';
 import 'package:fastfoodapp/data/services/AddressService.dart';
 
 class Addressrepository {

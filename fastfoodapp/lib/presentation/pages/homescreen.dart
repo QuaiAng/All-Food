@@ -1,3 +1,6 @@
+import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/pages/detailshopscreen.dart';
+import 'package:fastfoodapp/presentation/states/shopviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/advertisement.dart';
 import 'package:fastfoodapp/presentation/widgets/restaurant.dart';
 import 'package:fastfoodapp/res/colors.dart';
@@ -5,6 +8,7 @@ import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:fastfoodapp/presentation/widgets/sectionfood.dart';
 
@@ -22,6 +26,7 @@ class Homescreen extends StatelessWidget {
   final String address;
   @override
   Widget build(BuildContext context) {
+    final shopViewModel = Provider.of<Shopviewmodel>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -216,23 +221,41 @@ class Homescreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Column(
-                      children: List.generate(
-                          5,
-                          (index) => const Restaurant(
-                              restaurantName: "McDonal's",
-                              images: [
-                                "assets/images/big.png",
-                                "assets/images/big.png",
-                                "assets/images/big.png",
-                                "assets/images/big.png"
-                              ],
-                              price: "10k - 99k",
-                              category: "BURGERS",
-                              rating: "4.3",
-                              comment: "200+ Đánh giá",
-                              time: "25 min",
-                              delivery: "Deshi food"))),
+                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                    ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: 5,
+                        itemBuilder: (context, index) {
+                          return FutureBuilder(
+                              future: shopViewModel.getListShopHighRating(),
+                              builder: (BuildContext context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                } else if (snapshot.hasError) {
+                                  return Center(
+                                    child: Text("${snapshot.error}"),
+                                  );
+                                } else {
+                                  return Restaurant(
+                                    shopID: snapshot.data![index].shopId,
+                                    restaurantName:
+                                        snapshot.data![index].shopName,
+                                    images: [
+                                      "assets/images/big.png",
+                                      "assets/images/big.png",
+                                      "assets/images/big.png",
+                                      "assets/images/big.png"
+                                    ],
+                                    rating: snapshot.data![index].rating,
+                                    address: snapshot.data![index].address,
+                                  );
+                                }
+                              });
+                        })
+                  ]),
                 ], // lấy cái này
               ),
             )),

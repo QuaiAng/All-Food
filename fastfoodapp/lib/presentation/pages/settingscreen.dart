@@ -1,6 +1,7 @@
 import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/data/models/User.dart';
 import 'package:fastfoodapp/data/models/UserModel.dart';
+import 'package:fastfoodapp/presentation/pages/editinfoscreen.dart';
 import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -49,17 +50,19 @@ class SettingScreen extends StatelessWidget {
                           if (snapshot.data == null) {
                             return Text("Dữ liệu bị null");
                           }
+                          settingViewModel.fullName = snapshot.data!.fullName;
+                          settingViewModel.email = snapshot.data!.email;
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                snapshot.data!.fullName,
+                                settingViewModel.fullName,
                                 style: StylesOfWidgets.textStyle1(
                                     fs: SizeOfWidget.sizeOfH1,
                                     fw: FontWeight.w500),
                               ),
                               Text(
-                                snapshot.data!.email,
+                                settingViewModel.email,
                                 style: StylesOfWidgets.textStyle1(
                                     clr: AppColors.placeholderColor,
                                     fs: SizeOfWidget.sizeOfH2),
@@ -74,7 +77,13 @@ class SettingScreen extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       print('Chỉnh sửa thông tin cá nhân');
-                      Navigator.pushNamed(context, RouteName.editinfoScreen);
+                      Navigator.pushNamed(context, RouteName.editinfoScreen)
+                          .then(
+                        (value) {
+                          settingViewModel.updateStateFullName();
+                          settingViewModel.updateStateEmail();
+                        },
+                      );
                     },
                     child: Text(
                       'Sửa',

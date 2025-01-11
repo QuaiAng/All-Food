@@ -1,4 +1,4 @@
-import 'package:fastfoodapp/data/models/Address.dart';
+import 'package:fastfoodapp/data/models/AddressModel.dart';
 import 'package:fastfoodapp/data/repositories/AddressRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

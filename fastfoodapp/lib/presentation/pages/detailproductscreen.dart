@@ -45,7 +45,7 @@ class Detailproductscreen extends StatelessWidget {
                 // hình nền
                 height: 60.sp,
                 width: double.infinity,
-                child: Image.network(
+                child: Image.asset(
                   image,
                   fit: BoxFit.cover,
                 ),
@@ -61,8 +61,9 @@ class Detailproductscreen extends StatelessWidget {
               )
             ],
           ),
-          Padding(
-            padding: EdgeInsets.all(15.sp),
+          Container(
+            color: AppColors.backgroundColor,
+            padding: const EdgeInsets.all(15),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

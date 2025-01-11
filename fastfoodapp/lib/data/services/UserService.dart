@@ -18,7 +18,6 @@ class UserService {
       headers: {
         "Content-Type":
             "application/json", // Tiêu đề yêu cầu (tuỳ chỉnh nếu cần)
-        'Authorization': 'Bearer ${_prefs.getString('token')}'
       },
       body: jsonEncode(requestBody), // Chuyển đổi dữ liệu sang dạng JSON
     );
@@ -36,7 +35,7 @@ class UserService {
   Future<Map<String, dynamic>?> getUser() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     final response = await http.get(
-      Uri.parse("https://localhost:7024/api/user/${_prefs.getInt('userId')}"),
+      Uri.parse("${AppStrings.urlAPI}/user/${_prefs.getInt('userId')}"),
       headers: {
         "Content-Type": "application/json",
       },
@@ -80,6 +79,28 @@ class UserService {
       var data = jsonDecode(response.body);
       print(data['message']);
       throw Exception(data['message']);
+    }
+  }
+
+  Future<Map<String, dynamic>> updateInfoUser(
+      String name, String email, String phone, int userId) async {
+    Map<String, dynamic> resquestBody = {
+      "fullName": name,
+      "email": email,
+      "phone": phone,
+      "imageUrl": "string"
+    };
+    final response = await http.put(
+      Uri.parse("${AppStrings.urlAPI}/user/update/${userId}"),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonEncode(resquestBody), // Chuyển đổi dữ liệu sang dạng JSON
+    );
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      return jsonDecode(response.body);
     }
   }
 }

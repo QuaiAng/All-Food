@@ -19,12 +19,6 @@ class Userrepository {
 
   Future<User?> getUser() async {
     var response = await _userService.getUser();
-    // if(response != null){
-    //   if (response['fullName'] == ) {
-
-    //   } // kiểm tra
-    // }
-
     User? user = User.fromJson(
         response as Map<String, dynamic>); // chuyển từ json sang đối tượng
 
@@ -33,5 +27,15 @@ class Userrepository {
 
   Future<bool> register(Usermodel user) async {
     return await _userService.register(user);
+  }
+
+  Future<String> updateInfoUser(
+      String name, String phone, String email, int userId) async {
+    final response =
+        await _userService.updateInfoUser(name, email, phone, userId);
+    if (response['success'] == true) {
+      return response['message'];
+    }
+    return response['message'];
   }
 }

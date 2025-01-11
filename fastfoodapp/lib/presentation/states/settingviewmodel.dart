@@ -10,9 +10,12 @@ class Settingviewmodel with ChangeNotifier {
   Settingviewmodel(this._userRepository);
 
   bool _notificationSound = true;
+
   bool _sound = false;
   bool _updateNotification = true;
   String _selectedLanguage = "Vietnam";
+  String fullName = '';
+  String email = '';
 
   // Getters để truy cập trạng thái
   bool get notificationSound => _notificationSound;
@@ -21,11 +24,26 @@ class Settingviewmodel with ChangeNotifier {
   String get selectedLanguage => _selectedLanguage;
 
   Future<User?> getUser() async {
+    User? user = await _userRepository.getUser();
+    fullName = user!.fullName;
+    email = user!.email;
     return await _userRepository.getUser();
   }
 
   set selectedLanguage(String value) {
     _selectedLanguage = value;
+    notifyListeners();
+  }
+
+  Future<void> updateStateFullName() async {
+    User? user = await _userRepository.getUser();
+    fullName = user!.fullName;
+    notifyListeners();
+  }
+
+  Future<void> updateStateEmail() async {
+    User? user = await _userRepository.getUser();
+    email = user!.email;
     notifyListeners();
   }
 

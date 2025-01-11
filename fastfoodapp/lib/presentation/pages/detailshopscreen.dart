@@ -1,9 +1,12 @@
+import 'package:fastfoodapp/presentation/states/shopviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/productinshop.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:fastfoodapp/presentation/widgets/advertisement.dart';
 import 'package:fastfoodapp/res/colors.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:fastfoodapp/presentation/widgets/sectionfood.dart';
 
@@ -25,8 +28,9 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    TabController _tabController = TabController(length: 6, vsync: this);
+    final shopViewModel = Provider.of<Shopviewmodel>(context);
 
+    TabController _tabController = TabController(length: 6, vsync: this);
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
@@ -82,58 +86,76 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 18.sp),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Tiệm Bánh Hoàng Tử Bé",
-                      style: StylesOfWidgets.textStyle1(
-                          fs: 20.sp, fw: FontWeight.w600),
-                    ),
-                    SizedBox(height: 10.sp),
-                    Text(
-                      "21 Nguyễn Thị Thập, Quận 7, TPHCM",
-                      style: StylesOfWidgets.textStyle1(
-                          fs: SizeOfWidget.sizeOfH3,
-                          fw: FontWeight.w500,
-                          clr: AppColors.gray),
-                    ),
-                    SizedBox(height: 15.sp),
-                    Row(
-                      children: [
-                        Text(
-                          "4.3",
-                          style: StylesOfWidgets.textStyle1(
-                              fs: SizeOfWidget.sizeOfH4,
-                              fw: FontWeight.w500,
-                              clr: AppColors.gray),
-                        ),
-                        SizedBox(
-                            width: 25.sp,
-                            child: const Icon(Icons.star,
-                                color: AppColors.primaryColor, size: 16)),
-                        SizedBox(
-                          width: 40.sp,
-                          child: Text(
-                            "200+ ratings",
+                child: FutureBuilder(
+                  future: shopViewModel.getShopByShopID(),
+                  builder: (BuildContext context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: Text('${snapshot.error}'),
+                      );
+                    } else if (snapshot.hasData) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${snapshot.data!.shopName}",
                             style: StylesOfWidgets.textStyle1(
-                                fs: SizeOfWidget.sizeOfH4,
+                                fs: 20.sp, fw: FontWeight.w600),
+                          ),
+                          SizedBox(height: 10.sp),
+                          Text(
+                            "${snapshot.data!.address}",
+                            style: StylesOfWidgets.textStyle1(
+                                fs: SizeOfWidget.sizeOfH3,
                                 fw: FontWeight.w500,
                                 clr: AppColors.gray),
                           ),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 20.sp),
-                    Text(
-                      "Được đánh giá cao nhất",
-                      style: StylesOfWidgets.textStyle1(
-                          fs: 19.sp, fw: FontWeight.w300),
-                    ),
-                    SizedBox(height: 15.sp),
-                  ],
+                          SizedBox(height: 15.sp),
+                          Row(
+                            children: [
+                              Text(
+                                "${snapshot.data!.rating}",
+                                style: StylesOfWidgets.textStyle1(
+                                    fs: SizeOfWidget.sizeOfH4,
+                                    fw: FontWeight.w500,
+                                    clr: AppColors.gray),
+                              ),
+                              SizedBox(
+                                  width: 25.sp,
+                                  child: const Icon(Icons.star,
+                                      color: AppColors.primaryColor, size: 16)),
+                              // SizedBox(
+                              //   width: 40.sp,
+                              //   child: Text(
+                              //     "200+ ratings",
+                              //     style: StylesOfWidgets.textStyle1(
+                              //         fs: SizeOfWidget.sizeOfH4,
+                              //         fw: FontWeight.w500,
+                              //         clr: AppColors.gray),
+                              //   ),
+                              // )
+                            ],
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Text("Không tìm thấy dữ liệu");
+                    }
+                  },
                 ),
               ),
+              SizedBox(height: 20.sp),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 18.sp),
+                child: Text(
+                  "Được đánh giá cao nhất",
+                  style: StylesOfWidgets.textStyle1(
+                      fs: 19.sp, fw: FontWeight.w300),
+                ),
+              ),
+              SizedBox(height: 15.sp),
               Padding(
                 padding: EdgeInsets.zero,
                 child: SingleChildScrollView(

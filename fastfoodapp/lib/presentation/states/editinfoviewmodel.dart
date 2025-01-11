@@ -49,6 +49,13 @@ class Editinfoviewmodel extends ChangeNotifier {
     }
   }
 
+  Future<String> updateUserInfo() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    final response = await _userrepository.updateInfoUser(
+        _name.text, _phone.text, _email.text, _prefs.getInt('userId')!);
+    return response;
+  }
+
   @override
   void dispose() {
     // Hủy các controller khi không sử dụng nữa
