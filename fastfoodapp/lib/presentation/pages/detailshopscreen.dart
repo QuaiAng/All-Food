@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/presentation/states/resultsearchviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/shopviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/productinshop.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -29,6 +30,7 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
   @override
   Widget build(BuildContext context) {
     final shopViewModel = Provider.of<Shopviewmodel>(context);
+    final productViewModel = Provider.of<Resultsearchviewmodel>(context);
 
     TabController _tabController = TabController(length: 6, vsync: this);
     return Scaffold(
@@ -89,8 +91,8 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
                 child: FutureBuilder(
                   future: shopViewModel.getShopByShopID(),
                   builder: (BuildContext context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState) {
-                      return Center(child: CircularProgressIndicator());
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
                       return Center(
                         child: Text('${snapshot.error}'),
@@ -100,13 +102,13 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "${snapshot.data!.shopName}",
+                            snapshot.data!.shopName,
                             style: StylesOfWidgets.textStyle1(
                                 fs: 20.sp, fw: FontWeight.w600),
                           ),
                           SizedBox(height: 10.sp),
                           Text(
-                            "${snapshot.data!.address}",
+                            snapshot.data!.address,
                             style: StylesOfWidgets.textStyle1(
                                 fs: SizeOfWidget.sizeOfH3,
                                 fw: FontWeight.w500,
@@ -141,7 +143,7 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
                         ],
                       );
                     } else {
-                      return Text("Không tìm thấy dữ liệu");
+                      return const Text("Không tìm thấy dữ liệu");
                     }
                   },
                 ),
@@ -158,21 +160,47 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
               SizedBox(height: 15.sp),
               Padding(
                 padding: EdgeInsets.zero,
-                child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                        children: List.generate(
-                            5,
-                            (index) => InkWell(
-                                  onTap: () {},
-                                  child: const Sectionfood(
-                                      name_food: "Gà Rán",
-                                      foodImg: "assets/images/anhga.png",
-                                      foodLocation: "21 Nguyễn Thị Thập",
-                                      foodRating: 4.3,
-                                      time: 25,
-                                      delivery: "Freeship"),
-                                )))),
+                child: SizedBox(
+                  height: 70.sp,
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            // nút nhấn xử lí
+                          },
+                          child: FutureBuilder(
+                            future: productViewModel.getListProductBestSeller(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              } else if (snapshot.hasError) {
+                                return Center(
+                                  child: Text("${snapshot.error}"),
+                                );
+                              } else if (snapshot.hasData) {
+                                return Sectionfood(
+                                    name_food:
+                                        snapshot.data![index].productName,
+                                    foodImg: "assets/images/anhga.png",
+                                    foodLocation:
+                                        snapshot.data![index].shopAddress,
+                                    foodRating: snapshot.data![index].rating,
+                                    time: 25,
+                                    delivery: "Freeship");
+                              } else {
+                                return const Center(
+                                    child: Text("Không tìm thấy dữ liệu "));
+                              }
+                            },
+                          ),
+                        );
+                      }),
+                ),
               ),
               SizedBox(height: 15.sp),
               Column(
@@ -218,7 +246,7 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
                               return Padding(
                                 padding:
                                     EdgeInsets.symmetric(horizontal: 10.sp),
-                                child: Productinshop(),
+                                child: const Productinshop(),
                               );
                             },
                           );

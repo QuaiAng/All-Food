@@ -14,4 +14,9 @@ class Resultsearchviewmodel extends ChangeNotifier {
     listProduct = response;
     return response;
   }
+
+  Future<List<Productmodel>> getListProductBestSeller() async {
+    final response = await _productrepository.getListProductBestSeller();
+    return response;
+  }
 }

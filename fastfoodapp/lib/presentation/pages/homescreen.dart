@@ -1,5 +1,7 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/data/models/ProductModel.dart';
 import 'package:fastfoodapp/presentation/pages/detailshopscreen.dart';
+import 'package:fastfoodapp/presentation/states/resultsearchviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/shopviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/advertisement.dart';
 import 'package:fastfoodapp/presentation/widgets/restaurant.dart';
@@ -27,6 +29,7 @@ class Homescreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final shopViewModel = Provider.of<Shopviewmodel>(context);
+    final productViewModel = Provider.of<Resultsearchviewmodel>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -130,7 +133,7 @@ class Homescreen extends StatelessWidget {
                                         name_food: "Gà Rán",
                                         foodImg: "assets/images/anhga.png",
                                         foodLocation: "67, Hoàng Diệu",
-                                        foodRating: 4.3,
+                                        foodRating: 4,
                                         time: 25,
                                         delivery: "Freeship"),
                                   )))),
@@ -170,21 +173,48 @@ class Homescreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                          children: List.generate(
-                              5,
-                              (index) => InkWell(
-                                    onTap: () {},
-                                    child: const Sectionfood(
-                                        name_food: "Gà Rán",
-                                        foodImg: "assets/images/anhga.png",
-                                        foodLocation: "67, Hoàng Diệu",
-                                        foodRating: 4.3,
-                                        time: 25,
-                                        delivery: "Freeship"),
-                                  )))),
+                  SizedBox(
+                    height: 70.sp,
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 5,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              // nút nhấn xử lí
+                            },
+                            child: FutureBuilder(
+                              future:
+                                  productViewModel.getListProductBestSeller(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                } else if (snapshot.hasError) {
+                                  return Center(
+                                    child: Text("${snapshot.error}"),
+                                  );
+                                } else if (snapshot.hasData) {
+                                  return Sectionfood(
+                                      name_food:
+                                          snapshot.data![index].productName,
+                                      foodImg: "assets/images/anhga.png",
+                                      foodLocation:
+                                          snapshot.data![index].shopAddress,
+                                      foodRating: snapshot.data![index].rating,
+                                      time: 25,
+                                      delivery: "Freeship");
+                                } else {
+                                  return const Center(
+                                      child: Text("Không tìm thấy dữ liệu "));
+                                }
+                              },
+                            ),
+                          );
+                        }),
+                  ),
                   SizedBox(
                     height: 20.sp,
                   ),
@@ -221,41 +251,39 @@ class Homescreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                          return FutureBuilder(
-                              future: shopViewModel.getListShopHighRating(),
-                              builder: (BuildContext context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return const Center(
-                                      child: CircularProgressIndicator());
-                                } else if (snapshot.hasError) {
-                                  return Center(
-                                    child: Text("${snapshot.error}"),
-                                  );
-                                } else {
-                                  return Restaurant(
-                                    shopID: snapshot.data![index].shopId,
-                                    restaurantName:
-                                        snapshot.data![index].shopName,
-                                    images: [
-                                      "assets/images/big.png",
-                                      "assets/images/big.png",
-                                      "assets/images/big.png",
-                                      "assets/images/big.png"
-                                    ],
-                                    rating: snapshot.data![index].rating,
-                                    address: snapshot.data![index].address,
-                                  );
-                                }
-                              });
-                        })
-                  ]),
+                  ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: 4,
+                      itemBuilder: (context, index) {
+                        return FutureBuilder(
+                            future: shopViewModel.getListShopHighRating(),
+                            builder: (BuildContext context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              } else if (snapshot.hasError) {
+                                return Center(
+                                  child: Text("${snapshot.error}"),
+                                );
+                              } else {
+                                return Restaurant(
+                                  shopID: snapshot.data![index].shopId,
+                                  restaurantName:
+                                      snapshot.data![index].shopName,
+                                  images: const [
+                                    "assets/images/big.png",
+                                    "assets/images/big.png",
+                                    "assets/images/big.png",
+                                    "assets/images/big.png"
+                                  ],
+                                  rating: snapshot.data![index].rating,
+                                  address: snapshot.data![index].address,
+                                );
+                              }
+                            });
+                      }),
                 ], // lấy cái này
               ),
             )),

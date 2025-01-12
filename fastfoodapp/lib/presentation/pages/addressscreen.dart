@@ -199,6 +199,7 @@ class Addressscreen extends StatelessWidget {
                                                             .listAddressUser[
                                                                 index]
                                                             .addressId);
+
                                             Navigator.pop(context);
 
                                             if (result == true) {
@@ -218,7 +219,8 @@ class Addressscreen extends StatelessWidget {
                                                                   context,
                                                                   true);
                                                             },
-                                                            child: Text("OK"))
+                                                            child: const Text(
+                                                                "OK"))
                                                       ],
                                                     );
                                                   });

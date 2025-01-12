@@ -96,6 +96,7 @@ void main() {
               Addressviewmodel(context.read<Addressrepository>())),
       ChangeNotifierProvider(
           create: (context) => Shopviewmodel(context.read<Shoprepository>())),
+
       ChangeNotifierProvider(
           create: (context) =>
               Resultsearchviewmodel(context.read<Productrepository>())),

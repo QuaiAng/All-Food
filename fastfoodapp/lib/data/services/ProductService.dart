@@ -23,7 +23,7 @@ class Productservice {
         "${AppStrings.urlAPI}/product/Get5HighestProducts")); // lấy ra 5 sản phẩm best seller
 
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+      return jsonDecode(response.body)['data'];
     } else {
       return jsonDecode(response.body);
     }

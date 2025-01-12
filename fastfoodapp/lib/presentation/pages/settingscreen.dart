@@ -1,7 +1,6 @@
 import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/data/models/User.dart';
 import 'package:fastfoodapp/data/models/UserModel.dart';
-import 'package:fastfoodapp/presentation/pages/editinfoscreen.dart';
 import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -43,26 +42,25 @@ class SettingScreen extends StatelessWidget {
                       builder: (BuildContext context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         } else if (snapshot.hasError) {
                           return Text('${snapshot.error}');
                         } else if (snapshot.hasData) {
                           if (snapshot.data == null) {
-                            return Text("Dữ liệu bị null");
+                            return const Text("Dữ liệu bị null");
                           }
-                          settingViewModel.fullName = snapshot.data!.fullName;
-                          settingViewModel.email = snapshot.data!.email;
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                settingViewModel.fullName,
+                                snapshot.data!.fullName,
                                 style: StylesOfWidgets.textStyle1(
                                     fs: SizeOfWidget.sizeOfH1,
                                     fw: FontWeight.w500),
                               ),
                               Text(
-                                settingViewModel.email,
+                                snapshot.data!.email,
                                 style: StylesOfWidgets.textStyle1(
                                     clr: AppColors.placeholderColor,
                                     fs: SizeOfWidget.sizeOfH2),
@@ -70,20 +68,14 @@ class SettingScreen extends StatelessWidget {
                             ],
                           );
                         } else {
-                          return Text("Dữ liệu không tìm thấy");
+                          return const Text("Dữ liệu không tìm thấy");
                         }
                       }),
                   const Spacer(),
                   TextButton(
                     onPressed: () {
                       print('Chỉnh sửa thông tin cá nhân');
-                      Navigator.pushNamed(context, RouteName.editinfoScreen)
-                          .then(
-                        (value) {
-                          settingViewModel.updateStateFullName();
-                          settingViewModel.updateStateEmail();
-                        },
-                      );
+                      Navigator.pushNamed(context, RouteName.editinfoScreen);
                     },
                     child: Text(
                       'Sửa',

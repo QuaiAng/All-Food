@@ -16,7 +16,7 @@ class Sectionfood extends StatelessWidget {
   final String name_food;
   final String foodImg;
   final String foodLocation;
-  final double foodRating;
+  final int foodRating;
   final int time;
   final String delivery;
 

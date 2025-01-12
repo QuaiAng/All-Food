@@ -15,12 +15,7 @@ class UserService {
     final response = await http.post(
       Uri.parse("${AppStrings.urlAPI}/user/login"),
       headers: {
-<<<<<<< HEAD
         "Content-Type": "application/json",
-=======
-        "Content-Type":
-            "application/json", // Tiêu đề yêu cầu (tuỳ chỉnh nếu cần)
->>>>>>> origin/BranchOfCan
       },
       body: jsonEncode(requestBody), // Chuyển đổi dữ liệu sang dạng JSON
     );

@@ -7,17 +7,20 @@ class Productmodel {
   final int shopId;
   final int salesCount;
   final int available;
+  final int rating;
+  final String shopAddress;
 
-  const Productmodel({
-    required this.productId,
-    required this.productName,
-    required this.price,
-    required this.description,
-    required this.categoryId,
-    required this.shopId,
-    required this.salesCount,
-    required this.available,
-  });
+  const Productmodel(
+      {required this.productId,
+      required this.productName,
+      required this.price,
+      required this.description,
+      required this.categoryId,
+      required this.shopId,
+      required this.salesCount,
+      required this.available,
+      required this.rating,
+      required this.shopAddress});
 
   factory Productmodel.fromJSON(Map<String, dynamic> json) => Productmodel(
       productId: json['productId'],
@@ -27,6 +30,7 @@ class Productmodel {
       categoryId: json['categoryId'],
       shopId: json['shopId'],
       salesCount: json['salesCount'],
-      available: json[
-          'available']); //Nhìn vào response từ API để viết chính xác key, nếu không sẽ lỗi null
+      available: json['available'],
+      rating: json['rating'],
+      shopAddress: json['shopAddress']);
 }
