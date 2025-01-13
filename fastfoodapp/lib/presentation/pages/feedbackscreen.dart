@@ -130,9 +130,7 @@ class Feedbackscreen extends StatelessWidget {
                 children: List.generate(5, (index) {
                   return IconButton(
                     onPressed: () {
-
                       feedbackviewmodel.updateSelectedStar(index + 1);
-                      
                     },
                     icon: Icon(
                       index < feedbackviewmodel.selectedStars

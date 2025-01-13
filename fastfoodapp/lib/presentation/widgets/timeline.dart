@@ -1,5 +1,4 @@
 import 'package:fastfoodapp/presentation/states/orderstatusviewmodel.dart';
-import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

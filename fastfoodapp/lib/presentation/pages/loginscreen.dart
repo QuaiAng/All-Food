@@ -98,9 +98,8 @@ class Loginscreen extends StatelessWidget {
                           loginViewModel.usernameController.text,
                           loginViewModel.passwordController.text,
                         );
-
                         // Kiểm tra xem chuỗi trả về có rỗng không
-                        if (result) {
+                        if (result == true) {
                           // Nếu login thành công, chuyển hướng đến màn hình mới
                           Navigator.pushNamed(context, RouteName.mainScreen);
                           print(result); // In ra kết quả từ login

@@ -2,7 +2,6 @@ import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/states/paymentviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
-import 'package:fastfoodapp/presentation/widgets/iteminpaymentscreen.dart';
 import 'package:fastfoodapp/presentation/widgets/otherprice.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -24,7 +23,7 @@ class Paymentscreen extends StatelessWidget {
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       context: context,
-      builder: (context) => Container(
+      builder: (context) => SizedBox(
         height: MediaQuery.of(context).size.height * 0.5,
         child: Padding(
           padding: EdgeInsets.all(15.sp),

@@ -4,8 +4,8 @@ import 'package:fastfoodapp/presentation/widgets/buttonLogin.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -15,7 +15,6 @@ class Addressscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final addressViewModel = Provider.of<Addressviewmodel>(context);
-    // addressViewModel.getListAddress();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -102,95 +101,183 @@ class Addressscreen extends StatelessWidget {
                       fw: FontWeight.w400,
                       fs: SizeOfWidget.sizeOfH2),
                 ),
-                subtitle: Text(
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  "748 Huynh Tan Phat, Phu Nhuan, Quan 10, Thành Phố Hồ Chí Minh",
-                  style: StylesOfWidgets.textStyle1(
-                      clr: Colors.grey,
-                      fw: FontWeight.w400,
-                      fs: SizeOfWidget.sizeOfH3),
+                subtitle: FutureBuilder(
+                  future: addressViewModel.getAddressCurrent(),
+                  builder: (BuildContext context, snapshot) {
+                    // String currentAddress = snapshot.data == null
+                    //     ? 'Chưa có địa chỉ hiện tại'
+                    //     : snapshot.data!;
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
+                    } else {
+                      return Text(
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        snapshot.data!,
+                        style: StylesOfWidgets.textStyle1(
+                            clr: Colors.grey,
+                            fw: FontWeight.w400,
+                            fs: SizeOfWidget.sizeOfH3),
+                      );
+                    }
+                  },
                 ),
               ),
               SizedBox(height: 20.sp),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "ĐỊA CHỈ ĐÃ LƯU",
-                    style: StylesOfWidgets.textStyle1(
-                        clr: Colors.black,
-                        fw: FontWeight.w500,
-                        fs: SizeOfWidget.sizeOfH2),
-                  ),
-                  TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "XÓA",
-                        style: StylesOfWidgets.textStyle1(
-                            clr: Colors.black,
-                            fw: FontWeight.w300,
-                            fs: SizeOfWidget.sizeOfH4),
-                      ))
-                ],
+              Text(
+                "ĐỊA CHỈ ĐÃ LƯU",
+                style: StylesOfWidgets.textStyle1(
+                    clr: Colors.black,
+                    fw: FontWeight.w500,
+                    fs: SizeOfWidget.sizeOfH2),
               ),
-              ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: addressViewModel.listAddress.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Slidable(
-                          endActionPane: ActionPane(
-                              motion: const StretchMotion(),
-                              children: [
-                                SlidableAction(
-                                    backgroundColor: Colors.red,
-                                    label: "Xóa",
-                                    onPressed: (context) {
-                                      // items.removeAt(index);
-                                      const snackBar = SnackBar(
-                                        content: Text(
-                                          "Đã xóa",
-                                          textAlign: TextAlign.center,
+              FutureBuilder(
+                future: addressViewModel.getAddress(),
+                builder: (BuildContext context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  } else {
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: addressViewModel.listAddressUser.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: CupertinoContextMenu(
+                                      actions: [
+                                        CupertinoContextMenuAction(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                  "Chọn làm địa chỉ hiện tại  "),
+                                              Icon(
+                                                Icons.location_on,
+                                                size: 18.sp,
+                                              )
+                                            ],
+                                          ),
+                                          onPressed: () async {
+                                            final result =
+                                                await addressViewModel
+                                                    .saveAddressByIdCurrent(
+                                                        addressViewModel
+                                                            .listAddressUser[
+                                                                index]
+                                                            .addressId);
+                                            Navigator.pop(context);
+                                          },
                                         ),
-                                        backgroundColor: Colors.red,
-                                      );
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
-                                    })
-                              ]),
-                          child: ListTile(
-                            leading: Icon(
-                              Icons.location_on,
-                              size: 20.sp,
-                            ),
-                            title: Text(
-                              "Địa chỉ ${index + 1}",
-                              style: StylesOfWidgets.textStyle1(
-                                  clr: Colors.black,
-                                  fw: FontWeight.w400,
-                                  fs: SizeOfWidget.sizeOfH2),
-                            ),
-                            subtitle: Text(
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              addressViewModel.listAddress[index],
-                              style: StylesOfWidgets.textStyle1(
-                                  clr: Colors.grey,
-                                  fw: FontWeight.w400,
-                                  fs: SizeOfWidget.sizeOfH3),
-                            ),
-                          ),
-                        ),
-                        if (index < 4)
-                          const Divider(
-                            indent: 50,
-                          )
-                      ],
-                    );
-                  })
+                                        CupertinoContextMenuAction(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                  "Xóa địa chỉ tại danh sách "),
+                                              Icon(
+                                                Icons.delete,
+                                                color: Colors.red,
+                                                size: 18.sp,
+                                              )
+                                            ],
+                                          ),
+                                          onPressed: () async {
+                                            final result =
+                                                await addressViewModel
+                                                    .deleteAddressById(
+                                                        addressViewModel
+                                                            .listAddressUser[
+                                                                index]
+                                                            .addressId);
+                                            Navigator.pop(context);
+
+                                            if (result == true) {
+                                              return showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title: const Text(
+                                                          "Thông báo"),
+                                                      content: const Text(
+                                                          "Đã xóa thành công"),
+                                                      actions: [
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context,
+                                                                  true);
+                                                            },
+                                                            child: const Text("OK"))
+                                                      ],
+                                                    );
+                                                  });
+                                            }
+                                          },
+                                        ),
+                                      ],
+                                      child: Material(
+                                        color: AppColors.backgroundColor,
+                                        child: ConstrainedBox(
+                                          constraints: BoxConstraints(
+                                            maxWidth: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                          ),
+                                          child: ListTile(
+                                            leading: Icon(
+                                              Icons.location_on,
+                                              size: 20.sp,
+                                            ),
+                                            title: Text(
+                                              "Địa chỉ ${index + 1}",
+                                              style: StylesOfWidgets.textStyle1(
+                                                clr: Colors.black,
+                                                fw: FontWeight.w400,
+                                                fs: SizeOfWidget.sizeOfH2,
+                                              ),
+                                            ),
+                                            subtitle: Text(
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              addressViewModel
+                                                  .listAddressUser[index]
+                                                  .address,
+                                              style: StylesOfWidgets.textStyle1(
+                                                clr: Colors.grey,
+                                                fw: FontWeight.w400,
+                                                fs: SizeOfWidget.sizeOfH3,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              if (index < 4)
+                                const Divider(
+                                  indent: 50,
+                                )
+                            ],
+                          );
+                        });
+                  }
+                },
+              )
             ],
           ),
         ),

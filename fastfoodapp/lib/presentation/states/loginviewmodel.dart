@@ -1,5 +1,6 @@
 import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Loginviewmodel extends ChangeNotifier {
   final Userrepository _userrepository;
@@ -20,11 +21,16 @@ class Loginviewmodel extends ChangeNotifier {
   }
 
   Future<bool> login(String username, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     var rp = await _userrepository.login(username, password);
-    if (rp == null) return false;
-    // Thực hiện lưu vào share_preferences
-    //Lưu thành công trả về true, ngược lại trả về false
-    return true;
+    if (rp != null) {
+      final userId = await prefs.setInt(
+          'userId', rp.userId); // Thực hiện lưu vào share_preferences
+      final token = await prefs.setString(
+          'token', rp.token); // Thực hiện lưu vào share_preferences
+      return true; //Lưu thành công trả về true, ngược lại trả về false
+    }
+    return false;
   }
 
   @override

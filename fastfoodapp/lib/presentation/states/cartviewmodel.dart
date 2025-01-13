@@ -2,7 +2,7 @@ import 'package:fastfoodapp/presentation/widgets/itemincart.dart';
 import 'package:flutter/material.dart';
 
 class Cartviewmodel extends ChangeNotifier {
-  List<Itemincart> _Itemincarts = [
+  final List<Itemincart> _Itemincarts = [
     Itemincart(
       onTap: () {},
       image: 'assets/images/food.png',
@@ -80,8 +80,4 @@ class Cartviewmodel extends ChangeNotifier {
     notifyListeners();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

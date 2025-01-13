@@ -1,6 +1,5 @@
 import 'package:fastfoodapp/presentation/pages/cartscreen.dart';
 import 'package:fastfoodapp/presentation/pages/homescreen.dart';
-import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
 import 'package:fastfoodapp/presentation/pages/searchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/settingscreen.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
@@ -31,9 +30,7 @@ class Mainscreen extends StatelessWidget {
           Searchscreen(),
           Cartscreen(),
           SettingScreen(
-            email: "caohoaian@gmail.com",
             imagePath: "assets/images/icon.png",
-            name: "Cao Hoai An",
           )
         ],
       ),

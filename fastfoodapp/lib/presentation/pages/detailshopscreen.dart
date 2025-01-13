@@ -25,7 +25,7 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    TabController _tabController = TabController(length: 6, vsync: this);
+    TabController tabController = TabController(length: 6, vsync: this);
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -164,7 +164,7 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
                           fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w600),
                       unselectedLabelStyle: StylesOfWidgets.textStyle1(
                           fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w600),
-                      controller: _tabController,
+                      controller: tabController,
                       indicator: const BoxDecoration(),
                       dividerHeight: 0,
                       labelColor: Colors.black,
@@ -185,7 +185,7 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
                     height: MediaQuery.of(context).size.height *
                         0.5, // Chiều cao tùy chỉnh
                     child: TabBarView(
-                      controller: _tabController,
+                      controller: tabController,
                       children: List.generate(
                         6,
                         (index) {
@@ -196,7 +196,7 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
                               return Padding(
                                 padding:
                                     EdgeInsets.symmetric(horizontal: 10.sp),
-                                child: Productinshop(),
+                                child: const Productinshop(),
                               );
                             },
                           );
