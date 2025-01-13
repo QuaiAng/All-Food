@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:fastfoodapp/data/models/UserModel.dart';
 import 'package:fastfoodapp/res/strings.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserService {
   Future<Map<String, dynamic>> login(String username, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     Map<String, dynamic> requestBody = {
       "username": username,
       "password": password,
@@ -16,6 +18,7 @@ class UserService {
       headers: {
         "Content-Type":
             "application/json", // Tiêu đề yêu cầu (tuỳ chỉnh nếu cần)
+        'Authorization': 'Bearer ${prefs.getString('token')}'
       },
       body: jsonEncode(requestBody), // Chuyển đổi dữ liệu sang dạng JSON
     );
@@ -28,6 +31,26 @@ class UserService {
     } else {
       throw Exception("Has error");
     }
+  }
+
+  Future<Map<String, dynamic>?> getUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final response = await http.get(
+      Uri.parse("${AppStrings.urlAPI}/user/${prefs.getInt('userId')}"),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    );
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'] as Map<String, dynamic>;
+    } else if (response.statusCode == 400) {
+      var data = jsonDecode(response.body);
+      return throw Exception(data['title']);
+    } else if (response.statusCode == 404) {
+      var data = jsonDecode(response.body);
+      return throw Exception(data['title']);
+    }
+    return null;
   }
 
   Future<bool> register(Usermodel user) async {
@@ -50,7 +73,7 @@ class UserService {
 
     if (response.statusCode == 200) {
       return true;
-    } else if (response.statusCode == 400) {
+    } else if (response.statusCode == 404) {
       var data = jsonDecode(response.body);
       print(data['message']);
       throw Exception(data['message']);
@@ -58,6 +81,32 @@ class UserService {
       var data = jsonDecode(response.body);
       print(data['message']);
       throw Exception(data['message']);
+    }
+  }
+
+  Future<Map<String,dynamic>> changePassword(
+      String oldPassword, String newPassword, int userId) async {
+    Map<String, dynamic> requestBody = {
+      "oldPassword": oldPassword,
+      "newPassword": newPassword,
+    };
+
+    final response = await http.patch(
+      Uri.parse(
+          '${AppStrings.urlAPI}/user/changepassword/userId=$userId'),
+      headers: {
+        "Content-Type":
+            "application/json", // Tiêu đề yêu cầu (tuỳ chỉnh nếu cần)
+      },
+      body: jsonEncode(requestBody),
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else if (response.statusCode == 400) {
+      return jsonDecode(response.body);
+    } else {
+      return jsonDecode(response.body);
     }
   }
 }
