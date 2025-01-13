@@ -1,16 +1,20 @@
 import 'dart:io';
 
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/data/repositories/AddressRepository.dart';
+import 'package:fastfoodapp/data/repositories/ProductRepository.dart';
 import 'package:fastfoodapp/data/repositories/UserRepository.dart';
+import 'package:fastfoodapp/data/services/AddressService.dart';
+import 'package:fastfoodapp/data/services/ProductService.dart';
 import 'package:fastfoodapp/data/services/UserService.dart';
 import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
-import 'package:fastfoodapp/presentation/states/addvoucherviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/changepasswordviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/detailsearchviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/editinfoviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/forgotpasswordviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/loginviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/ordermanagementviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/orderstatusviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/paymentviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
@@ -28,17 +32,30 @@ void main() {
     providers: [
       // Cung cấp UserService
       Provider(create: (_) => UserService()),
+      Provider(create: (_) => Addressservice()),
+      Provider(create: (_) => Productservice()),
 
       // Cung cấp UserRepository (phụ thuộc vào UserService)
       ProxyProvider<UserService, Userrepository>(
         update: (context, userService, _) => Userrepository(userService),
       ),
 
+      ProxyProvider<Addressservice, Addressrepository>(
+          update: (context, addressService, _) =>
+              Addressrepository(addressService)),
+      ProxyProvider<Productservice, Productrepository>(
+          update: (context, productService, _) =>
+              Productrepository(productService)),
+
       ChangeNotifierProvider(create: (_) => AppProvier()),
       ChangeNotifierProvider(create: (_) => Cartviewmodel()),
-      ChangeNotifierProvider(create: (_) => Changepasswordviewmodel()),
+      ChangeNotifierProvider(
+          create: (context) => 
+              Changepasswordviewmodel(context.read<Userrepository>())),
       ChangeNotifierProvider(create: (_) => Detailsearchviewmodel()),
-      ChangeNotifierProvider(create: (_) => Editinfoviewmodel()),
+      ChangeNotifierProvider(
+          create: (context) =>
+              Editinfoviewmodel(context.read<Userrepository>())),
       ChangeNotifierProvider(create: (_) => Forgotpasswordviewmodel()),
       ChangeNotifierProvider(
           create: (context) => Loginviewmodel(context.read<Userrepository>())),
@@ -47,28 +64,22 @@ void main() {
           create: (context) =>
               Registerviewmodel(context.read<Userrepository>())),
       ChangeNotifierProvider(create: (_) => Verifyotpviewmodel()),
-      ChangeNotifierProvider(create: (_) => Settingviewmodel()),
-      ChangeNotifierProvider(create: (_) => Addressviewmodel()),
+      ChangeNotifierProvider(
+          create: (context) =>
+              Settingviewmodel(context.read<Userrepository>())),
+      ChangeNotifierProvider(
+          create: (context) =>
+              Addressviewmodel(context.read<Addressrepository>())),
+
+      ChangeNotifierProvider(
+          create: (context) =>
+              Resultsearchviewmodel(context.read<Productrepository>())),
       ChangeNotifierProvider(create: (_) => Paymentviewmodel()),
-      ChangeNotifierProvider(create: (_) => Addvoucherviewmodel()),
+      ChangeNotifierProvider(create: (_)=>Ordermanagementviewmodel())
+  
     ],
     child: const MainApp(),
   ));
-}
-
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Sizer(builder: (context, orientation, deviceType) {
-      return const MaterialApp(
-        initialRoute: RouteName.addvoucherscreen,
-        onGenerateRoute: AppRouter.generateRoute,
-        debugShowCheckedModeBanner: false,
-      );
-    });
-  }
 }
 
 class MyHttpOverrides extends HttpOverrides {
@@ -77,5 +88,21 @@ class MyHttpOverrides extends HttpOverrides {
     return super.createHttpClient(context)
       ..badCertificateCallback =
           (X509Certificate cert, String host, int port) => true;
+  }
+}
+
+
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Sizer(builder: (context, orientation, deviceType) {
+      return const MaterialApp(
+        initialRoute: RouteName.orderManagementScreen,
+        onGenerateRoute: AppRouter.generateRoute,
+        debugShowCheckedModeBanner: false,
+      );
+    });
   }
 }
