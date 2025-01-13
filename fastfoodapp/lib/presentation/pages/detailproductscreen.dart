@@ -117,7 +117,7 @@ class Detailproductscreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "${rating}",
+                        "$rating",
                         style: StylesOfWidgets.textStyle1(
                             fs: 14.sp,
                             fw: FontWeight.normal,
@@ -129,7 +129,7 @@ class Detailproductscreen extends StatelessWidget {
                         size: 17.sp,
                       ),
                       Text(
-                        "| ${quantity} lượt bán",
+                        "| $quantity lượt bán",
                         style: StylesOfWidgets.textStyle1(
                             fs: 14.sp,
                             fw: FontWeight.normal,
@@ -159,7 +159,7 @@ class Detailproductscreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "${nameShop}",
+                                nameShop,
                                 style: StylesOfWidgets.textStyle1(
                                     fs: SizeOfWidget.sizeOfH2,
                                     fw: FontWeight.w500,
@@ -168,7 +168,7 @@ class Detailproductscreen extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    "${ratingShop}",
+                                    "$ratingShop",
                                     style: StylesOfWidgets.textStyle1(
                                         fs: 15.sp,
                                         fw: FontWeight.normal,
