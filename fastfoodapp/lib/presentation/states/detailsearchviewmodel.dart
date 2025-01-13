@@ -32,8 +32,10 @@ class Detailsearchviewmodel extends ChangeNotifier {
   TextEditingController get searchTextcontroller => _searchTextcontroller;
 
   void addSearchItem(String value) {
-    _recentSearch.add(value);
-    notifyListeners();
+    if (value.isNotEmpty && !_recentSearch.contains(value)) {
+      _recentSearch.insert(0, value); // Thêm từ khóa mới vào đầu danh sách
+      notifyListeners();
+    }
   }
 
   void removeSearchItem(int index) {
