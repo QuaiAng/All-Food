@@ -14,6 +14,7 @@ import 'package:fastfoodapp/data/services/UserService.dart';
 import 'package:fastfoodapp/data/services/VoucherService.dart';
 
 import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/addvoucherviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/changepasswordviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/detailproductscreenviewmodel.dart';
@@ -107,7 +108,9 @@ void main() {
           create: (context) =>
               Voucherviewmodel(context.read<Voucherrepository>())),
 
-      ChangeNotifierProvider(create: (_) => Detailproductscreenviewmodel())
+      ChangeNotifierProvider(create: (_) => Detailproductscreenviewmodel()),
+
+      ChangeNotifierProvider(create: (_) => Addvoucherviewmodel()),
     ],
     child: const MainApp(),
   ));
@@ -120,21 +123,9 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return const MaterialApp(
-        initialRoute: RouteName.loginScreen,
+        initialRoute: RouteName.addvoucherscreen,
         onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
-        // home: Detailproductscreen(
-        //   imageShop: "assets/images/anhchandung.jpg",
-        //   ratingShop: 4.3,
-        //   nameShop: "Quán Bà Tám Quận 8",
-        //   image: "assets/images/anhdai.jpeg",
-        //   nameFood: "Bánh Kẹp Kem",
-        //   categoryFoodName: "Bánh ngọt",
-        //   comment:
-        //       "Shortbread, chocolate turtle cookies, and red velret. 8 ounces cream cheese, softened",
-        //   rating: 4.3,
-        //   quantity: 273,
-        // ),
       );
     });
   }

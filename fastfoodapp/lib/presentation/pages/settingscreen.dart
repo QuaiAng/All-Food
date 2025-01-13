@@ -1,6 +1,4 @@
 import 'package:fastfoodapp/app_router.dart';
-import 'package:fastfoodapp/data/models/User.dart';
-import 'package:fastfoodapp/data/models/UserModel.dart';
 import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
