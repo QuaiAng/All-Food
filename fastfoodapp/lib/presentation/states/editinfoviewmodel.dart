@@ -1,20 +1,20 @@
+import 'package:fastfoodapp/data/models/User.dart';
+import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
 
 class Editinfoviewmodel extends ChangeNotifier {
   // GlobalKey cho Form
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  final Userrepository _userrepository;
+
+  Editinfoviewmodel(this._userrepository);
   // Các TextEditingController cho từng trường nhập liệu
-  final TextEditingController _name =
-      TextEditingController(text: 'CAO HOAI AN');
-  final TextEditingController _email =
-      TextEditingController(text: 'caohoaian@gmail.com');
-  final TextEditingController _phone =
-      TextEditingController(text: '0785763022');
-  final TextEditingController _password =
-      TextEditingController(text: '123456789');
-  final TextEditingController _address =
-      TextEditingController(text: '749 Huỳnh Tấn Phát, Phú Thuận, Quận 7 ');
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _phone = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _address = TextEditingController();
 
   // Getter cho các controller và formKey
   TextEditingController get nameController => _name;
@@ -28,12 +28,22 @@ class Editinfoviewmodel extends ChangeNotifier {
   bool validateForm() {
     return _formKey.currentState?.validate() ?? false;
   }
- 
 
   // Hàm xử lý khi người dùng nhấn lưu (cập nhật dữ liệu)
   void saveData() {
     if (validateForm()) {
       //TODO
+    }
+  }
+
+  Future<void> getUser() async {
+    User? user = await _userrepository.getUser();
+    if (user != null) {
+      _address.text = "671 Tp Thủ Đức ";
+      _email.text = user.email;
+      _name.text = user.fullName;
+      _phone.text = user.phone;
+      _password.text = "00000000";
     }
   }
 
