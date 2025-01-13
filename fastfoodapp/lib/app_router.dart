@@ -14,6 +14,7 @@ import 'package:fastfoodapp/presentation/pages/orderstatusscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentmethodscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
 import 'package:fastfoodapp/presentation/pages/registerscreen.dart';
+import 'package:fastfoodapp/presentation/pages/resultsearchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/searchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailsearchscreen.dart';
 import 'package:fastfoodapp/presentation/pages/settingscreen.dart';
@@ -48,6 +49,7 @@ class RouteName {
   static const String shopManagementScreen = "/shopmanagement";
   static const String feedBackscreen = "/feedback";
   static const String addvoucherscreen = "/addvoucher";
+  static const String resultsearchscreen = "/resultsearch";
 }
 
 class AppRouter {
@@ -133,11 +135,13 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const Addressscreen());
 
       case RouteName.shopManagementScreen:
-        return MaterialPageRoute(builder: (_) => Shopmanagementscreen());
+        return MaterialPageRoute(builder: (_) => const Shopmanagementscreen());
       case RouteName.feedBackscreen:
-        return MaterialPageRoute(builder: (_) => Feedbackscreen());
+        return MaterialPageRoute(builder: (_) => const Feedbackscreen());
       case RouteName.addvoucherscreen:
-        return MaterialPageRoute(builder: (_) => Addvoucherscreen());
+        return MaterialPageRoute(builder: (_) => const Addvoucherscreen());
+      case RouteName.resultsearchscreen:
+        return MaterialPageRoute(builder: (_) => const Resultsearchscreen());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

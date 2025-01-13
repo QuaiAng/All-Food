@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:fastfoodapp/data/services/UserService.dart';
@@ -20,6 +22,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(MultiProvider(
     providers: [
       // Cung cấp UserService
@@ -64,5 +67,14 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
       );
     });
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
