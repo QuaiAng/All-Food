@@ -27,9 +27,9 @@ class Loginscreen extends StatelessWidget {
         shadowColor: Colors.grey,
         leading: IconButton(
           onPressed: () {
-            Provider.of<AppProvier>(context, listen: false)
-                .setCurrentIndexPage(0);
-            Navigator.pushNamed(context, RouteName.mainScreen);
+            // Provider.of<AppProvier>(context, listen: false)
+            //     .setCurrentIndexPage(0);
+            Navigator.pop(context);
           },
           icon: const Icon(
             Icons.arrow_back_ios_rounded,

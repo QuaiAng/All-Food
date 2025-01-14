@@ -200,7 +200,7 @@ class Homescreen extends StatelessWidget {
                                   return Sectionfood(
                                       name_food:
                                           snapshot.data![index].productName,
-                                      foodImg: "assets/images/anhga.png",
+                                      foodImg: snapshot.data![index].imageURL,
                                       foodLocation:
                                           snapshot.data![index].shopAddress,
                                       foodRating: snapshot.data![index].rating,

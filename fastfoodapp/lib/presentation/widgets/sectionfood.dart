@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:flutter/material.dart';
@@ -28,12 +30,13 @@ class Sectionfood extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-              height: 55.sp,
-              width: 55.sp,
-              child: Image.asset(
-                foodImg,
-                fit: BoxFit.fill,
-              )),
+            height: 55.sp,
+            width: 55.sp,
+            child: Image.file(
+              File(foodImg),
+              fit: BoxFit.fill,
+            ),
+          ),
           SizedBox(
             height: 4.sp,
           ),

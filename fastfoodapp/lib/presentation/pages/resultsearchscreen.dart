@@ -279,7 +279,7 @@ class Resultsearchscreen extends StatelessWidget {
                                 foodName: filteredProducts[index].productName,
                                 price: "${filteredProducts[index].price}đ",
                                 address: filteredProducts[index].shopAddress,
-                                image: 'assets/images/bg.png',
+                                image: filteredProducts[index].imageURL,
                                 shopName: filteredProducts[index].shopName,
                                 onTap: () {
                                   // Navigator.push(

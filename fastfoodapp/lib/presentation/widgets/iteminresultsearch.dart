@@ -1,8 +1,9 @@
+import 'dart:io';
+
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sizer/sizer.dart';
 
 class ItemInResultSearchScreen extends StatelessWidget {
@@ -46,13 +47,12 @@ class ItemInResultSearchScreen extends StatelessWidget {
             SizedBox(
               height: 47.sp,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(10), // Bo góc cho ảnh
-                child: Image.asset(
-                  image,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                ),
-              ),
+                  borderRadius: BorderRadius.circular(10), // Bo góc cho ảnh
+                  child: Image.file(
+                    File(image),
+                    fit: BoxFit.fill,
+                    width: double.infinity,
+                  )),
             ),
             SizedBox(height: 10.sp),
             // Nội dung thông tin

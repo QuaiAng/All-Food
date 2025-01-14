@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
 import 'package:fastfoodapp/res/colors.dart';
@@ -21,69 +23,73 @@ class SettingScreen extends StatelessWidget {
           child: ListView(
             padding: EdgeInsets.all(16.sp),
             children: [
-              Row(
-                children: [
-                  Container(
-                    height: 35.sp,
-                    width: 35.sp,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: AssetImage(imagePath),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 15.sp),
-                  FutureBuilder(
-                      future: settingViewModel.getUser(),
-                      builder: (BuildContext context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        } else if (snapshot.hasError) {
-                          return Text('${snapshot.error}');
-                        } else if (snapshot.hasData) {
-                          if (snapshot.data == null) {
-                            return const Text("Dữ liệu bị null");
-                          }
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                snapshot.data!.fullName,
-                                style: StylesOfWidgets.textStyle1(
-                                    fs: SizeOfWidget.sizeOfH1,
-                                    fw: FontWeight.w500),
+              FutureBuilder(
+                future: settingViewModel.getUser(),
+                builder: (BuildContext context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('${snapshot.error}'));
+                  } else if (snapshot.hasData) {
+                    if (snapshot.data == null) {
+                      return const Center(child: Text("Dữ liệu bị null"));
+                    }
+                    return Row(
+                      children: [
+                        Container(
+                          height: 35.sp,
+                          width: 35.sp,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: FileImage(File(snapshot.data!.imageURL)),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 15.sp),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              snapshot.data!.fullName,
+                              style: StylesOfWidgets.textStyle1(
+                                fs: SizeOfWidget.sizeOfH1,
+                                fw: FontWeight.w500,
                               ),
-                              Text(
-                                snapshot.data!.email,
-                                style: StylesOfWidgets.textStyle1(
-                                    clr: AppColors.placeholderColor,
-                                    fs: SizeOfWidget.sizeOfH2),
+                            ),
+                            Text(
+                              snapshot.data!.email,
+                              style: StylesOfWidgets.textStyle1(
+                                clr: AppColors.placeholderColor,
+                                fs: SizeOfWidget.sizeOfH2,
                               ),
-                            ],
-                          );
-                        } else {
-                          return const Text("Dữ liệu không tìm thấy");
-                        }
-                      }),
-                  const Spacer(),
-                  TextButton(
-                    onPressed: () {
-                      print('Chỉnh sửa thông tin cá nhân');
-                      Navigator.pushNamed(context, RouteName.editinfoScreen);
-                    },
-                    child: Text(
-                      'Sửa',
-                      style: StylesOfWidgets.textStyle1(
-                          clr: AppColors.primaryColor,
-                          fs: SizeOfWidget.sizeOfH2),
-                    ),
-                  )
-                ],
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        TextButton(
+                          onPressed: () {
+                            print('Chỉnh sửa thông tin cá nhân');
+                            Navigator.pushNamed(
+                                context, RouteName.editinfoScreen);
+                          },
+                          child: Text(
+                            'Sửa',
+                            style: StylesOfWidgets.textStyle1(
+                              clr: AppColors.primaryColor,
+                              fs: SizeOfWidget.sizeOfH2,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return const Center(child: Text("Dữ liệu không tìm thấy"));
+                  }
+                },
               ),
+
               Padding(padding: EdgeInsets.only(top: 10.sp)),
               ListTile(
                 leading: Icon(

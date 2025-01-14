@@ -4,6 +4,7 @@ class Resultsearchmodel {
   final String shopName;
   final String shopAddress;
   final int price;
+  final String imageURL;
 
   const Resultsearchmodel({
     required this.productId,
@@ -11,6 +12,7 @@ class Resultsearchmodel {
     required this.shopName,
     required this.shopAddress,
     required this.price,
+    required this.imageURL,
   });
 
   factory Resultsearchmodel.fromJSON(Map<String, dynamic> json) =>
@@ -19,5 +21,6 @@ class Resultsearchmodel {
           productName: json['productName'],
           shopName: json['shopName'],
           shopAddress: json['shopAddress'],
-          price: json['price']);
+          price: json['price'],
+          imageURL: json['imageUrl']);
 }

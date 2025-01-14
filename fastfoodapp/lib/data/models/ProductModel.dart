@@ -8,6 +8,7 @@ class Productmodel {
   final int salesCount;
   final int available;
   final int rating;
+  final String imageURL;
   final String shopAddress;
 
   const Productmodel(
@@ -20,7 +21,8 @@ class Productmodel {
       required this.salesCount,
       required this.available,
       required this.rating,
-      required this.shopAddress});
+      required this.shopAddress,
+      required this.imageURL});
 
   factory Productmodel.fromJSON(Map<String, dynamic> json) => Productmodel(
       productId: json['productId'],
@@ -32,5 +34,6 @@ class Productmodel {
       salesCount: json['salesCount'],
       available: json['available'],
       rating: json['rating'],
-      shopAddress: json['shopAddress']);
+      shopAddress: json['shopAddress'],
+      imageURL: json['imageUrl']);
 }
