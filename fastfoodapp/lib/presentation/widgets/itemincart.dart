@@ -23,7 +23,7 @@ class Itemincart extends StatefulWidget {
   final String name;
   final String note;
   final String shopName;
-  final double price;
+  final int price;
   final int quantity;
 
   @override
@@ -32,7 +32,7 @@ class Itemincart extends StatefulWidget {
 
 class _ItemincartState extends State<Itemincart> {
   late int _quantity;
-  late double _totalPrice;
+  late int _totalPrice;
 
   @override
   void initState() {
@@ -185,7 +185,7 @@ class _ItemincartState extends State<Itemincart> {
                       child: Container(
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          Formatmoney.formatCurrency(_totalPrice),
+                          Formatmoney.formatCurrency(_totalPrice * 1.0),
                           softWrap: true,
                           style: StylesOfWidgets.textStyle1(
                               fs: SizeOfWidget.sizeOfH3,

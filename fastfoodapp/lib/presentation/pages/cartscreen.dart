@@ -1,6 +1,8 @@
 import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
+import 'package:fastfoodapp/presentation/widgets/itemincart.dart';
 import 'package:fastfoodapp/res/colors.dart';
+import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
@@ -66,37 +68,60 @@ class Cartscreen extends StatelessWidget {
                 ),
               ),
             ]),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: cartViewModel.Itemincarts.length,
-              itemBuilder: (context, index) {
-                var item = cartViewModel.Itemincarts[index];
-                return Padding(
-                    padding: EdgeInsets.only(
-                        bottom: 20.sp, left: 20.sp, right: 20.sp),
-                    child: Slidable(
-                        endActionPane: ActionPane(
-                            motion: const StretchMotion(),
-                            children: [
-                              SlidableAction(
-                                  backgroundColor: Colors.red,
-                                  label: "Xóa",
-                                  onPressed: (context) {
-                                    // items.removeAt(index);
-                                    cartViewModel.removeFromCart(index);
-                                    const snackBar = SnackBar(
-                                      content: Text(
-                                        "Đã xóa",
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      backgroundColor: Colors.red,
-                                    );
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
-                                  })
-                            ]),
-                        child: item));
+            FutureBuilder(
+              future: cartViewModel.getCartByUserId(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Error: ${snapshot.error}'),
+                  );
+                } else {
+                  final cartDetails = snapshot.data!.cartDetails;
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: cartDetails.length,
+                    itemBuilder: (context, index) {
+                      var item = cartDetails[index];
+                      return Padding(
+                          padding: EdgeInsets.only(
+                              bottom: 20.sp, left: 20.sp, right: 20.sp),
+                          child: Slidable(
+                              endActionPane: ActionPane(
+                                  motion: const StretchMotion(),
+                                  children: [
+                                    SlidableAction(
+                                        backgroundColor: Colors.red,
+                                        label: "Xóa",
+                                        onPressed: (context) {
+                                          // items.removeAt(index);
+                                          cartViewModel.removeFromCart(index);
+                                          const snackBar = SnackBar(
+                                            content: Text(
+                                              "Đã xóa",
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            backgroundColor: Colors.red,
+                                          );
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBar);
+                                        })
+                                  ]),
+                              child: Itemincart(
+                                  onTap: () {},
+                                  image: Imagepath.burger,
+                                  name: item.productId.toString(),
+                                  note: "OK",
+                                  price: item.price,
+                                  quantity: item.quantity,
+                                  shopName: item.shopId.toString())));
+                    },
+                  );
+                }
               },
             ),
             SizedBox(

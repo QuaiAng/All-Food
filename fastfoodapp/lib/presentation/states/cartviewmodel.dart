@@ -1,82 +1,36 @@
-import 'package:fastfoodapp/presentation/widgets/itemincart.dart';
+import 'package:fastfoodapp/data/models/CartDetailModel.dart';
+import 'package:fastfoodapp/data/models/CartModel.dart';
+import 'package:fastfoodapp/data/repositories/CartRepository.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Cartviewmodel extends ChangeNotifier {
-  List<Itemincart> _Itemincarts = [
-    Itemincart(
-      onTap: () {},
-      image: 'assets/images/food.png',
-      name: "Khoai tây chiên",
-      note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
-      price: 56000.0,
-      quantity: 1,
-      shopName: "Từ McDonald's",
-    ),
-    Itemincart(
-      onTap: () {},
-      image: 'assets/images/food.png',
-      name: "Khoai tây chiên",
-      note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
-      price: 56000.0,
-      quantity: 1,
-      shopName: "Từ McDonald's",
-    ),
-    Itemincart(
-      onTap: () {},
-      image: 'assets/images/food.png',
-      name: "Khoai tây chiên",
-      note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
-      price: 56000.0,
-      quantity: 1,
-      shopName: "Từ McDonald's",
-    ),
-    Itemincart(
-      onTap: () {},
-      image: 'assets/images/food.png',
-      name: "Khoai tây chiên",
-      note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
-      price: 56000.0,
-      quantity: 1,
-      shopName: "Từ McDonald's",
-    ),
-    Itemincart(
-      onTap: () {},
-      image: 'assets/images/food.png',
-      name: "Khoai tây chiên",
-      note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
-      price: 56000.0,
-      quantity: 1,
-      shopName: "Từ McDonald's",
-    ),
-    Itemincart(
-      onTap: () {},
-      image: 'assets/images/food.png',
-      name: "Khoai tây chiên",
-      note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
-      price: 56000.0,
-      quantity: 1,
-      shopName: "Từ McDonald's",
-    ),
-    Itemincart(
-      onTap: () {},
-      image: 'assets/images/food.png',
-      name: "Khoai tây chiên",
-      note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
-      price: 56000.0,
-      quantity: 1,
-      shopName: "Từ McDonald's",
-    ),
-  ];
+  CartRepository _cartRepository;
+  Cartviewmodel(this._cartRepository);
 
-  List get Itemincarts => _Itemincarts;
+  Cartmodel? cartmodel;
 
-  void addToCart(Itemincart value) {
-    _Itemincarts.add(value);
+  Future<Cartmodel> getCartByUserId() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    var userId;
+    if (_prefs.containsKey('userId')) {
+      userId = _prefs.getInt('userId');
+    } else {
+      userId = 0;
+    }
+    final response = await _cartRepository.getCartByUserId(userId);
+    cartmodel = response!;
+    notifyListeners();
+    return response;
+  }
+
+  void addToCart(Cartdetailmodel value) {
+    cartmodel!.cartDetails.add(value);
     notifyListeners();
   }
 
   void removeFromCart(int index) {
-    _Itemincarts.removeAt(index);
+    cartmodel!.cartDetails.removeAt(index);
     notifyListeners();
   }
 

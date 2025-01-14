@@ -15,5 +15,3 @@ class Productwatting {
     required this.image,
   });
 }
-
-

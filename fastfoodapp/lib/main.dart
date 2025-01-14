@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/data/repositories/AddressRepository.dart';
+import 'package:fastfoodapp/data/repositories/CartRepository.dart';
 import 'package:fastfoodapp/data/repositories/ProductRepository.dart';
 import 'package:fastfoodapp/data/repositories/ShopRepository.dart';
 import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:fastfoodapp/data/repositories/VoucherRepository.dart';
 import 'package:fastfoodapp/data/services/AddressService.dart';
+import 'package:fastfoodapp/data/services/CartService.dart';
 import 'package:fastfoodapp/data/services/ProductService.dart';
 import 'package:fastfoodapp/data/services/ShopService.dart';
 import 'package:fastfoodapp/data/services/UserService.dart';
@@ -55,10 +57,14 @@ void main() {
       Provider(create: (_) => Productservice()),
       Provider(create: (_) => Voucherservice()),
       Provider(create: (_) => Shopservice()),
+      Provider(create: (_) => Cartservice()),
 
       // Cung cấp UserRepository (phụ thuộc vào UserService)
       ProxyProvider<UserService, Userrepository>(
         update: (context, userService, _) => Userrepository(userService),
+      ),
+      ProxyProvider<Cartservice, CartRepository>(
+        update: (context, cartService, _) => CartRepository(cartService),
       ),
 
       ProxyProvider<Addressservice, Addressrepository>(
@@ -75,7 +81,8 @@ void main() {
           update: (context, shopService, _) => Shoprepository(shopService)),
 
       ChangeNotifierProvider(create: (_) => AppProvier()),
-      ChangeNotifierProvider(create: (_) => Cartviewmodel()),
+      ChangeNotifierProvider(
+          create: (context) => Cartviewmodel(context.read<CartRepository>())),
       ChangeNotifierProvider(create: (_) => Changepasswordviewmodel()),
       ChangeNotifierProvider(create: (_) => Detailsearchviewmodel()),
       ChangeNotifierProvider(
@@ -123,7 +130,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return const MaterialApp(
-        initialRoute: RouteName.addvoucherscreen,
+        initialRoute: RouteName.loginScreen,
         onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
       );

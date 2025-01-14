@@ -29,7 +29,10 @@ class Loginviewmodel extends ChangeNotifier {
           'userId', rp.userId); // Thực hiện lưu vào share_preferences
       final token = await _prefs.setString(
           'token', rp.token); // Thực hiện lưu vào share_preferences
-      return true; //Lưu thành công trả về true, ngược lại trả về false
+      if (userId && token) {
+        return true; //Lưu thành công trả về true, ngược lại trả về false
+      }
+      return false;
     }
     return false;
   }
