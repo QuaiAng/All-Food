@@ -50,6 +50,24 @@ class UserService {
     }
   }
 
+  Future<Map<String, dynamic>> getNameUserByUserId(int userId) async {
+    final response = await http.get(
+      Uri.parse("${AppStrings.urlAPI}/user/${userId}"),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    );
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'] as Map<String, dynamic>;
+    } else if (response.statusCode == 400) {
+      var data = jsonDecode(response.body);
+      return throw Exception(data['title']);
+    } else {
+      var data = jsonDecode(response.body);
+      return throw Exception(data['title']);
+    }
+  }
+
   Future<bool> register(Usermodel user) async {
     Map<String, dynamic> requestBody = {
       "username": user.userName,

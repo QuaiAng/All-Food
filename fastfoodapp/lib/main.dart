@@ -2,14 +2,24 @@ import 'dart:io';
 
 import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/data/repositories/AddressRepository.dart';
+
 import 'package:fastfoodapp/data/repositories/CartRepository.dart';
+
+import 'package:fastfoodapp/data/repositories/CategoryRepository.dart';
+
 import 'package:fastfoodapp/data/repositories/ProductRepository.dart';
+import 'package:fastfoodapp/data/repositories/ReviewRepository.dart';
 import 'package:fastfoodapp/data/repositories/ShopRepository.dart';
 import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:fastfoodapp/data/repositories/VoucherRepository.dart';
 import 'package:fastfoodapp/data/services/AddressService.dart';
+
 import 'package:fastfoodapp/data/services/CartService.dart';
+
+import 'package:fastfoodapp/data/services/CategoryService.dart';
+
 import 'package:fastfoodapp/data/services/ProductService.dart';
+import 'package:fastfoodapp/data/services/ReviewService.dart';
 import 'package:fastfoodapp/data/services/ShopService.dart';
 import 'package:fastfoodapp/data/services/UserService.dart';
 
@@ -17,6 +27,7 @@ import 'package:fastfoodapp/data/services/VoucherService.dart';
 
 import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/categoryviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/changepasswordviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/detailproductscreenviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/detailsearchviewmodel.dart';
@@ -29,6 +40,7 @@ import 'package:fastfoodapp/presentation/states/paymentviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/states/registerviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/resultsearchviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/reviewviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/shopviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/verifyotpviewmodel.dart';
@@ -48,7 +60,11 @@ void main() {
       Provider(create: (_) => Productservice()),
       Provider(create: (_) => Voucherservice()),
       Provider(create: (_) => Shopservice()),
+
       Provider(create: (_) => Cartservice()),
+
+      Provider(create: (_) => Categoryservice()),
+      Provider(create: (_) => Reviewservice()),
 
       // Cung cấp UserRepository (phụ thuộc vào UserService)
       ProxyProvider<UserService, Userrepository>(
@@ -70,6 +86,13 @@ void main() {
 
       ProxyProvider<Shopservice, Shoprepository>(
           update: (context, shopService, _) => Shoprepository(shopService)),
+      ProxyProvider<Categoryservice, Categoryrepository>(
+          update: (context, categoryService, _) =>
+              Categoryrepository(categoryService)),
+
+      ProxyProvider<Reviewservice, Reviewrepository>(
+          update: (context, reviewService, _) =>
+              Reviewrepository(reviewService)),
 
       ProxyProvider<Addressservice, Addressrepository>(
           update: (context, addressService, _) =>
@@ -104,7 +127,6 @@ void main() {
               Addressviewmodel(context.read<Addressrepository>())),
       ChangeNotifierProvider(
           create: (context) => Shopviewmodel(context.read<Shoprepository>())),
-
       ChangeNotifierProvider(
           create: (context) =>
               Resultsearchviewmodel(context.read<Productrepository>())),
@@ -119,7 +141,15 @@ void main() {
 
       // ChangeNotifierProvider(create: (_) => Addvoucherviewmodel()),
 
-      ChangeNotifierProvider(create: (_) => Ordermanagementviewmodel())
+      ChangeNotifierProvider(create: (_) => Ordermanagementviewmodel()),
+
+      ChangeNotifierProvider(
+          create: (context) =>
+              Categoryviewmodel(context.read<Categoryrepository>())),
+
+      ChangeNotifierProvider(
+          create: (context) =>
+              Reviewviewmodel(context.read<Reviewrepository>())),
     ],
     child: const MainApp(),
   ));

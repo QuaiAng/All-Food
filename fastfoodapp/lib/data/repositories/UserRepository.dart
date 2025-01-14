@@ -25,6 +25,13 @@ class Userrepository {
     return user;
   }
 
+  Future<String> getNameUserByUserId(int userId) async {
+    final response = await _userService.getNameUserByUserId(userId);
+    User? user = User.fromJson(response); // chuyển từ json sang đối tượng
+
+    return user.fullName;
+  }
+
   Future<bool> register(Usermodel user) async {
     return await _userService.register(user);
   }

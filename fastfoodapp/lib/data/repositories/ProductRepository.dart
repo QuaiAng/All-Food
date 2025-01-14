@@ -20,7 +20,7 @@ class Productrepository {
 
   Future<Productmodel?> getProductById(int id) async {
     Productmodel product;
-    final response = await _productservice.getProductById(id);
+    final response = await _productservice.getProductByProductId(id);
 
     product = Productmodel.fromJSON(response?['data'] as Map<String, dynamic>);
     return product;
@@ -31,5 +31,11 @@ class Productrepository {
     List<Productmodel> products =
         response.map((product) => Productmodel.fromJSON(product)).toList();
     return products;
+  }
+
+  Future<Productmodel> getProductByProductId(int productId) async {
+    final response = await _productservice.getProductByProductId(productId);
+    Productmodel _product = Productmodel.fromJSONWithoutShopAddress(response);
+    return _product;
   }
 }
