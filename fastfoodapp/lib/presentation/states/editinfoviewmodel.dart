@@ -17,6 +17,7 @@ class Editinfoviewmodel extends ChangeNotifier {
   TextEditingController _phone = TextEditingController();
   TextEditingController _password = TextEditingController();
   TextEditingController _address = TextEditingController();
+  String _nameUser = '';
 
   // Getter cho các controller và formKey
   TextEditingController get nameController => _name;
@@ -25,6 +26,7 @@ class Editinfoviewmodel extends ChangeNotifier {
   TextEditingController get passwordController => _password;
   TextEditingController get addressController => _address;
   GlobalKey<FormState> get formKey => _formKey;
+  String get nameUser => _nameUser;
 
   // Hàm để validate form (kiểm tra tính hợp lệ của dữ liệu)
   bool validateForm() {
@@ -54,6 +56,12 @@ class Editinfoviewmodel extends ChangeNotifier {
     final response = await _userrepository.updateInfoUser(
         _name.text, _phone.text, _email.text, _prefs.getInt('userId')!);
     return response;
+  }
+
+  Future<void> getNameUserByUserId(int userId) async {
+    String _nameUserById = await _userrepository.getNameUserByUserId(userId);
+    _nameUser = _nameUserById;
+    notifyListeners();
   }
 
   @override

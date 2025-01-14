@@ -28,4 +28,15 @@ class Productservice {
       return jsonDecode(response.body);
     }
   }
+
+  Future<Map<String, dynamic>> getProductByProductId(int productId) async {
+    final response = await http.get(Uri.parse(
+        "${AppStrings.urlAPI}/product/productId=$productId")); // lấy ra 5 sản phẩm best seller
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    } else {
+      return jsonDecode(response.body);
+    }
+  }
 }

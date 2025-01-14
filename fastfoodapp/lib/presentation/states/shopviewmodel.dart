@@ -19,4 +19,11 @@ class Shopviewmodel extends ChangeNotifier {
 
     return shop;
   }
+
+  Future<Shopmodel> getShopId() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    final response =
+        await _shoprepository.getShopByShopId(_prefs.getInt('shopId')!);
+    return response;
+  }
 }

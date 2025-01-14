@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/presentation/pages/detailproductscreen.dart';
 import 'package:fastfoodapp/presentation/states/resultsearchviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/shopviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/productinshop.dart';
@@ -167,23 +168,32 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
                       scrollDirection: Axis.horizontal,
                       itemCount: 5,
                       itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            // nút nhấn xử lí
-                          },
-                          child: FutureBuilder(
-                            future: productViewModel.getListProductBestSeller(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              } else if (snapshot.hasError) {
-                                return Center(
-                                  child: Text("${snapshot.error}"),
-                                );
-                              } else if (snapshot.hasData) {
-                                return Sectionfood(
+                        return FutureBuilder(
+                          future: productViewModel.getListProductBestSeller(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            } else if (snapshot.hasError) {
+                              return Center(
+                                child: Text("${snapshot.error}"),
+                              );
+                            } else if (snapshot.hasData) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          Detailproductscreen(),
+                                      settings: RouteSettings(
+                                          arguments:
+                                              snapshot.data![index].productId),
+                                    ),
+                                  );
+                                },
+                                child: Sectionfood(
                                     name_food:
                                         snapshot.data![index].productName,
                                     foodImg: "assets/images/anhga.png",
@@ -191,13 +201,13 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
                                         snapshot.data![index].shopAddress,
                                     foodRating: snapshot.data![index].rating,
                                     time: 25,
-                                    delivery: "Freeship");
-                              } else {
-                                return const Center(
-                                    child: Text("Không tìm thấy dữ liệu "));
-                              }
-                            },
-                          ),
+                                    delivery: "Freeship"),
+                              );
+                            } else {
+                              return const Center(
+                                  child: Text("Không tìm thấy dữ liệu "));
+                            }
+                          },
                         );
                       }),
                 ),

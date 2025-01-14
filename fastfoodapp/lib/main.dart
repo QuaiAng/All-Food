@@ -2,19 +2,26 @@ import 'dart:io';
 
 import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/data/repositories/AddressRepository.dart';
+import 'package:fastfoodapp/data/repositories/CategoryRepository.dart';
 import 'package:fastfoodapp/data/repositories/ProductRepository.dart';
+import 'package:fastfoodapp/data/repositories/ReviewRepository.dart';
 import 'package:fastfoodapp/data/repositories/ShopRepository.dart';
 import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:fastfoodapp/data/repositories/VoucherRepository.dart';
 import 'package:fastfoodapp/data/services/AddressService.dart';
+import 'package:fastfoodapp/data/services/CategoryService.dart';
 import 'package:fastfoodapp/data/services/ProductService.dart';
+import 'package:fastfoodapp/data/services/ReviewService.dart';
 import 'package:fastfoodapp/data/services/ShopService.dart';
 import 'package:fastfoodapp/data/services/UserService.dart';
 
 import 'package:fastfoodapp/data/services/VoucherService.dart';
+import 'package:fastfoodapp/presentation/pages/detailproductscreen.dart';
+import 'package:fastfoodapp/presentation/pages/detailsearchscreen.dart';
 
 import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/categoryviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/changepasswordviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/detailproductscreenviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/detailsearchviewmodel.dart';
@@ -26,6 +33,7 @@ import 'package:fastfoodapp/presentation/states/paymentviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/states/registerviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/resultsearchviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/reviewviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/shopviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/verifyotpviewmodel.dart';
@@ -54,6 +62,8 @@ void main() {
       Provider(create: (_) => Productservice()),
       Provider(create: (_) => Voucherservice()),
       Provider(create: (_) => Shopservice()),
+      Provider(create: (_) => Categoryservice()),
+      Provider(create: (_) => Reviewservice()),
 
       // Cung cấp UserRepository (phụ thuộc vào UserService)
       ProxyProvider<UserService, Userrepository>(
@@ -72,6 +82,13 @@ void main() {
 
       ProxyProvider<Shopservice, Shoprepository>(
           update: (context, shopService, _) => Shoprepository(shopService)),
+      ProxyProvider<Categoryservice, Categoryrepository>(
+          update: (context, categoryService, _) =>
+              Categoryrepository(categoryService)),
+
+      ProxyProvider<Reviewservice, Reviewrepository>(
+          update: (context, reviewService, _) =>
+              Reviewrepository(reviewService)),
 
       ChangeNotifierProvider(create: (_) => AppProvier()),
       ChangeNotifierProvider(create: (_) => Cartviewmodel()),
@@ -96,7 +113,6 @@ void main() {
               Addressviewmodel(context.read<Addressrepository>())),
       ChangeNotifierProvider(
           create: (context) => Shopviewmodel(context.read<Shoprepository>())),
-
       ChangeNotifierProvider(
           create: (context) =>
               Resultsearchviewmodel(context.read<Productrepository>())),
@@ -107,7 +123,14 @@ void main() {
           create: (context) =>
               Voucherviewmodel(context.read<Voucherrepository>())),
 
-      ChangeNotifierProvider(create: (_) => Detailproductscreenviewmodel())
+      ChangeNotifierProvider(create: (_) => Detailproductscreenviewmodel()),
+      ChangeNotifierProvider(
+          create: (context) =>
+              Categoryviewmodel(context.read<Categoryrepository>())),
+              
+      ChangeNotifierProvider(
+          create: (context) =>
+              Reviewviewmodel(context.read<Reviewrepository>())),
     ],
     child: const MainApp(),
   ));
@@ -123,18 +146,7 @@ class MainApp extends StatelessWidget {
         initialRoute: RouteName.loginScreen,
         onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
-        // home: Detailproductscreen(
-        //   imageShop: "assets/images/anhchandung.jpg",
-        //   ratingShop: 4.3,
-        //   nameShop: "Quán Bà Tám Quận 8",
-        //   image: "assets/images/anhdai.jpeg",
-        //   nameFood: "Bánh Kẹp Kem",
-        //   categoryFoodName: "Bánh ngọt",
-        //   comment:
-        //       "Shortbread, chocolate turtle cookies, and red velret. 8 ounces cream cheese, softened",
-        //   rating: 4.3,
-        //   quantity: 273,
-        // ),
+        // home: Detailproductscreen()
       );
     });
   }

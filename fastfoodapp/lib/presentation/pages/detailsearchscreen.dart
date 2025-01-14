@@ -133,7 +133,6 @@ class Detailsearchscreen extends StatelessWidget {
                       },
                       onDeleteTap: () {
                         detailSearchViewModel.removeSearchItem(index);
-
                         print("Xóa $index");
                       },
                     );

@@ -22,89 +22,91 @@ class Sectionfood extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(SizeOfWidget.sizeOfH4),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-              height: 55.sp,
-              width: 55.sp,
-              child: Image.asset(
-                foodImg,
-                fit: BoxFit.fill,
-              )),
-          SizedBox(
-            height: 4.sp,
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 4.sp),
-            child: Text(
-              name_food,
-              style: GoogleFonts.inter(
-                  fontSize: SizeOfWidget.sizeOfH1,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.black,
-                  decoration: TextDecoration.none),
+    return InkWell(
+      child: Padding(
+        padding: EdgeInsets.all(SizeOfWidget.sizeOfH4),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+                height: 55.sp,
+                width: 55.sp,
+                child: Image.asset(
+                  foodImg,
+                  fit: BoxFit.fill,
+                )),
+            SizedBox(
+              height: 4.sp,
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 4.sp),
-            child: Text(
-              foodLocation,
-              style: GoogleFonts.inter(
-                  fontSize: SizeOfWidget.sizeOfH3,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.gray,
-                  decoration: TextDecoration.none),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                height: SizeOfWidget.sizeOfH1,
-                width: 21.sp,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    color: AppColors.primaryColor,
-                    borderRadius: BorderRadius.circular(4)),
-                child: Text(
-                  "$foodRating",
-                  style: GoogleFonts.inter(
-                      fontSize: SizeOfWidget.sizeOfH4,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
-                      decoration: TextDecoration.none),
-                  textAlign: TextAlign.center,
-                ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 4.sp),
+              child: Text(
+                name_food,
+                style: GoogleFonts.inter(
+                    fontSize: SizeOfWidget.sizeOfH1,
+                    fontWeight: FontWeight.w300,
+                    color: Colors.black,
+                    decoration: TextDecoration.none),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.sp),
-                child: Text(
-                  "$time min",
-                  style: GoogleFonts.inter(
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 4.sp),
+              child: Text(
+                foodLocation,
+                style: GoogleFonts.inter(
                     fontSize: SizeOfWidget.sizeOfH3,
                     fontWeight: FontWeight.w400,
                     color: AppColors.gray,
+                    decoration: TextDecoration.none),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  height: SizeOfWidget.sizeOfH1,
+                  width: 21.sp,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: AppColors.primaryColor,
+                      borderRadius: BorderRadius.circular(4)),
+                  child: Text(
+                    "$foodRating",
+                    style: GoogleFonts.inter(
+                        fontSize: SizeOfWidget.sizeOfH4,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                        decoration: TextDecoration.none),
+                    textAlign: TextAlign.center,
                   ),
                 ),
-              ),
-              const Point(),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.sp),
-                child: Text(
-                  delivery,
-                  style: GoogleFonts.inter(
-                    fontSize: SizeOfWidget.sizeOfH3,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.gray,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                  child: Text(
+                    "$time min",
+                    style: GoogleFonts.inter(
+                      fontSize: SizeOfWidget.sizeOfH3,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.gray,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          )
-        ],
+                const Point(),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                  child: Text(
+                    delivery,
+                    style: GoogleFonts.inter(
+                      fontSize: SizeOfWidget.sizeOfH3,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.gray,
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

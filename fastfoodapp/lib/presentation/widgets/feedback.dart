@@ -1,4 +1,5 @@
 import 'package:fastfoodapp/main.dart';
+import 'package:fastfoodapp/presentation/states/editinfoviewmodel.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
@@ -8,14 +9,18 @@ import 'package:sizer/sizer.dart';
 
 class Comment extends StatelessWidget {
   Comment(
-      {required this.image, required this.nameUser, required this.feedback});
+      {super.key,
+      required this.image,
+      required this.nameUser,
+      required this.feedback});
 
   late String image;
   late String nameUser;
   late String feedback;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -27,12 +32,13 @@ class Comment extends StatelessWidget {
             SizedBox(
               width: 5.sp,
             ),
+            SizedBox(width: 5.sp),
             Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "${nameUser}",
+                    nameUser,
                     style: StylesOfWidgets.textStyle1(
                         fs: SizeOfWidget.sizeOfH3,
                         fw: FontWeight.w400,
@@ -52,7 +58,7 @@ class Comment extends StatelessWidget {
                   SizedBox(
                     width: 70.sp,
                     child: Text(
-                      "${feedback}",
+                      feedback,
                       softWrap: true,
                       style: StylesOfWidgets.textStyle1(
                           fs: SizeOfWidget.sizeOfH4,
