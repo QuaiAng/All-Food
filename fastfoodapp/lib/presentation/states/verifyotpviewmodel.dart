@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Verifyotpviewmodel with ChangeNotifier {
   final TextEditingController _otpController = TextEditingController();
   bool _isError = false;
-  String _correctOtp = "1234";
+  final String _correctOtp = "1234";
 
   // Getter
   TextEditingController get otpController => _otpController;

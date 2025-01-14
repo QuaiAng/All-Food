@@ -116,7 +116,8 @@ class SettingScreen extends StatelessWidget {
                 ),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () {
-                  print("Shop của tôi được nhấn");
+                  // print("Shop của tôi được nhấn");
+                  Navigator.pushNamed(context, RouteName.orderManagementScreen);
                 },
               ),
               const Divider(

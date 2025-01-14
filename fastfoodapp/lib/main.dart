@@ -16,7 +16,6 @@ import 'package:fastfoodapp/data/services/UserService.dart';
 import 'package:fastfoodapp/data/services/VoucherService.dart';
 
 import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
-import 'package:fastfoodapp/presentation/states/addvoucherviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/changepasswordviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/detailproductscreenviewmodel.dart';
@@ -24,6 +23,7 @@ import 'package:fastfoodapp/presentation/states/detailsearchviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/editinfoviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/forgotpasswordviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/loginviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/ordermanagementviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/orderstatusviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/paymentviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
@@ -37,15 +37,6 @@ import 'package:fastfoodapp/presentation/states/voucherviewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-  }
-}
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();
@@ -80,10 +71,19 @@ void main() {
       ProxyProvider<Shopservice, Shoprepository>(
           update: (context, shopService, _) => Shoprepository(shopService)),
 
+      ProxyProvider<Addressservice, Addressrepository>(
+          update: (context, addressService, _) =>
+              Addressrepository(addressService)),
+      ProxyProvider<Productservice, Productrepository>(
+          update: (context, productService, _) =>
+              Productrepository(productService)),
+
       ChangeNotifierProvider(create: (_) => AppProvier()),
       ChangeNotifierProvider(
           create: (context) => Cartviewmodel(context.read<CartRepository>())),
-      ChangeNotifierProvider(create: (_) => Changepasswordviewmodel()),
+      ChangeNotifierProvider(
+          create: (context) =>
+              Changepasswordviewmodel(context.read<Userrepository>())),
       ChangeNotifierProvider(create: (_) => Detailsearchviewmodel()),
       ChangeNotifierProvider(
           create: (context) =>
@@ -117,10 +117,21 @@ void main() {
 
       ChangeNotifierProvider(create: (_) => Detailproductscreenviewmodel()),
 
-      ChangeNotifierProvider(create: (_) => Addvoucherviewmodel()),
+      // ChangeNotifierProvider(create: (_) => Addvoucherviewmodel()),
+
+      ChangeNotifierProvider(create: (_) => Ordermanagementviewmodel())
     ],
     child: const MainApp(),
   ));
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
 }
 
 class MainApp extends StatelessWidget {

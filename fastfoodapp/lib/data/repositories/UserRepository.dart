@@ -38,4 +38,14 @@ class Userrepository {
     }
     return response['message'];
   }
+
+  Future<String> changePassword(
+      String oldPassword, String newPassword, int userId) async {
+    final response =
+        await _userService.changePassword(oldPassword, newPassword, userId);
+    if (response['success'] == true) {
+      return response['message'];
+    }
+    return response['message'];
+  }
 }

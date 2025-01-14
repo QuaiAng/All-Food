@@ -1,8 +1,7 @@
 import 'package:fastfoodapp/data/models/User.dart';
-import 'package:fastfoodapp/data/models/UserModel.dart';
+
 import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Settingviewmodel with ChangeNotifier {
   // Các trạng thái của màn hình
@@ -27,6 +26,7 @@ class Settingviewmodel with ChangeNotifier {
     User? user = await _userRepository.getUser();
     fullName = user!.fullName;
     email = user!.email;
+
     return await _userRepository.getUser();
   }
 

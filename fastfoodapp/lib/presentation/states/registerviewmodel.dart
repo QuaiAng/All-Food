@@ -13,8 +13,7 @@ class Registerviewmodel with ChangeNotifier {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   bool _isAgree = false;
 
@@ -26,8 +25,7 @@ class Registerviewmodel with ChangeNotifier {
   TextEditingController get emailController => _emailController;
   TextEditingController get usernameController => _usernameController;
   TextEditingController get passwordController => _passwordController;
-  TextEditingController get confirmPasswordController =>
-      _confirmPasswordController;
+  TextEditingController get confirmPasswordController => _confirmPasswordController;
 
   bool get isAgree => _isAgree;
 

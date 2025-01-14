@@ -117,7 +117,7 @@ class VoucherDetailScreen extends StatelessWidget {
                   ),
                   Container(
                     width: double.infinity,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: AppColors.primaryColor,
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(8),

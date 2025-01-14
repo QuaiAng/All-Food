@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:fastfoodapp/presentation/widgets/advertisement.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:fastfoodapp/presentation/widgets/sectionfood.dart';
 
@@ -32,7 +31,8 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
     final shopViewModel = Provider.of<Shopviewmodel>(context);
     final productViewModel = Provider.of<Resultsearchviewmodel>(context);
 
-    TabController _tabController = TabController(length: 6, vsync: this);
+    TabController tabController = TabController(length: 6, vsync: this);
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
@@ -214,7 +214,7 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
                           fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w600),
                       unselectedLabelStyle: StylesOfWidgets.textStyle1(
                           fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w600),
-                      controller: _tabController,
+                      controller: tabController,
                       indicator: const BoxDecoration(),
                       dividerHeight: 0,
                       labelColor: Colors.black,
@@ -235,7 +235,7 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
                     height: MediaQuery.of(context).size.height *
                         0.5, // Chiều cao tùy chỉnh
                     child: TabBarView(
-                      controller: _tabController,
+                      controller: tabController,
                       children: List.generate(
                         6,
                         (index) {

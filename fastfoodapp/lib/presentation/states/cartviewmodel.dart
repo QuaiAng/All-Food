@@ -20,7 +20,7 @@ class Cartviewmodel extends ChangeNotifier {
     }
     final response = await _cartRepository.getCartByUserId(userId);
     cartmodel = response!;
-    notifyListeners();
+    // notifyListeners();
     return response;
   }
 
@@ -32,10 +32,5 @@ class Cartviewmodel extends ChangeNotifier {
   void removeFromCart(int index) {
     cartmodel!.cartDetails.removeAt(index);
     notifyListeners();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }

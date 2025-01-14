@@ -29,7 +29,7 @@ class Homescreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final shopViewModel = Provider.of<Shopviewmodel>(context);
-    final productViewModel = Provider.of<Resultsearchviewmodel>(context);
+    final resultSearchViewModel = Provider.of<Resultsearchviewmodel>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -185,8 +185,8 @@ class Homescreen extends StatelessWidget {
                               // nút nhấn xử lí
                             },
                             child: FutureBuilder(
-                              future:
-                                  productViewModel.getListProductBestSeller(),
+                              future: resultSearchViewModel
+                                  .getListProductBestSeller(),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {

@@ -1,5 +1,4 @@
 import 'package:fastfoodapp/res/colors.dart';
-import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';

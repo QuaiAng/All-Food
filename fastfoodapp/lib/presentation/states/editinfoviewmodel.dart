@@ -1,5 +1,4 @@
 import 'package:fastfoodapp/data/models/User.dart';
-import 'package:fastfoodapp/data/models/UserModel.dart';
 import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,15 +7,15 @@ class Editinfoviewmodel extends ChangeNotifier {
   // GlobalKey cho Form
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  Userrepository _userrepository;
+  final Userrepository _userrepository;
 
   Editinfoviewmodel(this._userrepository);
   // Các TextEditingController cho từng trường nhập liệu
-  TextEditingController _name = TextEditingController();
-  TextEditingController _email = TextEditingController();
-  TextEditingController _phone = TextEditingController();
-  TextEditingController _password = TextEditingController();
-  TextEditingController _address = TextEditingController();
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _phone = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _address = TextEditingController();
 
   // Getter cho các controller và formKey
   TextEditingController get nameController => _name;

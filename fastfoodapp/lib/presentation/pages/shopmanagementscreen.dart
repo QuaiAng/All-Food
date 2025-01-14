@@ -78,7 +78,7 @@ class Shopmanagementscreen extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.sp),
-                child: Divider(),
+                child: const Divider(),
               ),
               SizedBox(height: 14.sp),
               Padding(
@@ -145,7 +145,7 @@ class Shopmanagementscreen extends StatelessWidget {
             BoxShadow(
               color: Colors.black.withOpacity(0.3), // Màu của bóng
               blurRadius: 4, // Độ mờ của bóng
-              offset: Offset(0, 2), // Độ dịch chuyển của bóng (x, y)
+              offset: const Offset(0, 2), // Độ dịch chuyển của bóng (x, y)
             ),
           ],
         ),
@@ -164,7 +164,7 @@ class Shopmanagementscreen extends StatelessWidget {
               ),
               child: Icon(icon, size: 25.sp, color: Colors.black, weight: 0.5),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             // Tiêu đề giới hạn diện tích
             SizedBox(
               width: 37.sp,

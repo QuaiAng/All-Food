@@ -1,5 +1,6 @@
 import 'package:fastfoodapp/presentation/states/detailproductscreenviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonLogin.dart';
+
 import 'package:fastfoodapp/presentation/widgets/feedback.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';

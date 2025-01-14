@@ -26,6 +26,7 @@ class Addressservice {
   Future<Map<String, dynamic>?> getAddressById(int addressId) async {
     final response = await http
         .get(Uri.parse("${AppStrings.urlAPI}/address/addressId=${addressId}"));
+
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else if (response.statusCode == 400) {
@@ -39,7 +40,7 @@ class Addressservice {
 
   Future<Map<String, dynamic>?> deleteAddressById(int addressId) async {
     final response = await http
-        .delete(Uri.parse("${AppStrings.urlAPI}/address/remove/${addressId}"));
+        .delete(Uri.parse("${AppStrings.urlAPI}/address/remove/$addressId"));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else if (response.statusCode == 400) {

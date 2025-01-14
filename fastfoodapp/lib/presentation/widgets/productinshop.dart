@@ -1,4 +1,3 @@
-import 'package:fastfoodapp/main.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';

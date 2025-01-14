@@ -1,5 +1,4 @@
 import 'package:fastfoodapp/presentation/pages/addressscreen.dart';
-import 'package:fastfoodapp/presentation/pages/addvoucherscreen.dart';
 import 'package:fastfoodapp/presentation/pages/cartscreen.dart';
 import 'package:fastfoodapp/presentation/pages/bestsellerlist.dart';
 import 'package:fastfoodapp/presentation/pages/changepasswordscreen.dart';
@@ -11,6 +10,7 @@ import 'package:fastfoodapp/presentation/pages/homescreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailshopscreen.dart';
 import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
 import 'package:fastfoodapp/presentation/pages/mainscreen.dart';
+import 'package:fastfoodapp/presentation/pages/ordermanagementscreen.dart';
 import 'package:fastfoodapp/presentation/pages/orderstatusscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentmethodscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
@@ -54,6 +54,7 @@ class RouteName {
   static const String resultSearchScreen = "/resultsearch";
   static const String filterRevenue = "/filterrevenue";
   static const String addvoucherscreen = "/addvoucher";
+  static const String orderManagementScreen = "/ordermanagement";
 }
 
 class AppRouter {
@@ -147,8 +148,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const Feedbackscreen());
       case RouteName.filterRevenue:
         return MaterialPageRoute(builder: (_) => const Filterrevenuescreen());
-      case RouteName.addvoucherscreen:
-        return MaterialPageRoute(builder: (_) => const Addvoucherscreen());
+      // case RouteName.addvoucherscreen:
+      // return MaterialPageRoute(builder: (_) => const Addvoucherscreen());
+      case RouteName.orderManagementScreen:
+        return MaterialPageRoute(builder: (_) => const Ordermanagementscreen());
 
       default:
         return MaterialPageRoute(

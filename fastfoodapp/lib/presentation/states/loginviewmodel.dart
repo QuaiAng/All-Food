@@ -1,4 +1,3 @@
-import 'package:fastfoodapp/data/models/ResponeLoginModel.dart';
 import 'package:fastfoodapp/data/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

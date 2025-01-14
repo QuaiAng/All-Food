@@ -1,9 +1,8 @@
-import 'package:fastfoodapp/main.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import 'package:sizer/sizer.dart';
 
 class Comment extends StatelessWidget {
@@ -23,7 +22,12 @@ class Comment extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircleAvatar(radius: 16.sp, backgroundImage: AssetImage(image)),
+            CircleAvatar(
+              radius: 16.sp,
+              backgroundImage: NetworkImage(
+                image,
+              ),
+            ),
             SizedBox(
               width: 5.sp,
             ),
@@ -32,7 +36,7 @@ class Comment extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "${nameUser}",
+                    nameUser,
                     style: StylesOfWidgets.textStyle1(
                         fs: SizeOfWidget.sizeOfH3,
                         fw: FontWeight.w400,
@@ -52,7 +56,7 @@ class Comment extends StatelessWidget {
                   SizedBox(
                     width: 70.sp,
                     child: Text(
-                      "${feedback}",
+                      feedback,
                       softWrap: true,
                       style: StylesOfWidgets.textStyle1(
                           fs: SizeOfWidget.sizeOfH4,

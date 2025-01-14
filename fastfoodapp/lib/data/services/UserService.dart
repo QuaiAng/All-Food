@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UserService {
   Future<Map<String, dynamic>> login(String username, String password) async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
+
     Map<String, dynamic> requestBody = {
       "username": username,
       "password": password,
@@ -96,6 +97,31 @@ class UserService {
       body: jsonEncode(resquestBody), // Chuyển đổi dữ liệu sang dạng JSON
     );
     if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      return jsonDecode(response.body);
+    }
+  }
+
+  Future<Map<String, dynamic>> changePassword(
+      String oldPassword, String newPassword, int userId) async {
+    Map<String, dynamic> requestBody = {
+      "oldPassword": oldPassword,
+      "newPassword": newPassword,
+    };
+
+    final response = await http.patch(
+      Uri.parse('${AppStrings.urlAPI}/user/changepassword/userId=$userId'),
+      headers: {
+        "Content-Type":
+            "application/json", // Tiêu đề yêu cầu (tuỳ chỉnh nếu cần)
+      },
+      body: jsonEncode(requestBody),
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else if (response.statusCode == 400) {
       return jsonDecode(response.body);
     } else {
       return jsonDecode(response.body);

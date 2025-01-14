@@ -199,7 +199,6 @@ class Addressscreen extends StatelessWidget {
                                                             .listAddressUser[
                                                                 index]
                                                             .addressId);
-
                                             Navigator.pop(context);
 
                                             if (result == true) {
