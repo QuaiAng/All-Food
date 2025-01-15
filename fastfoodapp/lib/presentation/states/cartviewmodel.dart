@@ -26,7 +26,7 @@ class Cartviewmodel extends ChangeNotifier {
 
   Future<bool> addToCart(Cartdetailmodel cartdetail) async {
     final response = await _cartRepository.addToCart(cartdetail);
-    // notifyListeners();
+    notifyListeners();
     return response;
   }
 

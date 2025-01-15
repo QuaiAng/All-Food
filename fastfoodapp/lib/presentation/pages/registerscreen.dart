@@ -7,6 +7,7 @@ import 'package:fastfoodapp/presentation/widgets/textheader.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';
+import 'package:fastfoodapp/utils/customdialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -166,9 +167,14 @@ class Registerscreen extends StatelessWidget {
                       if (registerViewModel.validateForm()) {
                         var result = await registerViewModel.register(user);
 
-                        if (result == true) {
+                        if (result == "ok") {
                           Navigator.pushNamed(
                               context, RouteName.verifyotpScreen);
+                        } else {
+                          Customdialog.showCustomDialog(
+                              context: context,
+                              title: "Thông báo",
+                              content: result);
                         }
                       }
                     },

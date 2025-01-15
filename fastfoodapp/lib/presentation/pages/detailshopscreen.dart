@@ -206,7 +206,7 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
                                                 name_food: productSnapshot
                                                     .data![index].productName,
                                                 foodImg:
-                                                    "assets/images/anhga.png",
+                                                    "foodimage/banhmi1.jpg",
                                                 foodLocation: productSnapshot
                                                     .data![index].shopAddress,
                                                 foodRating: productSnapshot

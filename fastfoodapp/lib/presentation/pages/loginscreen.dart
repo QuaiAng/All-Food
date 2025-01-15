@@ -13,8 +13,22 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Loginscreen extends StatelessWidget {
+class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
+
+  @override
+  State<Loginscreen> createState() => _LoginscreenState();
+}
+
+class _LoginscreenState extends State<Loginscreen> {
+  GlobalKey<FormState>? _formKeyLogin;
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+    _formKeyLogin = GlobalKey<FormState>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +58,7 @@ class Loginscreen extends StatelessWidget {
         color: AppColors.backgroundColor,
         child: SingleChildScrollView(
           child: Form(
-            key: loginViewModel.formKeyLogin,
+            key: _formKeyLogin,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -93,7 +107,7 @@ class Loginscreen extends StatelessWidget {
                 Buttonlogin(
                     onClick: () async {
                       // Đợi kiểm tra thông tin login và kết quả trả về
-                      if (loginViewModel.validateForm()) {
+                      if (_formKeyLogin!.currentState!.validate()) {
                         bool result = await loginViewModel.login(
                           loginViewModel.usernameController.text,
                           loginViewModel.passwordController.text,

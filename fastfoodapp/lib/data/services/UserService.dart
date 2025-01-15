@@ -68,7 +68,7 @@ class UserService {
     }
   }
 
-  Future<bool> register(Usermodel user) async {
+  Future<Map<String, dynamic>> register(Usermodel user) async {
     Map<String, dynamic> requestBody = {
       "username": user.userName,
       "password": user.password,
@@ -86,17 +86,7 @@ class UserService {
       body: jsonEncode(requestBody), // Chuyển đổi dữ liệu sang dạng JSON
     );
 
-    if (response.statusCode == 200) {
-      return true;
-    } else if (response.statusCode == 404) {
-      var data = jsonDecode(response.body);
-      print(data['message']);
-      throw Exception(data['message']);
-    } else {
-      var data = jsonDecode(response.body);
-      print(data['message']);
-      throw Exception(data['message']);
-    }
+    return jsonDecode(response.body);
   }
 
   Future<Map<String, dynamic>> updateInfoUser(
@@ -105,7 +95,7 @@ class UserService {
       "fullName": name,
       "email": email,
       "phone": phone,
-      "imageUrl": "string"
+      "imageUrl": ""
     };
     final response = await http.put(
       Uri.parse("${AppStrings.urlAPI}/user/update/${userId}"),

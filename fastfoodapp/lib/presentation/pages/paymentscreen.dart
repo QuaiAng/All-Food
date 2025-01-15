@@ -2,6 +2,7 @@ import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/states/paymentviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
+import 'package:fastfoodapp/presentation/widgets/iteminpayment.dart';
 import 'package:fastfoodapp/presentation/widgets/otherprice.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -130,7 +131,13 @@ class Paymentscreen extends StatelessWidget {
 
                 return Column(
                   children: [
-                    item,
+                    const Itemrow(
+                      quantity: 3,
+                      name: "Gà cay",
+                      description:
+                          "Lớp da gà giòn, cay Lớp da gà giòn, cay Lớp da gà giòn, cay",
+                      price: 32000.0,
+                    ),
                     Container(
                       height: 5.sp,
                       padding: EdgeInsets.symmetric(horizontal: 15.sp),

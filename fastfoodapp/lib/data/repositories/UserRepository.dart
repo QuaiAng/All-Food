@@ -32,8 +32,12 @@ class Userrepository {
     return user.fullName;
   }
 
-  Future<bool> register(Usermodel user) async {
-    return await _userService.register(user);
+  Future<String> register(Usermodel user) async {
+    final response = await _userService.register(user);
+    if (response['success'] == false) {
+      return response['message'];
+    }
+    return "ok";
   }
 
   Future<String> updateInfoUser(

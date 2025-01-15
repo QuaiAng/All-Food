@@ -130,14 +130,6 @@ class Cartscreen extends StatelessWidget {
                                         settings: RouteSettings(
                                             arguments: item.productId),
                                       ),
-                                    ).then(
-                                      (value) {
-                                        final viewModel = Provider.of<
-                                                Detailproductscreenviewmodel>(
-                                            context,
-                                            listen: false);
-                                        viewModel.resetQuantity();
-                                      },
                                     );
                                   },
                                   image: item.productImageurl,

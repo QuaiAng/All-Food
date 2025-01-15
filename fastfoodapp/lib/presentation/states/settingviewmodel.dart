@@ -24,10 +24,13 @@ class Settingviewmodel with ChangeNotifier {
 
   Future<User?> getUser() async {
     User? user = await _userRepository.getUser();
-    fullName = user!.fullName;
-    email = user!.email;
+    if (user!.fullName != fullName || user.email != email) {
+      fullName = user!.fullName;
+      email = user!.email;
+      notifyListeners();
+    }
 
-    return await _userRepository.getUser();
+    return user;
   }
 
   set selectedLanguage(String value) {

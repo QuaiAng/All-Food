@@ -23,7 +23,8 @@ class Categoryviewmodel extends ChangeNotifier {
 
   Future<List<Categorymodel>> getCategoriesByShopId(int shopId) async {
     try {
-      return await _categoryrepository.getCategoriesByShopId(shopId);
+      final response = await _categoryrepository.getCategoriesByShopId(shopId);
+      return response;
     } catch (e) {
       print("Lỗi khi lấy danh mục: $e");
       throw Exception(e);

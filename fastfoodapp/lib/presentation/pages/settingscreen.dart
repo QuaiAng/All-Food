@@ -10,9 +10,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-class SettingScreen extends StatelessWidget {
+class SettingScreen extends StatefulWidget {
   final String imagePath;
   const SettingScreen({super.key, required this.imagePath});
+
+  @override
+  State<SettingScreen> createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
+  // Future<>
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +81,13 @@ class SettingScreen extends StatelessWidget {
                           onPressed: () {
                             print('Chỉnh sửa thông tin cá nhân');
                             Navigator.pushNamed(
-                                context, RouteName.editinfoScreen);
+                                    context, RouteName.editinfoScreen)
+                                .then(
+                              (value) async {
+                                await settingViewModel.getUser();
+                              },
+                            );
+                            ;
                           },
                           child: Text(
                             'Sửa',
