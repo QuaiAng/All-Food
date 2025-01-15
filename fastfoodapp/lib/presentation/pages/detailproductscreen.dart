@@ -12,6 +12,7 @@ import 'package:fastfoodapp/presentation/widgets/feedback.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';
+import 'package:fastfoodapp/res/strings.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:fastfoodapp/utils/formatmoney.dart';
 import 'package:flutter/material.dart';
@@ -60,8 +61,8 @@ class Detailproductscreen extends StatelessWidget {
                             // hình nền
                             height: 60.sp,
                             width: double.infinity,
-                            child: Image.file(
-                              File(productSnapShot.data!.imageURL),
+                            child: Image.network(
+                              "${AppStrings.urlAPI}/${productSnapShot.data!.imageURL}",
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -215,9 +216,9 @@ class Detailproductscreen extends StatelessWidget {
                                               children: [
                                                 CircleAvatar(
                                                   radius: 20.sp,
-                                                  backgroundImage: FileImage(
-                                                      File(snapshot
-                                                          .data!.imageURL)),
+                                                  backgroundImage: NetworkImage(
+                                                    "${AppStrings.urlAPI}/${snapshot.data!.imageURL}",
+                                                  ),
                                                 ),
                                                 SizedBox(width: 20.sp),
                                                 Expanded(

@@ -4,6 +4,7 @@ import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
+import 'package:fastfoodapp/res/strings.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,8 @@ class SettingScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                              image: FileImage(File(snapshot.data!.imageURL)),
+                              image: NetworkImage(
+                                  "${AppStrings.urlAPI}/${snapshot.data!.imageURL}"),
                               fit: BoxFit.cover,
                             ),
                           ),

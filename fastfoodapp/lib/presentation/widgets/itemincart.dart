@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
+import 'package:fastfoodapp/res/strings.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:fastfoodapp/utils/formatmoney.dart';
 import 'package:flutter/gestures.dart';
@@ -78,8 +79,8 @@ class _ItemincartState extends State<Itemincart> {
                     // color: Colors.amber,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Image.file(
-                    File(widget.image),
+                  child: Image.network(
+                    "${AppStrings.urlAPI}/${widget.image}",
                     fit: BoxFit.fill,
                   ),
                 ),

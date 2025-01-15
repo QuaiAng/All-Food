@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';
+import 'package:fastfoodapp/res/strings.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:fastfoodapp/utils/formatmoney.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +33,8 @@ class Productinshop extends StatelessWidget {
           children: [
             Expanded(
               flex: 1,
-              child: Image.file(
-                File(imageURL),
+              child: Image.network(
+                "${AppStrings.urlAPI}/$imageURL",
                 fit: BoxFit.cover,
               ),
             ),

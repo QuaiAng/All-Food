@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
+import 'package:fastfoodapp/res/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart'; // File chứa đường dẫn ảnh
@@ -24,6 +25,7 @@ class Sectionfood extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // String imageURL = "${AppStrings.urlAPI}/$foodImg";
     return Padding(
       padding: EdgeInsets.all(SizeOfWidget.sizeOfH4),
       child: Column(
@@ -32,8 +34,8 @@ class Sectionfood extends StatelessWidget {
           SizedBox(
             height: 55.sp,
             width: 55.sp,
-            child: Image.file(
-              File(foodImg),
+            child: Image.network(
+              "${AppStrings.urlAPI}/$foodImg",
               fit: BoxFit.fill,
             ),
           ),

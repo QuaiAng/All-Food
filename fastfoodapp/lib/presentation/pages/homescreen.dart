@@ -9,6 +9,7 @@ import 'package:fastfoodapp/presentation/widgets/advertisement.dart';
 import 'package:fastfoodapp/presentation/widgets/restaurant.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
+import 'package:fastfoodapp/res/strings.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
@@ -88,57 +89,58 @@ class Homescreen extends StatelessWidget {
                     ),
                   ),
                   // Gần tôi
-                  SizedBox(
-                    height: 20.sp,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: Text(
-                        "Gần đây",
-                        style: GoogleFonts.inter(
-                            fontSize: SizeOfWidget.sizeOfH1,
-                            color: AppColors.primaryColor,
-                            fontWeight: FontWeight.w400,
-                            decoration: TextDecoration.none),
-                      )),
-                      InkWell(
-                        onTap: () {
-                          // chuyển trang qua trang chi tiết món ăn
-                        },
-                        child: Row(
-                          children: [
-                            Text(
-                              "Xem tất cả",
-                              style: GoogleFonts.inter(
-                                  fontSize: SizeOfWidget.sizeOfH3,
-                                  color: AppColors.primaryColor),
-                            ),
-                            SizedBox(width: 2.sp),
-                            const Icon(
-                              Icons.chevron_right,
-                              color: AppColors.primaryColor,
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                          children: List.generate(
-                              5,
-                              (index) => InkWell(
-                                    onTap: () {},
-                                    child: const Sectionfood(
-                                        name_food: "Gà Rán",
-                                        foodImg: "assets/images/anhga.png",
-                                        foodLocation: "67, Hoàng Diệu",
-                                        foodRating: 4,
-                                        time: 25,
-                                        delivery: "Freeship"),
-                                  )))),
+                  // SizedBox(
+                  //   height: 20.sp,
+                  // ),
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //         child: Text(
+                  //       "Gần đây",
+                  //       style: GoogleFonts.inter(
+                  //           fontSize: SizeOfWidget.sizeOfH1,
+                  //           color: AppColors.primaryColor,
+                  //           fontWeight: FontWeight.w400,
+                  //           decoration: TextDecoration.none),
+                  //     )),
+                  //     InkWell(
+                  //       onTap: () {
+                  //         // chuyển trang qua trang chi tiết món ăn
+                  //       },
+                  //       child: Row(
+                  //         children: [
+                  //           Text(
+                  //             "Xem tất cả",
+                  //             style: GoogleFonts.inter(
+                  //                 fontSize: SizeOfWidget.sizeOfH3,
+                  //                 color: AppColors.primaryColor),
+                  //           ),
+                  //           SizedBox(width: 2.sp),
+                  //           const Icon(
+                  //             Icons.chevron_right,
+                  //             color: AppColors.primaryColor,
+                  //           )
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // SingleChildScrollView(
+                  //     scrollDirection: Axis.horizontal,
+                  //     child: Row(
+                  //         children: List.generate(
+                  //             5,
+                  //             (index) => InkWell(
+                  //                   onTap: () {},
+                  //                   child: Sectionfood(
+                  //                       name_food: "Gà Rán",
+                  //                       foodImg:
+                  //                           "${AppStrings.urlAPI}/foodimage/banhmi2.jpg",
+                  //                       foodLocation: "67, Hoàng Diệu",
+                  //                       foodRating: 4,
+                  //                       time: 25,
+                  //                       delivery: "Freeship"),
+                  //                 )))),
                   SizedBox(
                     height: 20.sp,
                   ),
