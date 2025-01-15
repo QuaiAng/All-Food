@@ -9,12 +9,24 @@ class Categoryviewmodel extends ChangeNotifier {
   final Categoryrepository _categoryrepository;
   Categoryviewmodel(this._categoryrepository);
 
-  Future<String> getCategoryByCategoryId() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    final response = await _categoryrepository
-        .getCategoryByCategoryId(_prefs.getInt('categoryID')!);
+  Future<String> getCategoryByCategoryId(int categoryId) async {
+    final response =
+        await _categoryrepository.getCategoryByCategoryId(categoryId);
     nameCategory = response;
     return nameCategory;
     // notifyListeners();
+  }
+
+  List<Categorymodel> _categories = [];
+
+  List<Categorymodel> get categories => _categories;
+
+  Future<List<Categorymodel>> getCategoriesByShopId(int shopId) async {
+    try {
+      return await _categoryrepository.getCategoriesByShopId(shopId);
+    } catch (e) {
+      print("Lỗi khi lấy danh mục: $e");
+      throw Exception(e);
+    }
   }
 }

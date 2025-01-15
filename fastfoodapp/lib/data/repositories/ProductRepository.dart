@@ -35,7 +35,14 @@ class Productrepository {
 
   Future<Productmodel> getProductByProductId(int productId) async {
     final response = await _productservice.getProductByProductId(productId);
-    Productmodel _product = Productmodel.fromJSONWithoutShopAddress(response);
+    Productmodel _product = Productmodel.fromJSON(response);
     return _product;
+  }
+
+  Future<List<Productmodel>> getProductsByCategoryId(int categoryId) async {
+    final response = await _productservice.getProductByCategoryId(categoryId);
+    List<Productmodel> products =
+        response.map((product) => Productmodel.fromJSON(product)).toList();
+    return products;
   }
 }

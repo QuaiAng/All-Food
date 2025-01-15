@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
+import 'package:fastfoodapp/utils/formatmoney.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -58,68 +59,65 @@ class ItemInResultSearchScreen extends StatelessWidget {
             // Nội dung thông tin
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.sp),
-              child: Expanded(
-                ///flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Tên món ăn
-                    Text(
-                      foodName,
-                      style: StylesOfWidgets.textStyle1(
-                          clr: Colors.black, fs: SizeOfWidget.sizeOfH1),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(height: 10.sp),
-                    // Địa chỉ
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(Icons.location_on,
-                            size: 18.sp, color: AppColors.gray),
-                        const SizedBox(width: 4.0),
-                        Expanded(
-                          child: Text(
-                            address,
-                            style: StylesOfWidgets.textStyle1(
-                                clr: AppColors.gray, fs: SizeOfWidget.sizeOfH3),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Tên món ăn
+                  Text(
+                    foodName,
+                    style: StylesOfWidgets.textStyle1(
+                        clr: Colors.black, fs: SizeOfWidget.sizeOfH1),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: 10.sp),
+                  // Địa chỉ
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(Icons.location_on,
+                          size: 18.sp, color: AppColors.gray),
+                      const SizedBox(width: 4.0),
+                      Flexible(
+                        child: Text(
+                          address,
+                          style: StylesOfWidgets.textStyle1(
+                              clr: AppColors.gray, fs: SizeOfWidget.sizeOfH3),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10.sp),
-                    // Tên cửa hàng
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(Icons.storefront_outlined,
-                            size: 18.sp, color: AppColors.gray),
-                        const SizedBox(width: 4.0),
-                        Expanded(
-                          child: Text(
-                            shopName,
-                            style: StylesOfWidgets.textStyle1(
-                                clr: AppColors.gray, fs: SizeOfWidget.sizeOfH3),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10.sp),
+                  // Tên cửa hàng
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(Icons.storefront_outlined,
+                          size: 18.sp, color: AppColors.gray),
+                      const SizedBox(width: 4.0),
+                      Expanded(
+                        child: Text(
+                          shopName,
+                          style: StylesOfWidgets.textStyle1(
+                              clr: AppColors.gray, fs: SizeOfWidget.sizeOfH3),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 15.sp),
-                    // Giá tiền (vị trí góc dưới phải)
-                    Text(
-                      '$price đ',
-                      style: StylesOfWidgets.textStyle1(
-                          clr: AppColors.primaryColor,
-                          fs: SizeOfWidget.sizeOfH1,
-                          fw: FontWeight.w600),
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10.sp),
+                  // Giá tiền (vị trí góc dưới phải)
+                  Text(
+                    Formatmoney.formatCurrency(double.parse(price)),
+                    style: StylesOfWidgets.textStyle1(
+                        clr: AppColors.primaryColor,
+                        fs: SizeOfWidget.sizeOfH2,
+                        fw: FontWeight.w600),
+                  ),
+                ],
               ),
             ),
           ],

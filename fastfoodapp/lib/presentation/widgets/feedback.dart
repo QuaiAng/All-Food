@@ -10,11 +10,13 @@ class Comment extends StatelessWidget {
       {super.key,
       required this.image,
       required this.nameUser,
-      required this.feedback});
+      required this.feedback,
+      required this.rating});
 
   late String image;
   late String nameUser;
   late String feedback;
+  late int rating;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class Comment extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 16.sp,
-              backgroundImage: NetworkImage(
+              backgroundImage: AssetImage(
                 image,
               ),
             ),
@@ -48,7 +50,7 @@ class Comment extends StatelessWidget {
                         clr: Colors.black),
                   ),
                   Row(
-                      children: List.generate(5, (index) {
+                      children: List.generate(rating, (index) {
                     return Icon(
                       Icons.star_rate_rounded,
                       color: AppColors.primaryColor,

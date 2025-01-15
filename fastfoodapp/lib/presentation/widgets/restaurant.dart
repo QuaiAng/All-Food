@@ -9,31 +9,26 @@ import 'package:sizer/sizer.dart';
 import 'dart:core';
 
 class Restaurant extends StatelessWidget {
-  const Restaurant({
-    super.key,
-    required this.restaurantName,
-    required this.images,
-    required this.rating,
-    required this.address,
-    required this.shopID,
-  });
+  const Restaurant(
+      {super.key,
+      required this.restaurantName,
+      required this.images,
+      required this.rating,
+      required this.address,
+      required this.shopID,
+      required this.onTap});
 
   final String restaurantName;
   final List<String> images;
   final double rating;
   final String address;
   final int shopID;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    int Id = 0;
     return InkWell(
-      onTap: () async {
-        // navigation sang màn hình chi tiết món ăn
-        SharedPreferences _prefs = await SharedPreferences.getInstance();
-        _prefs.setInt('shopID', shopID);
-        Navigator.pushNamed(context, RouteName.detailShopScreen);
-      },
+      onTap: onTap,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

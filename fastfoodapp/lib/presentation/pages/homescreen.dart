@@ -2,6 +2,7 @@ import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/data/models/ProductModel.dart';
 import 'package:fastfoodapp/presentation/pages/detailproductscreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailshopscreen.dart';
+import 'package:fastfoodapp/presentation/states/detailproductscreenviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/resultsearchviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/shopviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/advertisement.dart';
@@ -205,6 +206,14 @@ class Homescreen extends StatelessWidget {
                                             arguments: snapshot
                                                 .data![index].productId),
                                       ),
+                                    ).then(
+                                      (value) {
+                                        final viewModel = Provider.of<
+                                                Detailproductscreenviewmodel>(
+                                            context,
+                                            listen: false);
+                                        viewModel.resetQuantity();
+                                      },
                                     );
                                   },
                                   child: Sectionfood(
@@ -279,6 +288,18 @@ class Homescreen extends StatelessWidget {
                                 );
                               } else {
                                 return Restaurant(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const Detailshopscreen(),
+                                        settings: RouteSettings(
+                                            arguments:
+                                                snapshot.data![index].shopId),
+                                      ),
+                                    );
+                                  },
                                   shopID: snapshot.data![index].shopId,
                                   restaurantName:
                                       snapshot.data![index].shopName,
@@ -288,7 +309,7 @@ class Homescreen extends StatelessWidget {
                                     "assets/images/big.png",
                                     "assets/images/big.png"
                                   ],
-                                  rating: snapshot.data![index].rating,
+                                  rating: snapshot.data![index].rating * 1.0,
                                   address: snapshot.data![index].address,
                                 );
                               }

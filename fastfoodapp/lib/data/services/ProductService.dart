@@ -30,9 +30,19 @@ class Productservice {
   }
 
   Future<Map<String, dynamic>> getProductByProductId(int productId) async {
-    final response = await http.get(Uri.parse(
-        "${AppStrings.urlAPI}/product/productId=$productId")); // lấy ra 5 sản phẩm best seller
+    final response = await http
+        .get(Uri.parse("${AppStrings.urlAPI}/product/productId=$productId"));
 
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    } else {
+      return jsonDecode(response.body);
+    }
+  }
+
+  Future<List<dynamic>> getProductByCategoryId(int categoryId) async {
+    final response = await http
+        .get(Uri.parse("${AppStrings.urlAPI}/product/categoryId=$categoryId"));
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     } else {

@@ -1,4 +1,7 @@
+import 'package:fastfoodapp/data/models/CartDetailModel.dart';
 import 'package:fastfoodapp/presentation/pages/detailproductscreen.dart';
+import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/categoryviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/resultsearchviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/shopviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/productinshop.dart';
@@ -30,10 +33,10 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
   @override
   Widget build(BuildContext context) {
     final shopViewModel = Provider.of<Shopviewmodel>(context);
+    final cartViewModel = Provider.of<Cartviewmodel>(context);
+    final categoryViewModel = Provider.of<Categoryviewmodel>(context);
     final productViewModel = Provider.of<Resultsearchviewmodel>(context);
-
-    TabController tabController = TabController(length: 6, vsync: this);
-
+    final shopId = ModalRoute.of(context)?.settings.arguments as int;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
@@ -90,7 +93,7 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 18.sp),
                 child: FutureBuilder(
-                  future: shopViewModel.getShopByShopID(),
+                  future: shopViewModel.getShopByShopID(shopId),
                   builder: (BuildContext context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
@@ -129,16 +132,291 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
                                   width: 25.sp,
                                   child: const Icon(Icons.star,
                                       color: AppColors.primaryColor, size: 16)),
-                              // SizedBox(
-                              //   width: 40.sp,
-                              //   child: Text(
-                              //     "200+ ratings",
-                              //     style: StylesOfWidgets.textStyle1(
-                              //         fs: SizeOfWidget.sizeOfH4,
-                              //         fw: FontWeight.w500,
-                              //         clr: AppColors.gray),
-                              //   ),
-                              // )
+                              SizedBox(
+                                width: 40.sp,
+                                child: Text(
+                                  "200+ ratings",
+                                  style: StylesOfWidgets.textStyle1(
+                                      fs: SizeOfWidget.sizeOfH4,
+                                      fw: FontWeight.w500,
+                                      clr: AppColors.gray),
+                                ),
+                              )
+                            ],
+                          ),
+
+                          //Phần load sản phẩm
+                          SizedBox(height: 20.sp),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                            child: const Divider(
+                              thickness: 0.5,
+                            ),
+                          ),
+                          SizedBox(height: 20.sp),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 18.sp),
+                            child: Text(
+                              "Được đánh giá cao nhất",
+                              style: StylesOfWidgets.textStyle1(
+                                  fs: SizeOfWidget.sizeOfH1,
+                                  fw: FontWeight.w300),
+                            ),
+                          ),
+                          SizedBox(height: 15.sp),
+                          Padding(
+                            padding: EdgeInsets.zero,
+                            child: SizedBox(
+                              height: 70.sp,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 5,
+                                  itemBuilder: (context, index) {
+                                    return FutureBuilder(
+                                      future: productViewModel
+                                          .getListProductBestSeller(),
+                                      builder: (context, productSnapshot) {
+                                        if (productSnapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return const Center(
+                                              child:
+                                                  CircularProgressIndicator());
+                                        } else if (productSnapshot.hasError) {
+                                          return Center(
+                                            child: Text(
+                                                "${productSnapshot.error}"),
+                                          );
+                                        } else if (productSnapshot.hasData) {
+                                          return InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Detailproductscreen(),
+                                                  settings: RouteSettings(
+                                                      arguments: productSnapshot
+                                                          .data![index]
+                                                          .productId),
+                                                ),
+                                              );
+                                            },
+                                            child: Sectionfood(
+                                                name_food: productSnapshot
+                                                    .data![index].productName,
+                                                foodImg:
+                                                    "assets/images/anhga.png",
+                                                foodLocation: productSnapshot
+                                                    .data![index].shopAddress,
+                                                foodRating: productSnapshot
+                                                    .data![index].rating,
+                                                time: 25,
+                                                delivery: "Freeship"),
+                                          );
+                                        } else {
+                                          return const Center(
+                                              child: Text(
+                                                  "Không tìm thấy dữ liệu "));
+                                        }
+                                      },
+                                    );
+                                  }),
+                            ),
+                          ),
+
+                          //Phần load loại
+                          SizedBox(height: 15.sp),
+                          Column(
+                            children: [
+                              FutureBuilder(
+                                future: categoryViewModel.getCategoriesByShopId(
+                                    snapshot.data!.shopId),
+                                builder: (context, categorySnapshot) {
+                                  if (categorySnapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  } else if (categorySnapshot.hasError) {
+                                    return Center(
+                                      child: Text("${categorySnapshot.error}"),
+                                    );
+                                  } else if (categorySnapshot.hasData) {
+                                    TabController tabController = TabController(
+                                        length: categorySnapshot.data!.length,
+                                        vsync: this);
+                                    return Column(
+                                      children: [
+                                        SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: TabBar(
+                                                tabAlignment:
+                                                    TabAlignment.start,
+                                                labelStyle:
+                                                    StylesOfWidgets.textStyle1(
+                                                        fs: SizeOfWidget
+                                                            .sizeOfH1,
+                                                        fw: FontWeight.w600),
+                                                unselectedLabelStyle:
+                                                    StylesOfWidgets.textStyle1(
+                                                        fs: SizeOfWidget
+                                                            .sizeOfH1,
+                                                        fw: FontWeight.w600),
+                                                controller: tabController,
+                                                indicator:
+                                                    const BoxDecoration(),
+                                                dividerHeight: 0,
+                                                labelColor: Colors.black,
+                                                unselectedLabelColor:
+                                                    Colors.grey,
+                                                isScrollable:
+                                                    true, // Cho phép cuộn ngang
+                                                tabs: List.generate(
+                                                  categorySnapshot.data!.length,
+                                                  (index) {
+                                                    return Text(categorySnapshot
+                                                        .data![index]
+                                                        .categoryName);
+                                                  },
+                                                ))),
+                                        SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.5, // Chiều cao tùy chỉnh
+                                          child: TabBarView(
+                                            controller: tabController,
+                                            children: List.generate(
+                                              categorySnapshot.data!.length,
+                                              (index) {
+                                                return FutureBuilder(
+                                                  future: productViewModel
+                                                      .getProducsByCategoryId(
+                                                          categorySnapshot
+                                                              .data![index]
+                                                              .categoryId),
+                                                  builder: (context,
+                                                      productWithCategorySnapshot) {
+                                                    if (productWithCategorySnapshot
+                                                            .connectionState ==
+                                                        ConnectionState
+                                                            .waiting) {
+                                                      return const Center(
+                                                          child:
+                                                              CircularProgressIndicator());
+                                                    } else if (productWithCategorySnapshot
+                                                        .hasError) {
+                                                      return Center(
+                                                        child: Text(
+                                                            "${productWithCategorySnapshot.error}"),
+                                                      );
+                                                    } else if (productWithCategorySnapshot
+                                                        .hasData) {
+                                                      return ListView.builder(
+                                                        shrinkWrap: true,
+                                                        itemCount:
+                                                            productWithCategorySnapshot
+                                                                .data!.length,
+                                                        itemBuilder:
+                                                            (context, index) {
+                                                          return Padding(
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        10.sp),
+                                                            child:
+                                                                Productinshop(
+                                                                    onAddTap:
+                                                                        () async {
+                                                                      var cart =
+                                                                          await cartViewModel
+                                                                              .getCartByUserId();
+                                                                      var product = await productViewModel.getProductByProductId(productWithCategorySnapshot
+                                                                          .data![
+                                                                              index]
+                                                                          .productId);
+                                                                      // var product = await resultSearchViewModel.getProductByProductId(productId);
+                                                                      var cartDetail = Cartdetailmodel(
+                                                                          cartId: cart
+                                                                              .cartId,
+                                                                          productId: product
+                                                                              .productId,
+                                                                          quantity:
+                                                                              1,
+                                                                          price:
+                                                                              0,
+                                                                          shopId: product
+                                                                              .shopId,
+                                                                          description:
+                                                                              "",
+                                                                          productName:
+                                                                              "",
+                                                                          productImageurl:
+                                                                              "",
+                                                                          shopName:
+                                                                              "");
+                                                                      await cartViewModel
+                                                                          .addToCart(
+                                                                              cartDetail)
+                                                                          .then(
+                                                                        (value) {
+                                                                          String result = value
+                                                                              ? "Thêm thành công"
+                                                                              : "Thêm thất bại";
+                                                                          var snackBar =
+                                                                              SnackBar(
+                                                                            content:
+                                                                                Text(
+                                                                              result,
+                                                                              textAlign: TextAlign.center,
+                                                                            ),
+                                                                            backgroundColor: value
+                                                                                ? Colors.green
+                                                                                : Colors.red,
+                                                                          );
+                                                                          ScaffoldMessenger.of(context)
+                                                                              .showSnackBar(snackBar);
+                                                                        },
+                                                                      );
+                                                                    },
+                                                                    imageURL: productWithCategorySnapshot
+                                                                        .data![
+                                                                            index]
+                                                                        .imageURL,
+                                                                    foodName: productWithCategorySnapshot
+                                                                        .data![
+                                                                            index]
+                                                                        .productName,
+                                                                    description: productWithCategorySnapshot
+                                                                        .data![
+                                                                            index]
+                                                                        .description,
+                                                                    price: productWithCategorySnapshot
+                                                                            .data![index]
+                                                                            .price *
+                                                                        1.0),
+                                                          );
+                                                        },
+                                                      );
+                                                    } else {
+                                                      return const Center(
+                                                          child: Text(
+                                                              "Không tìm thấy loại"));
+                                                    }
+                                                  },
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  } else {
+                                    return const Center(
+                                        child: Text("Không tìm thấy loại"));
+                                  }
+                                },
+                              ),
                             ],
                           ),
                         ],
@@ -148,123 +426,6 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
                     }
                   },
                 ),
-              ),
-              SizedBox(height: 20.sp),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 18.sp),
-                child: Text(
-                  "Được đánh giá cao nhất",
-                  style: StylesOfWidgets.textStyle1(
-                      fs: 19.sp, fw: FontWeight.w300),
-                ),
-              ),
-              SizedBox(height: 15.sp),
-              Padding(
-                padding: EdgeInsets.zero,
-                child: SizedBox(
-                  height: 70.sp,
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
-                        return FutureBuilder(
-                          future: productViewModel.getListProductBestSeller(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            } else if (snapshot.hasError) {
-                              return Center(
-                                child: Text("${snapshot.error}"),
-                              );
-                            } else if (snapshot.hasData) {
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          Detailproductscreen(),
-                                      settings: RouteSettings(
-                                          arguments:
-                                              snapshot.data![index].productId),
-                                    ),
-                                  );
-                                },
-                                child: Sectionfood(
-                                    name_food:
-                                        snapshot.data![index].productName,
-                                    foodImg: "assets/images/anhga.png",
-                                    foodLocation:
-                                        snapshot.data![index].shopAddress,
-                                    foodRating: snapshot.data![index].rating,
-                                    time: 25,
-                                    delivery: "Freeship"),
-                              );
-                            } else {
-                              return const Center(
-                                  child: Text("Không tìm thấy dữ liệu "));
-                            }
-                          },
-                        );
-                      }),
-                ),
-              ),
-              SizedBox(height: 15.sp),
-              Column(
-                children: [
-                  // TabBar trong SingleChildScrollView để có thể cuộn ngang
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: TabBar(
-                      tabAlignment: TabAlignment.start,
-                      labelStyle: StylesOfWidgets.textStyle1(
-                          fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w600),
-                      unselectedLabelStyle: StylesOfWidgets.textStyle1(
-                          fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w600),
-                      controller: tabController,
-                      indicator: const BoxDecoration(),
-                      dividerHeight: 0,
-                      labelColor: Colors.black,
-                      unselectedLabelColor: Colors.grey,
-                      isScrollable: true, // Cho phép cuộn ngang
-                      tabs: const [
-                        Tab(text: "Lẩu"),
-                        Tab(text: "Ăn vặt"),
-                        Tab(text: "Món nướng"),
-                        Tab(text: "Món nước"),
-                        Tab(text: "Mì"),
-                        Tab(text: "Hải sản"),
-                      ],
-                    ),
-                  ),
-                  // Đảm bảo TabBarView chiếm toàn bộ không gian còn lại
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height *
-                        0.5, // Chiều cao tùy chỉnh
-                    child: TabBarView(
-                      controller: tabController,
-                      children: List.generate(
-                        6,
-                        (index) {
-                          return ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: 5,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 10.sp),
-                                child: const Productinshop(),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ])
           ]),

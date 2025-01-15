@@ -1,5 +1,7 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/pages/detailproductscreen.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/detailproductscreenviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/itemincart.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/images.dart';
@@ -99,26 +101,51 @@ class Cartscreen extends StatelessWidget {
                                         label: "Xóa",
                                         onPressed: (context) {
                                           // items.removeAt(index);
-                                          cartViewModel.removeFromCart(index);
-                                          const snackBar = SnackBar(
-                                            content: Text(
-                                              "Đã xóa",
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            backgroundColor: Colors.red,
+                                          int cartId = snapshot.data!.cartId;
+                                          int productId = item.productId;
+                                          cartViewModel
+                                              .removeFromCart(productId, cartId)
+                                              .then(
+                                            (value) {
+                                              var snackBar = SnackBar(
+                                                content: Text(
+                                                  value,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                backgroundColor: Colors.red,
+                                              );
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
+                                            },
                                           );
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(snackBar);
                                         })
                                   ]),
                               child: Itemincart(
-                                  onTap: () {},
-                                  image: Imagepath.burger,
-                                  name: item.productId.toString(),
-                                  note: "OK",
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            Detailproductscreen(),
+                                        settings: RouteSettings(
+                                            arguments: item.productId),
+                                      ),
+                                    ).then(
+                                      (value) {
+                                        final viewModel = Provider.of<
+                                                Detailproductscreenviewmodel>(
+                                            context,
+                                            listen: false);
+                                        viewModel.resetQuantity();
+                                      },
+                                    );
+                                  },
+                                  image: item.productImageurl,
+                                  name: item.productName,
+                                  note: item.description,
                                   price: item.price,
                                   quantity: item.quantity,
-                                  shopName: item.shopId.toString())));
+                                  shopName: item.shopName)));
                     },
                   );
                 }

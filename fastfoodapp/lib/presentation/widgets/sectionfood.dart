@@ -73,7 +73,7 @@ class Sectionfood extends StatelessWidget {
                     color: AppColors.primaryColor,
                     borderRadius: BorderRadius.circular(4)),
                 child: Text(
-                  "$foodRating",
+                  (foodRating * 1.0).toString(),
                   style: GoogleFonts.inter(
                       fontSize: SizeOfWidget.sizeOfH4,
                       fontWeight: FontWeight.w500,

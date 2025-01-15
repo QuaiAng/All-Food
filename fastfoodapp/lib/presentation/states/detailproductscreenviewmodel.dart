@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Detailproductscreenviewmodel extends ChangeNotifier {
-  int quantity = 01;
+  int quantity = 1;
 
   int get _quantity => quantity;
+
+  void resetQuantity() {
+    quantity = 1;
+    // notifyListeners();
+  }
 
   void btnHigh() {
     quantity++;
@@ -11,11 +16,14 @@ class Detailproductscreenviewmodel extends ChangeNotifier {
   }
 
   void btnLow() {
-    if (quantity <= 0) {
-      quantity = 0;
-    } else {
-      quantity--;
-    }
+    if (quantity > 1) quantity--;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    quantity = 1;
   }
 }

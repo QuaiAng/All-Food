@@ -12,4 +12,8 @@ class Categoryrepository {
 
     return category.categoryName;
   }
+
+  Future<List<Categorymodel>> getCategoriesByShopId(int shopId) async {
+    return await _categoryservice.getCategoriesByShopId(shopId);
+  }
 }

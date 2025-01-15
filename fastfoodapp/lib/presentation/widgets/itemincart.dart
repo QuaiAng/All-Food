@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
@@ -76,8 +78,8 @@ class _ItemincartState extends State<Itemincart> {
                     // color: Colors.amber,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Image.asset(
-                    widget.image,
+                  child: Image.file(
+                    File(widget.image),
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -101,6 +103,8 @@ class _ItemincartState extends State<Itemincart> {
                 ),
                 Text(
                   widget.note,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: StylesOfWidgets.textStyle1(
                       fs: SizeOfWidget.sizeOfH3,
                       fw: FontWeight.w400,
@@ -119,7 +123,7 @@ class _ItemincartState extends State<Itemincart> {
                         ),
                       ),
                       TextSpan(
-                        text: "McDonald's",
+                        text: widget.shopName,
                         style: StylesOfWidgets.textStyle1(
                             fs: SizeOfWidget.sizeOfH3,
                             fw: FontWeight.w700,

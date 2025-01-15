@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/data/models/CartDetailModel.dart';
 import 'package:fastfoodapp/data/models/ProductModel.dart';
 
 import 'package:fastfoodapp/data/models/ResultSearchModel.dart';
@@ -88,9 +89,32 @@ class Resultsearchviewmodel extends ChangeNotifier {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
 
     final resposne = await _productrepository.getProductByProductId(productId);
+
+// Kiểm tra và xử lý khóa "shopId"
+    if (_prefs.containsKey('shopId')) {
+      // Nếu khóa đã tồn tại, xóa nó
+      await _prefs.remove('shopId');
+    }
+
+// Thiết lập giá trị mới cho "shopId"
     await _prefs.setInt('shopId', resposne.shopId);
+
+// Kiểm tra và xử lý khóa "categoryID"
+    if (_prefs.containsKey('categoryID')) {
+      // Nếu khóa đã tồn tại, xóa nó
+      await _prefs.remove('categoryID');
+    }
+
+// Thiết lập giá trị mới cho "categoryID"
     await _prefs.setInt('categoryID', resposne.categoryId);
+
     return resposne;
+  }
+
+  Future<List<Productmodel>> getProducsByCategoryId(int categoryId) async {
+    final response =
+        await _productrepository.getProductsByCategoryId(categoryId);
+    return response;
   }
 
   @override

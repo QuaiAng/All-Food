@@ -34,7 +34,7 @@ class Productmodel {
       salesCount: json['salesCount'],
       available: json['available'],
       rating: json['rating'],
-      shopAddress: json['shopAddress'],
+      shopAddress: json['shopAddress'] ?? "",
       imageURL: json['imageUrl']);
 
   Productmodel.withoutShopAddress({

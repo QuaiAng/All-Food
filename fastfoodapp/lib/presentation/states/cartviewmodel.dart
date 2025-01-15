@@ -24,13 +24,15 @@ class Cartviewmodel extends ChangeNotifier {
     return response;
   }
 
-  void addToCart(Cartdetailmodel value) {
-    cartmodel!.cartDetails.add(value);
-    notifyListeners();
+  Future<bool> addToCart(Cartdetailmodel cartdetail) async {
+    final response = await _cartRepository.addToCart(cartdetail);
+    // notifyListeners();
+    return response;
   }
 
-  void removeFromCart(int index) {
-    cartmodel!.cartDetails.removeAt(index);
+  Future<String> removeFromCart(int productId, int cartId) async {
+    final response = await _cartRepository.removeFromCart(productId, cartId);
     notifyListeners();
+    return response;
   }
 }
