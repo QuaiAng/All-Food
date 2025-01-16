@@ -6,6 +6,7 @@ import 'package:fastfoodapp/data/repositories/AddressRepository.dart';
 import 'package:fastfoodapp/data/repositories/CartRepository.dart';
 
 import 'package:fastfoodapp/data/repositories/CategoryRepository.dart';
+import 'package:fastfoodapp/data/repositories/OrderRepository.dart';
 
 import 'package:fastfoodapp/data/repositories/ProductRepository.dart';
 import 'package:fastfoodapp/data/repositories/ReviewRepository.dart';
@@ -17,6 +18,7 @@ import 'package:fastfoodapp/data/services/AddressService.dart';
 import 'package:fastfoodapp/data/services/CartService.dart';
 
 import 'package:fastfoodapp/data/services/CategoryService.dart';
+import 'package:fastfoodapp/data/services/OrderService.dart';
 
 import 'package:fastfoodapp/data/services/ProductService.dart';
 import 'package:fastfoodapp/data/services/ReviewService.dart';
@@ -60,6 +62,7 @@ void main() {
       Provider(create: (_) => Productservice()),
       Provider(create: (_) => Voucherservice()),
       Provider(create: (_) => Shopservice()),
+      Provider(create: (_) => Orderservice()),
 
       Provider(create: (_) => Cartservice()),
 
@@ -73,6 +76,8 @@ void main() {
       ProxyProvider<Cartservice, CartRepository>(
         update: (context, cartService, _) => CartRepository(cartService),
       ),
+      ProxyProvider<Orderservice, Orderrepository>(
+          update: (context, orderService, _) => Orderrepository(orderService)),
 
       ProxyProvider<Addressservice, Addressrepository>(
           update: (context, addressService, _) =>
@@ -114,7 +119,9 @@ void main() {
       ChangeNotifierProvider(create: (_) => Forgotpasswordviewmodel()),
       ChangeNotifierProvider(
           create: (context) => Loginviewmodel(context.read<Userrepository>())),
-      ChangeNotifierProvider(create: (_) => OrderStatusViewModel()),
+      ChangeNotifierProvider(
+          create: (context) =>
+              OrderStatusViewModel(context.read<Orderrepository>())),
       ChangeNotifierProvider(
           create: (context) =>
               Registerviewmodel(context.read<Userrepository>())),
