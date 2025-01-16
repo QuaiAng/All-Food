@@ -1,6 +1,5 @@
 import 'package:fastfoodapp/data/models/UserModel.dart';
 import 'package:fastfoodapp/data/repositories/UserRepository.dart';
-import 'package:fastfoodapp/utils/customdialog.dart';
 import 'package:flutter/material.dart';
 
 class Registerviewmodel with ChangeNotifier {

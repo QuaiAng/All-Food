@@ -337,7 +337,7 @@ class Detailshopscreenn_State extends State<Detailshopscreen>
                                                                           .productId);
                                                                       // var product = await resultSearchViewModel.getProductByProductId(productId);
                                                                       var cartDetail = Cartdetailmodel(
-                                                                          cartId: cart
+                                                                          cartId: cart!
                                                                               .cartId,
                                                                           productId: product
                                                                               .productId,

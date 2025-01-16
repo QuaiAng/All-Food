@@ -10,7 +10,7 @@ class Cartviewmodel extends ChangeNotifier {
 
   Cartmodel? cartmodel;
 
-  Future<Cartmodel> getCartByUserId() async {
+  Future<Cartmodel?> getCartByUserId() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     var userId;
     if (_prefs.containsKey('userId')) {
@@ -19,9 +19,12 @@ class Cartviewmodel extends ChangeNotifier {
       userId = 0;
     }
     final response = await _cartRepository.getCartByUserId(userId);
-    cartmodel = response!;
+    if (response != null) {
+      cartmodel = response;
+      return response;
+    }
     // notifyListeners();
-    return response;
+    return null;
   }
 
   Future<bool> addToCart(Cartdetailmodel cartdetail) async {
@@ -35,4 +38,14 @@ class Cartviewmodel extends ChangeNotifier {
     notifyListeners();
     return response;
   }
+
+  //Kiểm tra trạng thái đăng nhập
+  int? _userId;
+  Future<bool> checkUserLoggedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _userId = prefs.getInt('userId');
+    return _userId != null;
+  }
+
+  int? get userId => _userId;
 }

@@ -25,9 +25,11 @@ class UserService {
       Map<String, dynamic> token = jsonDecode(response.body);
       return token;
     } else if (response.statusCode == 404) {
-      throw Exception("Not Found");
+      Map<String, dynamic> data = jsonDecode(response.body);
+      return data;
     } else {
-      throw Exception("Has error");
+      Map<String, dynamic> data = jsonDecode(response.body);
+      return data;
     }
   }
 

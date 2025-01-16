@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/data/models/CartDetailModel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/categoryviewmodel.dart';
@@ -461,21 +462,23 @@ class Detailproductscreen extends StatelessWidget {
                   ],
                 ),
                 Buttonlogin(
-                    onClick: () async {
+                  onClick: () async {
+                    bool isLoggedIn = await cartViewModel.checkUserLoggedIn();
+                    if (isLoggedIn) {
                       var cart = await cartViewModel.getCartByUserId();
                       var product = await resultSearchViewModel
                           .getProductByProductId(productId);
-                      // var product = await resultSearchViewModel.getProductByProductId(productId);
                       var cartDetail = Cartdetailmodel(
-                          cartId: cart.cartId,
-                          productId: product.productId,
-                          quantity: detailproductscreenViewModel.quantity,
-                          price: 0,
-                          shopId: product.shopId,
-                          description: "",
-                          productName: "",
-                          productImageurl: "",
-                          shopName: "");
+                        cartId: cart!.cartId,
+                        productId: product.productId,
+                        quantity: detailproductscreenViewModel.quantity,
+                        price: 0,
+                        shopId: product.shopId,
+                        description: "",
+                        productName: "",
+                        productImageurl: "",
+                        shopName: "",
+                      );
                       await cartViewModel.addToCart(cartDetail).then(
                         (value) {
                           String result =
@@ -490,8 +493,27 @@ class Detailproductscreen extends StatelessWidget {
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         },
                       );
-                    },
-                    text: "THÊM VÀO GIỎ HÀNG"),
+                    } else {
+                      // Hiển thị thông báo yêu cầu đăng nhập
+                      var snackBar = SnackBar(
+                        content: Text(
+                          "Vui lòng đăng nhập để thêm vào giỏ hàng",
+                          textAlign: TextAlign.center,
+                        ),
+                        backgroundColor: AppColors.primaryColor,
+                        action: SnackBarAction(
+                          label: "Đăng nhập",
+                          textColor: Colors.white,
+                          onPressed: () {
+                            Navigator.pushNamed(context, RouteName.loginScreen);
+                          },
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                  },
+                  text: "THÊM VÀO GIỎ HÀNG",
+                )
               ],
             ),
           )),

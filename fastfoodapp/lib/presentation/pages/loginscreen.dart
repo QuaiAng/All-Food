@@ -1,4 +1,5 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/pages/mainscreen.dart';
 import 'package:fastfoodapp/presentation/states/loginviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
@@ -41,9 +42,16 @@ class _LoginscreenState extends State<Loginscreen> {
         shadowColor: Colors.grey,
         leading: IconButton(
           onPressed: () {
-            // Provider.of<AppProvier>(context, listen: false)
-            //     .setCurrentIndexPage(0);
-            Navigator.pop(context);
+            Provider.of<AppProvier>(context, listen: false)
+                .setCurrentIndexPage(0);
+            //Navigator.pop(context);
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Mainscreen()), // Màn hình mới
+              (Route<dynamic> route) =>
+                  false, // Điều kiện để loại bỏ tất cả màn hình, ở đây là loại bỏ tất cả
+            );
           },
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
@@ -115,11 +123,33 @@ class _LoginscreenState extends State<Loginscreen> {
                         // Kiểm tra xem chuỗi trả về có rỗng không
                         if (result == true) {
                           // Nếu login thành công, chuyển hướng đến màn hình mới
-                          Navigator.pushNamed(context, RouteName.mainScreen);
-                          print(result); // In ra kết quả từ login
+                          Provider.of<AppProvier>(context, listen: false)
+                              .setCurrentIndexPage(0);
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const Mainscreen()), // Màn hình mới
+                            (Route<dynamic> route) =>
+                                false, // Điều kiện để loại bỏ tất cả màn hình, ở đây là loại bỏ tất cả
+                          );
                         } else {
                           // Xử lý khi login không thành công (chuỗi rỗng)
-                          print("Đăng nhập không thành công.");
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text("Đăng nhập thất bại"),
+                              content: const Text(
+                                  "Sai tên đăng nhập hoặc mật khẩu. Vui lòng thử lại!"),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(context), // Đóng hộp thoại
+                                  child: Text("OK"),
+                                ),
+                              ],
+                            ),
+                          );
                         }
                       }
                     },
