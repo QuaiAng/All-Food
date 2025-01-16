@@ -138,8 +138,8 @@ class Paymentscreen extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  total = snapshot.data!.cartDetails
-                      .fold(0.0, (sum, item) => sum + item.price);
+                  total = snapshot.data!.cartDetails.fold(
+                      0.0, (sum, item) => sum + item.price * item.quantity);
                   return Column(
                     children: [
                       ListView.builder(
@@ -155,7 +155,7 @@ class Paymentscreen extends StatelessWidget {
                                 quantity: item.quantity,
                                 name: item.productName,
                                 description: item.description,
-                                price: item.price * 1.0,
+                                price: item.price * 1.0 * item.quantity,
                               ),
                               Container(
                                 height: 5.sp,

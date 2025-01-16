@@ -14,7 +14,7 @@ class Ordermanagementscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<Ordermanagementviewmodel>(context);
-    
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -110,9 +110,12 @@ class Ordermanagementscreen extends StatelessWidget {
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: viewModel.isPendingTab
-                  ? OrderList(key: const ValueKey('Pending'), isPending: true)
-                  : OrderCompletedList(
-                      key: const ValueKey('Completed'), isPending: false),
+                  ? const OrderList(
+                      key: ValueKey('Pending'),
+                      isPending: true,
+                    )
+                  : const OrderCompletedList(
+                      key: ValueKey('Completed'), isPending: false),
             ),
           ),
         ],

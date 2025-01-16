@@ -7,8 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class OrderStatusViewModel extends ChangeNotifier {
   final Orderrepository _orderrepository;
   OrderStatusViewModel(this._orderrepository);
-  List<OrderModel>? listOrderComplete = [];
-  List<OrderModel>? listOrderNotComplete = [];
 
   // Các thuộc tính của đơn hàng
   int _orderStatus =
@@ -42,15 +40,13 @@ class OrderStatusViewModel extends ChangeNotifier {
       userId = 0;
     }
     final response = await _orderrepository.getOrderByUserId(userId);
-    if (response != null) {
-      for (int i = 0; i < response.length; i++) {
-        if (response[i].orderStatus == 0) {
-          listOrderNotComplete!.add(response[i]);
-        }
+    List<OrderModel> listOrderNotComplete = [];
+    for (int i = 0; i < response!.length; i++) {
+      if (response[i].orderStatus == 0) {
+        listOrderNotComplete.add(response[i]);
       }
-      return listOrderNotComplete;
     }
-    return null;
+    return listOrderNotComplete;
   }
 
   Future<List<OrderModel>?> getOrderByUserIdComplete() async {
@@ -62,14 +58,19 @@ class OrderStatusViewModel extends ChangeNotifier {
       userId = 0;
     }
     final response = await _orderrepository.getOrderByUserId(userId);
-    if (response != null) {
-      for (int i = 0; i < response.length; i++) {
-        if (response[i].orderStatus == 1) {
-          listOrderComplete!.add(response[i]);
-        }
+    List<OrderModel>? listOrderComplete = [];
+
+    for (int i = 0; i < response!.length; i++) {
+      if (response[i].orderStatus == 1) {
+        listOrderComplete.add(response[i]);
       }
-      return listOrderComplete;
     }
-    return null;
+    return listOrderComplete;
+  }
+
+  Future<bool> cancelOrder(int orderId) async {
+    final response = await _orderrepository.cancelOrder(orderId);
+    notifyListeners();
+    return response;
   }
 }

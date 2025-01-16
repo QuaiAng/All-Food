@@ -26,8 +26,7 @@ class OrderCompletedList extends StatelessWidget {
           } else if (snapshot.hasData) {
             return ListView.builder(
               padding: const EdgeInsets.all(5),
-              itemCount:
-                  orderViewModel.listOrderComplete!.length, // Số lượng đơn hàng
+              itemCount: snapshot.data!.length, // Số lượng đơn hàng
               itemBuilder: (context, index) {
                 var orderModel = snapshot.data![index];
                 // var orderDetail = snapshot.data![index].orderDetails[index];

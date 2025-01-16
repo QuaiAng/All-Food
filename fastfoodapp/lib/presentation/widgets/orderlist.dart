@@ -9,7 +9,6 @@ import 'package:sizer/sizer.dart';
 
 class OrderList extends StatelessWidget {
   final bool isPending;
-
   const OrderList({Key? key, required this.isPending}) : super(key: key);
 
   @override
@@ -24,8 +23,7 @@ class OrderList extends StatelessWidget {
         } else if (snapshot.hasData) {
           return ListView.builder(
             padding: const EdgeInsets.all(5),
-            itemCount: orderViewModel
-                .listOrderNotComplete!.length, // Số lượng đơn hàng
+            itemCount: snapshot.data!.length, // Số lượng đơn hàng
             itemBuilder: (context, index) {
               var orderModel = snapshot.data![index];
               // var orderDetail = snapshot.data![index].orderDetails[index];
@@ -129,8 +127,17 @@ class OrderList extends StatelessWidget {
                     bottom: 10.sp,
                     right: 10.sp,
                     child: TextButton(
-                      onPressed: () {
-                        // Xử lý khi nhấn nút HỦY
+                      onPressed: () async {
+                        bool result = await orderViewModel
+                            .cancelOrder(snapshot.data![index].orderId);
+                        var snackBar = SnackBar(
+                          content: Text(
+                            result ? "Huỷ thành công" : "Huỷ thất bại",
+                            textAlign: TextAlign.center,
+                          ),
+                          backgroundColor: result ? Colors.green : Colors.red,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.symmetric(

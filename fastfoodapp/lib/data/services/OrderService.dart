@@ -19,4 +19,19 @@ class Orderservice {
       throw Exception('Error fetching cart data: $error');
     }
   }
+
+  Future<Map<String, dynamic>> cancelOrder(int orderId) async {
+    final String url = '${AppStrings.urlAPI}/order/remove/$orderId';
+    try {
+      final response = await http.delete(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.body);
+        return jsonData;
+      } else {
+        return jsonDecode(response.body);
+      }
+    } catch (error) {
+      throw Exception('Error fetching cart data: $error');
+    }
+  }
 }
