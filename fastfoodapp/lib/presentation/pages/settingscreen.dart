@@ -55,18 +55,36 @@ class _SettingScreenState extends State<SettingScreen> {
                           }
                           return Row(
                             children: [
-                              Container(
-                                height: 35.sp,
-                                width: 35.sp,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                        "${AppStrings.urlAPI}/${snapshot.data!.imageURL}"),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
+                              snapshot.data!.imageURL.toString().isEmpty
+                                  ? Container(
+                                      width: 35.sp, // Đường kính hình tròn
+                                      height: 35.sp, // Đường kính hình tròn
+                                      decoration: const BoxDecoration(
+                                        color: Colors.blue, // Màu xanh
+                                        shape: BoxShape.circle, // Tạo hình tròn
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                            snapshot.data!
+                                                .fullName[0], // Chữ hiển thị
+                                            style: StylesOfWidgets.textStyle1(
+                                                fs: SizeOfWidget.sizeOfH1,
+                                                fw: FontWeight.w600,
+                                                clr: Colors.white)),
+                                      ),
+                                    )
+                                  : Container(
+                                      height: 35.sp,
+                                      width: 35.sp,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                              "${AppStrings.urlAPI}/${snapshot.data!.imageURL}"),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
                               SizedBox(width: 15.sp),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -453,7 +471,6 @@ class _SettingScreenState extends State<SettingScreen> {
                         ),
                       ),
                     ),
-
                   ],
                 ),
               );

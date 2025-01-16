@@ -42,6 +42,8 @@ class Itemrow extends StatelessWidget {
                 children: [
                   Text(name, style: GoogleFonts.inter(fontSize: 17.sp)),
                   Text(description,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.inter(
                           fontSize: 15.sp, color: AppColors.placeholderColor)),
                 ],

@@ -1,4 +1,5 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/paymentviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
@@ -13,9 +14,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+double total = 0;
+
 class Paymentscreen extends StatelessWidget {
   const Paymentscreen({super.key});
-  final double total = 400000.0;
 
   Future _showBottomSheet(BuildContext context) {
     return showModalBottomSheet(
@@ -96,6 +98,7 @@ class Paymentscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final paymentViewModel = Provider.of<Paymentviewmodel>(context);
+    final cartViewModel = Provider.of<Cartviewmodel>(context);
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -122,31 +125,46 @@ class Paymentscreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: paymentViewModel.listProduct.length,
-              itemBuilder: (context, index) {
-                final item = paymentViewModel.listProduct[index];
-
-                return Column(
-                  children: [
-                    const Itemrow(
-                      quantity: 3,
-                      name: "Gà cay",
-                      description:
-                          "Lớp da gà giòn, cay Lớp da gà giòn, cay Lớp da gà giòn, cay",
-                      price: 32000.0,
-                    ),
-                    Container(
-                      height: 5.sp,
-                      padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                      child: const Divider(
-                        thickness: 0.5,
-                      ),
-                    )
-                  ],
-                );
+            FutureBuilder(
+              future: cartViewModel.getCartByUserId(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text(snapshot.error.toString()),
+                  );
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: snapshot.data!.cartDetails.length,
+                    itemBuilder: (context, index) {
+                      final item = snapshot.data!.cartDetails[index];
+                      total += item.price;
+                      return Column(
+                        children: [
+                          Itemrow(
+                            quantity: item.quantity,
+                            name: item.productName,
+                            description: item.description,
+                            price: item.price * 1.0,
+                          ),
+                          Container(
+                            height: 5.sp,
+                            padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                            child: const Divider(
+                              thickness: 0.5,
+                            ),
+                          )
+                        ],
+                      );
+                    },
+                  );
+                }
               },
             ),
             Padding(
@@ -157,8 +175,8 @@ class Paymentscreen extends StatelessWidget {
                   const Pricerow(
                       label: "Phí giao hàng", amount: 0, isTotal: false),
                   const Pricerow(label: "Voucher", amount: -0, isTotal: false),
-                  const Pricerow(
-                      label: "Tổng thanh toán", amount: 96000, isTotal: true),
+                  Pricerow(
+                      label: "Tổng thanh toán", amount: total, isTotal: true),
                   const Divider(thickness: 0.5),
                   InkWell(
                     onTap: () {
@@ -243,7 +261,7 @@ class Paymentscreen extends StatelessWidget {
                         textStyle: TextStyle(fontSize: 17.sp)),
                   ),
                   Text(
-                    Formatmoney.formatCurrency(total),
+                    Formatmoney.formatCurrency(total * 1.0),
                     style: GoogleFonts.inter(
                         textStyle: TextStyle(
                             fontWeight: FontWeight.w500,
