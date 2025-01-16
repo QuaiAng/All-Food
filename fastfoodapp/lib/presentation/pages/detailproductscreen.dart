@@ -418,10 +418,10 @@ class Detailproductscreen extends StatelessWidget {
                       child: IconButton(
                         onPressed: () {
                           // nút nhấn tăng, tăng sản phẩm đã chọn
-                          detailproductscreenViewModel.btnHigh();
+                          detailproductscreenViewModel.btnLow();
                         },
                         icon: Icon(
-                          Icons.add,
+                          Icons.remove,
                           color: Colors.white,
                           size: 22.sp,
                         ),
@@ -449,10 +449,10 @@ class Detailproductscreen extends StatelessWidget {
                         child: IconButton(
                           onPressed: () {
                             // nút dấu trừ , giảm sản phẩm
-                            detailproductscreenViewModel.btnLow();
+                            detailproductscreenViewModel.btnHigh();
                           },
                           icon: Icon(
-                            Icons.remove,
+                            Icons.add,
                             color: Colors.white,
                             size: 24.sp,
                           ),
