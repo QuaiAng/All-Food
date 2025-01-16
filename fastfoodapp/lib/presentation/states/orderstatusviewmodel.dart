@@ -1,7 +1,15 @@
+import 'package:fastfoodapp/data/models/OrderModel.dart';
+import 'package:fastfoodapp/data/repositories/OrderRepository.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OrderStatusViewModel extends ChangeNotifier {
+  final Orderrepository _orderrepository;
+  OrderStatusViewModel(this._orderrepository);
+  List<OrderModel>? listOrderComplete = [];
+  List<OrderModel>? listOrderNotComplete = [];
+
   // Các thuộc tính của đơn hàng
   int _orderStatus =
       0; // Trạng thái đơn hàng (ví dụ: 0: đang xử lý, 5: đã giao)
@@ -23,5 +31,45 @@ class OrderStatusViewModel extends ChangeNotifier {
   void updateOrderStatus(int status) {
     _orderStatus = status;
     notifyListeners(); // Thông báo cho UI về sự thay đổi trạng thái
+  }
+
+  Future<List<OrderModel>?> getOrderByUserIdNotComplete() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    var userId;
+    if (_prefs.containsKey('userId')) {
+      userId = _prefs.getInt('userId');
+    } else {
+      userId = 0;
+    }
+    final response = await _orderrepository.getOrderByUserId(userId);
+    if (response != null) {
+      for (int i = 0; i < response.length; i++) {
+        if (response[i].orderStatus == 0) {
+          listOrderNotComplete!.add(response[i]);
+        }
+      }
+      return listOrderNotComplete;
+    }
+    return null;
+  }
+
+  Future<List<OrderModel>?> getOrderByUserIdComplete() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    var userId;
+    if (_prefs.containsKey('userId')) {
+      userId = _prefs.getInt('userId');
+    } else {
+      userId = 0;
+    }
+    final response = await _orderrepository.getOrderByUserId(userId);
+    if (response != null) {
+      for (int i = 0; i < response.length; i++) {
+        if (response[i].orderStatus == 1) {
+          listOrderComplete!.add(response[i]);
+        }
+      }
+      return listOrderComplete;
+    }
+    return null;
   }
 }
