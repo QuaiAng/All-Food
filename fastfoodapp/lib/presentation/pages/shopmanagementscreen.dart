@@ -94,7 +94,10 @@ class Shopmanagementscreen extends StatelessWidget {
                     _buildGridItem(
                       Icons.inbox_outlined,
                       'Đơn hàng chờ duyệt',
-                      () {},
+                      () {
+                        Navigator.pushNamed(
+                            context, RouteName.waitingForApprovalScreen);
+                      },
                     ),
                     _buildGridItem(
                       Icons.text_snippet_outlined,

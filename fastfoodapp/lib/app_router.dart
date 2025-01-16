@@ -25,6 +25,7 @@ import 'package:fastfoodapp/presentation/pages/splashscreen.dart';
 import 'package:fastfoodapp/presentation/pages/verifyotpscreen.dart';
 import 'package:fastfoodapp/presentation/pages/voucherscreen.dart';
 import 'package:fastfoodapp/presentation/pages/filterrevenuescreen.dart';
+import 'package:fastfoodapp/presentation/pages/waitingforapprovalscreen.dart';
 import 'package:flutter/material.dart';
 
 class RouteName {
@@ -59,6 +60,7 @@ class RouteName {
   static const String orderManagementScreen = "/ordermanagement";
 
   static const String detailProductScreen = "/detailproductscreen";
+  static const String waitingForApprovalScreen = "/waitingforapproval";
 }
 
 class AppRouter {
@@ -76,6 +78,9 @@ class AppRouter {
       //Màn hình chờ
       case RouteName.splashScreen:
         return MaterialPageRoute(builder: (_) => const Splashscreen());
+      //Màn hình chờ
+      case RouteName.waitingForApprovalScreen:
+        return MaterialPageRoute(builder: (_) => Waitingforapprovalscreen());
       //Màn hình chờ
       case RouteName.resultSearchScreen:
         return MaterialPageRoute(builder: (_) => const Resultsearchscreen());
