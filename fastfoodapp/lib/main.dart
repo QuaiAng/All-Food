@@ -26,7 +26,6 @@ import 'package:fastfoodapp/data/services/ShopService.dart';
 import 'package:fastfoodapp/data/services/UserService.dart';
 
 import 'package:fastfoodapp/data/services/VoucherService.dart';
-import 'package:fastfoodapp/presentation/pages/invoicedetailsscreen.dart';
 
 import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
@@ -37,7 +36,7 @@ import 'package:fastfoodapp/presentation/states/detailsearchviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/editinfoviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/forgotpasswordviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/loginviewmodel.dart';
-import 'package:fastfoodapp/presentation/states/ordermanagementviewmodel.dart';
+
 import 'package:fastfoodapp/presentation/states/orderstatusviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/paymentviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
@@ -49,6 +48,7 @@ import 'package:fastfoodapp/presentation/states/shopviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/verifyotpviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/filterrevenueviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/voucherviewmodel.dart';
+import 'package:fastfoodapp/presentation/widgets/detailordershopscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -147,9 +147,7 @@ void main() {
 
       ChangeNotifierProvider(create: (_) => Detailproductscreenviewmodel()),
 
-      // ChangeNotifierProvider(create: (_) => Addvoucherviewmodel()),
-
-      ChangeNotifierProvider(create: (_) => Ordermanagementviewmodel()),
+      // ChangeNotifierProvider(create: (_) => Addvoucherviewmodel())
 
       ChangeNotifierProvider(
           create: (context) =>
@@ -179,9 +177,10 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
-        initialRoute: RouteName.mainScreen,
+        initialRoute: RouteName.loginScreen,
         onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
+        // home: Detailordershop(),
       );
     });
   }

@@ -17,14 +17,6 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:fastfoodapp/presentation/widgets/sectionfood.dart';
 
-List<String> images = [
-  "assets/images/big.png",
-  "assets/images/anhcam.png",
-  "assets/images/big.png",
-  "assets/images/anhcam.png",
-  "assets/images/big.png",
-];
-
 class Homescreen extends StatelessWidget {
   const Homescreen({super.key, required this.address});
 

@@ -36,6 +36,11 @@ class Loginviewmodel extends ChangeNotifier {
     return false;
   }
 
+  Future<int> getShopByUserId() async {
+    final response = await _userrepository.getShopByUserId();
+    return response;
+  }
+
   @override
   void dispose() {
     // Hủy các controller khi không còn sử dụng

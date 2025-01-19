@@ -97,7 +97,7 @@ class Paymentscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final paymentViewModel = Provider.of<Paymentviewmodel>(context);
+    // final paymentViewModel = Provider.of<Paymentviewmodel>(context);
     final cartViewModel = Provider.of<Cartviewmodel>(context);
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -138,144 +138,142 @@ class Paymentscreen extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: snapshot.data!.cartDetails.length,
-                    itemBuilder: (context, index) {
-                      final item = snapshot.data!.cartDetails[index];
-                      total += item.price;
-                      return Column(
-                        children: [
-                          Itemrow(
-                            quantity: item.quantity,
-                            name: item.productName,
-                            description: item.description,
-                            price: item.price * 1.0,
-                          ),
-                          Container(
-                            height: 5.sp,
-                            padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                            child: const Divider(
-                              thickness: 0.5,
+                  total = snapshot.data!.cartDetails.fold(
+                      0.0, (sum, item) => sum + item.price * item.quantity);
+                  return Column(
+                    children: [
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: snapshot.data!.cartDetails.length,
+                        itemBuilder: (context, index) {
+                          final item = snapshot.data!.cartDetails[index];
+
+                          return Column(
+                            children: [
+                              Itemrow(
+                                quantity: item.quantity,
+                                name: item.productName,
+                                description: item.description,
+                                price: item.price * 1.0 * item.quantity,
+                              ),
+                              Container(
+                                height: 5.sp,
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 15.sp),
+                                child: const Divider(
+                                  thickness: 0.5,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                      //OK
+                      Padding(
+                        padding: EdgeInsets.all(15.sp),
+                        child: Column(
+                          children: [
+                            const Pricerow(
+                                label: "Phụ phí", amount: 0, isTotal: false),
+                            const Pricerow(
+                                label: "Phí giao hàng",
+                                amount: 0,
+                                isTotal: false),
+                            const Pricerow(
+                                label: "Voucher", amount: -0, isTotal: false),
+                            Pricerow(
+                                label: "Tổng thanh toán",
+                                amount: total,
+                                isTotal: true),
+                            const Divider(thickness: 0.5),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, RouteName.paymentmethodScreen);
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Phương thức thanh toán",
+                                        style: StylesOfWidgets.textStyle1(
+                                            fs: SizeOfWidget.sizeOfH3)),
+                                    Icon(Icons.arrow_forward_ios, size: 17.sp),
+                                  ],
+                                ),
+                              ),
                             ),
-                          )
-                        ],
-                      );
-                    },
+                            const Divider(thickness: 0.5),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, RouteName.voucherScreen);
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Voucher",
+                                        style: StylesOfWidgets.textStyle1(
+                                            fs: SizeOfWidget.sizeOfH3)),
+                                    Icon(Icons.arrow_forward_ios, size: 17.sp),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const Divider(thickness: 0.5),
+                            InkWell(
+                              onTap: () {
+                                Provider.of<AppProvier>(context, listen: false)
+                                    .setCurrentIndexPage(0);
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  RouteName.mainScreen,
+                                  (route) =>
+                                      false, // Xóa tất cả các route trước đó
+                                );
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Thêm món khác",
+                                        style: StylesOfWidgets.textStyle1(
+                                            fs: SizeOfWidget.sizeOfH3,
+                                            clr: AppColors.primaryColor)),
+                                    Icon(Icons.arrow_forward_ios, size: 17.sp),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   );
                 }
               },
             ),
-            Padding(
-              padding: EdgeInsets.all(15.sp),
-              child: Column(
-                children: [
-                  const Pricerow(label: "Phụ phí", amount: 0, isTotal: false),
-                  const Pricerow(
-                      label: "Phí giao hàng", amount: 0, isTotal: false),
-                  const Pricerow(label: "Voucher", amount: -0, isTotal: false),
-                  Pricerow(
-                      label: "Tổng thanh toán", amount: total, isTotal: true),
-                  const Divider(thickness: 0.5),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(
-                          context, RouteName.paymentmethodScreen);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Phương thức thanh toán",
-                              style: StylesOfWidgets.textStyle1(
-                                  fs: SizeOfWidget.sizeOfH3)),
-                          Icon(Icons.arrow_forward_ios, size: 17.sp),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Divider(thickness: 0.5),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, RouteName.voucherScreen);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Voucher",
-                              style: StylesOfWidgets.textStyle1(
-                                  fs: SizeOfWidget.sizeOfH3)),
-                          Icon(Icons.arrow_forward_ios, size: 17.sp),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Divider(thickness: 0.5),
-                  InkWell(
-                    onTap: () {
-                      Provider.of<AppProvier>(context, listen: false)
-                          .setCurrentIndexPage(0);
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        RouteName.mainScreen,
-                        (route) => false, // Xóa tất cả các route trước đó
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Thêm món khác",
-                              style: StylesOfWidgets.textStyle1(
-                                  fs: SizeOfWidget.sizeOfH3,
-                                  clr: AppColors.primaryColor)),
-                          Icon(Icons.arrow_forward_ios, size: 17.sp),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
           ],
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-          height: 43.sp,
           color: AppColors.backgroundColor,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Tổng",
-                    style: GoogleFonts.inter(
-                        textStyle: TextStyle(fontSize: 17.sp)),
-                  ),
-                  Text(
-                    Formatmoney.formatCurrency(total * 1.0),
-                    style: GoogleFonts.inter(
-                        textStyle: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: SizeOfWidget.sizeOfH3)),
-                  )
-                ],
-              ),
-              Buttonlogin(
-                  onClick: () {
-                    _showBottomSheet(context);
-                  },
-                  text: "THANH TOÁN")
-            ],
-          )),
+          child: Buttonlogin(
+              onClick: () {
+                _showBottomSheet(context);
+              },
+              text: "THANH TOÁN")),
     );
   }
 }

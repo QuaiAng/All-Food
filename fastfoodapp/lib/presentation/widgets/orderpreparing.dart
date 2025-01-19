@@ -8,17 +8,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-class OrderList extends StatelessWidget {
+class Orderpreparing extends StatelessWidget {
   final bool role;
-  const OrderList({Key? key, required this.role}) : super(key: key);
+  const Orderpreparing({Key? key, required this.role}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final orderViewModel = Provider.of<OrderStatusViewModel>(context);
+    final orderstatusViewModel = Provider.of<OrderStatusViewModel>(context);
 
     if (!role) {
+      //Phía shop
       return FutureBuilder(
-        future: orderViewModel.getOrderByUserIdNotComplete(),
+        future: orderstatusViewModel.getOrderByUserIdDoing(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -27,11 +28,8 @@ class OrderList extends StatelessWidget {
               height: 100.sp,
               child: ListView.builder(
                 padding: const EdgeInsets.all(5),
-                itemCount: snapshot
-                    .data!.length, //snapshot.data!.length, // Số lượng đơn hàng
+                itemCount: 5, //snapshot.data!.length, // Số lượng đơn hàng
                 itemBuilder: (context, index) {
-                  var orderModel = snapshot.data![index];
-                  var orderDetail = snapshot.data![index].orderDetails[index];
                   return InkWell(
                     onTap: () {
                       int orderId = snapshot.data![index].orderId;
@@ -85,7 +83,7 @@ class OrderList extends StatelessWidget {
                                         // Mã hóa đơn
                                         // Text(
                                         //   //orderModel.date,
-                                        //   "Shop: ",
+                                        //   "Mã hóa đơn",
                                         //   style: StylesOfWidgets.textStyle1(
                                         //     clr: AppColors.gray,
                                         //     fs: SizeOfWidget.sizeOfH3,
@@ -104,7 +102,7 @@ class OrderList extends StatelessWidget {
                                             Expanded(
                                               child: Text(
                                                 //orderModel.shopName,
-                                                "Địa chỉ giao: ${orderModel.deliveryAddress}",
+                                                "Địa chỉ giao: ${snapshot.data![index].deliveryAddress}",
                                                 style:
                                                     StylesOfWidgets.textStyle1(
                                                   clr: AppColors.gray,
@@ -116,7 +114,6 @@ class OrderList extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-                                        SizedBox(height: 15.sp),
                                         Row(
                                           children: [
                                             Icon(
@@ -124,18 +121,16 @@ class OrderList extends StatelessWidget {
                                               size: 18.sp,
                                               color: AppColors.gray,
                                             ),
-                                            SizedBox(width: 4.sp),
+                                            SizedBox(height: 15.sp),
+                                            SizedBox(width: 15.sp),
                                             Expanded(
                                               child: Text(
-                                                //orderModel.shopName,
-                                                "Người nhận hàng: ${orderModel.fullNameUser} ",
+                                                "Người nhận hàng: ${snapshot.data![index].fullNameUser}",
                                                 style:
                                                     StylesOfWidgets.textStyle1(
                                                   clr: AppColors.gray,
                                                   fs: SizeOfWidget.sizeOfH3,
                                                 ),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
                                               ),
                                             ),
                                           ],
@@ -153,7 +148,7 @@ class OrderList extends StatelessWidget {
                                             Expanded(
                                               child: Text(
                                                 //orderModel.date,
-                                                "Ngày đặt: ${orderModel.date}",
+                                                "Ngày đặt: ${snapshot.data![index].date}",
                                                 style:
                                                     StylesOfWidgets.textStyle1(
                                                   clr: AppColors.gray,
@@ -163,7 +158,6 @@ class OrderList extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-
                                         SizedBox(height: 15.sp),
                                         // Số lượng
 
@@ -175,7 +169,7 @@ class OrderList extends StatelessWidget {
                                       padding: EdgeInsets.only(top: 20.sp),
                                       child: Text(
                                         Formatmoney.formatCurrency(
-                                            orderModel.total * 1.0),
+                                            snapshot.data![index].total * 1.0),
                                         style: StylesOfWidgets.textStyle1(
                                           clr: AppColors.primaryColor,
                                           fs: SizeOfWidget.sizeOfH2,
@@ -194,84 +188,32 @@ class OrderList extends StatelessWidget {
                         Positioned(
                           bottom: 10.sp,
                           right: 10.sp,
-                          child: Row(
-                            children: [
-                              TextButton(
-                                onPressed: () async {
-                                  // bool result = await orderViewModel
-                                  //     .cancelOrder(snapshot.data![index].orderId);
-                                  // var snackBar = SnackBar(
-                                  //   content: Text(
-                                  //     result ? "Huỷ thành công" : "Huỷ thất bại",
-                                  //     textAlign: TextAlign.center,
-                                  //   ),
-                                  //   backgroundColor: result ? Colors.green : Colors.red,
-                                  // );
-                                  // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                },
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 20.sp,
-                                    vertical: 10.sp,
-                                  ),
-                                  backgroundColor:
-                                      Colors.red, // Không có màu nền
-                                  foregroundColor:
-                                      AppColors.backgroundColor, // Màu chữ vàng
-                                  // side: const BorderSide(
-                                  //   // Viền vàng
-                                  //   color: AppColors.primaryColor,
-                                  //   width: 1.5,
-                                  // ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                ),
-                                child: Text("HỦY",
-                                    style: StylesOfWidgets.textStyle1(
-                                        fs: SizeOfWidget.sizeOfH2,
-                                        clr: AppColors.backgroundColor,
-                                        fw: FontWeight.w400)),
+                          child: TextButton(
+                            onPressed: () {
+                              // Xử lý khi nhấn nút HỦY
+                            },
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 20.sp,
+                                vertical: 10.sp,
                               ),
-                              SizedBox(width: 10.sp),
-                              TextButton(
-                                onPressed: () async {
-                                  // bool result = await orderViewModel
-                                  //     .cancelOrder(snapshot.data![index].orderId);
-                                  // var snackBar = SnackBar(
-                                  //   content: Text(
-                                  //     result ? "Huỷ thành công" : "Huỷ thất bại",
-                                  //     textAlign: TextAlign.center,
-                                  //   ),
-                                  //   backgroundColor: result ? Colors.green : Colors.red,
-                                  // );
-                                  // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                },
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 20.sp,
-                                    vertical: 10.sp,
-                                  ),
-                                  backgroundColor: AppColors
-                                      .primaryColor, // Không có màu nền
-                                  foregroundColor:
-                                      AppColors.backgroundColor, // Màu chữ vàng
-                                  // side: const BorderSide(
-                                  //   // Viền vàng
-                                  //   color: AppColors.primaryColor,
-                                  //   width: 1.5,
-                                  // ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                ),
-                                child: Text("DUYỆT",
-                                    style: StylesOfWidgets.textStyle1(
-                                        fs: SizeOfWidget.sizeOfH2,
-                                        clr: AppColors.backgroundColor,
-                                        fw: FontWeight.w400)),
+                              backgroundColor:
+                                  AppColors.primaryColor, // Không có màu nền
+                              foregroundColor: Colors.white, // Màu chữ vàng
+                              // side: const BorderSide(
+                              //   // Viền vàng
+                              //   color: AppColors.primaryColor,
+                              //   width: 1.5,
+                              // ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4),
                               ),
-                            ],
+                            ),
+                            child: Text("HOÀN THÀNH",
+                                style: StylesOfWidgets.textStyle1(
+                                    fs: SizeOfWidget.sizeOfH2,
+                                    fw: FontWeight.w400,
+                                    clr: Colors.white)),
                           ),
                         ),
                       ]),
@@ -286,17 +228,24 @@ class OrderList extends StatelessWidget {
         },
       );
     }
+
     return FutureBuilder(
-      future: orderViewModel.getOrderByUserIdNotComplete(),
-      builder: (BuildContext context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasData) {
+      future: orderstatusViewModel.getOrderByUserIdDoing(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Center(
+            child: Text(snapshot.error.toString()),
+          );
+        } else if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
           return ListView.builder(
             padding: const EdgeInsets.all(5),
-            itemCount: snapshot.data!.length, // Số lượng đơn hàng
+            itemCount: snapshot
+                .data!.length, //snapshot.data!.length, // Số lượng đơn hàng
             itemBuilder: (context, index) {
-              // var orderDetail = snapshot.data![index].orderDetails[index];
               return InkWell(
                 onTap: () {},
                 child: Card(
@@ -396,53 +345,18 @@ class OrderList extends StatelessWidget {
 
                     // Nút "HỦY" (cố định góc dưới phải)
                     Positioned(
-                      bottom: 10.sp,
-                      right: 10.sp,
-                      child: TextButton(
-                        onPressed: () async {
-                          bool result = await orderViewModel.cancelOrder(
-                              snapshot.data![index].orderId, 3);
-                          var snackBar = SnackBar(
-                            content: Text(
-                              result ? "Huỷ thành công" : "Huỷ thất bại",
-                              textAlign: TextAlign.center,
-                            ),
-                            backgroundColor: result ? Colors.green : Colors.red,
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        },
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20.sp,
-                            vertical: 10.sp,
-                          ),
-                          backgroundColor:
-                              Colors.transparent, // Không có màu nền
-                          foregroundColor:
-                              AppColors.primaryColor, // Màu chữ vàng
-                          side: const BorderSide(
-                            // Viền vàng
-                            color: AppColors.primaryColor,
-                            width: 1.5,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
-                        child: Text("HỦY",
-                            style: StylesOfWidgets.textStyle1(
-                                fs: SizeOfWidget.sizeOfH2,
-                                clr: AppColors.primaryColor,
-                                fw: FontWeight.w400)),
-                      ),
-                    ),
+                        bottom: 15.sp,
+                        right: 10.sp,
+                        child: Text(
+                          "Đang chuẩn bị đơn",
+                          style: StylesOfWidgets.textStyle1(
+                              fs: 16.sp, clr: AppColors.gray),
+                        )),
                   ]),
                 ),
               );
             },
           );
-        } else {
-          return const Center(child: Text("Không tìm thấy dữ liệu"));
         }
       },
     );

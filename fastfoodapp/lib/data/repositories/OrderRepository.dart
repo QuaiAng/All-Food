@@ -10,8 +10,31 @@ class Orderrepository {
 
     try {
       List? order = await _orderservice.getOrderByUserId(userID);
-      listOrder = order!.map((item) => OrderModel.fromJson(item)).toList(); //map sai gì rồi
+      listOrder = order!
+          .map((item) => OrderModel.fromJson(item))
+          .toList(); //map sai gì rồi
       return listOrder;
+    } catch (error) {
+      throw Exception('Error in OrderRepository: $error');
+    }
+  }
+
+  Future<OrderModel> getOrderByOderId(int orderID) async {
+    try {
+      final response = await _orderservice.getOrderByOrderId(orderID);
+      OrderModel order = OrderModel.fromJson(response);
+
+      return order;
+    } catch (error) {
+      throw Exception('Error in OrderRepository: $error');
+    }
+  }
+
+  Future<bool> cancelOrder(int orderId, int userId, int orderStatus) async {
+    try {
+      final response =
+          await _orderservice.cancelOrder(orderId, userId, orderStatus);
+      return response['success'];
     } catch (error) {
       throw Exception('Error in OrderRepository: $error');
     }

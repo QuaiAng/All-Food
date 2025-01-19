@@ -1,4 +1,5 @@
 import 'package:fastfoodapp/data/models/ResponeLoginModel.dart';
+import 'package:fastfoodapp/data/models/ShopModel.dart';
 import 'package:fastfoodapp/data/models/User.dart';
 import 'package:fastfoodapp/data/models/UserModel.dart';
 import 'package:fastfoodapp/data/services/UserService.dart';
@@ -23,6 +24,16 @@ class Userrepository {
         response as Map<String, dynamic>); // chuyển từ json sang đối tượng
 
     return user;
+  }
+
+  Future<int> getShopByUserId() async {
+    final response = await _userService.getShopByUserId();
+    if (response['success'] == true) {
+      Shopmodel shop = Shopmodel.fromJSON(response['data']);
+      return shop.shopId;
+    } else {
+      throw Exception("Lỗi tại user repo");
+    }
   }
 
   Future<String> getNameUserByUserId(int userId) async {

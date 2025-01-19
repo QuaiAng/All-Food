@@ -1,10 +1,15 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/pages/ordermanagementscreen.dart';
+import 'package:fastfoodapp/presentation/states/loginviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/shopviewmodel.dart';
 
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';
+import 'package:fastfoodapp/res/strings.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class Shopmanagementscreen extends StatelessWidget {
@@ -12,6 +17,9 @@ class Shopmanagementscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final shopId = ModalRoute.of(context)?.settings.arguments as int;
+    final shopInfo = Provider.of<Shopviewmodel>(context);
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -40,41 +48,54 @@ class Shopmanagementscreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 4.sp),
           child: Column(
             children: [
-              ListTile(
-                leading: Container(
-                    width: 40,
-                    height: 40,
-                    decoration: const BoxDecoration(shape: BoxShape.circle),
-                    child: ClipOval(
-                      // Đảm bảo hình ảnh được cắt theo hình tròn
-                      child: Image.asset(
-                        Imagepath.iconMoMo,
-                        fit: BoxFit
-                            .contain, // Đảm bảo hình ảnh nằm gọn trong container
+              FutureBuilder(
+                future: shopInfo.getShopByShopID(shopId),
+                builder: (BuildContext context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasData) {
+                    return ListTile(
+                      leading: Container(
+                          width: 40,
+                          height: 40,
+                          decoration:
+                              const BoxDecoration(shape: BoxShape.circle),
+                          child: ClipOval(
+                            // Đảm bảo hình ảnh được cắt theo hình tròn
+                            child: Image.network(
+                              "${AppStrings.urlAPI}/${snapshot.data!.imageURL}",
+                              fit: BoxFit.contain,
+                            ),
+                          )),
+                      title: Text(
+                        snapshot.data!.shopName,
+                        style: StylesOfWidgets.textStyle1(
+                            fs: SizeOfWidget.sizeOfH3, fw: FontWeight.w600),
                       ),
-                    )),
-                title: Text(
-                  "ABC SHOP",
-                  style: StylesOfWidgets.textStyle1(
-                      fs: SizeOfWidget.sizeOfH3, fw: FontWeight.w600),
-                ),
-                subtitle: Text(
-                  "091981823",
-                  style: StylesOfWidgets.textStyle1(
-                      fs: SizeOfWidget.sizeOfH3,
-                      fw: FontWeight.w400,
-                      clr: AppColors.lightGray),
-                ),
-                trailing: TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Sửa",
-                    style: StylesOfWidgets.textStyle1(
-                        fs: SizeOfWidget.sizeOfH3,
-                        fw: FontWeight.w400,
-                        clr: AppColors.primaryColor),
-                  ),
-                ),
+                      subtitle: Text(
+                        snapshot.data!.phone,
+                        style: StylesOfWidgets.textStyle1(
+                            fs: SizeOfWidget.sizeOfH3,
+                            fw: FontWeight.w400,
+                            clr: AppColors.lightGray),
+                      ),
+                      trailing: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Sửa",
+                          style: StylesOfWidgets.textStyle1(
+                              fs: SizeOfWidget.sizeOfH3,
+                              fw: FontWeight.w400,
+                              clr: AppColors.primaryColor),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Text("Không tìm thấy dữ liệu");
+                  }
+                },
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.sp),
@@ -94,12 +115,23 @@ class Shopmanagementscreen extends StatelessWidget {
                     _buildGridItem(
                       Icons.inbox_outlined,
                       'Đơn hàng chờ duyệt',
-                      () {},
+                      () {
+                        Navigator.pushNamed(
+                            context, RouteName.waitingForApprovalScreen);
+                      },
                     ),
                     _buildGridItem(
                       Icons.text_snippet_outlined,
                       'Lịch sử đơn hàng',
-                      () {},
+                      () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                Ordermanagementscreen(role: false),
+                          ),
+                        );
+                      },
                     ),
                     _buildGridItem(
                       Icons.inventory_2_outlined,
