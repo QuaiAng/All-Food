@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/pages/ordermanagementscreen.dart';
 import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -171,8 +172,13 @@ class _SettingScreenState extends State<SettingScreen> {
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () {
                         // print("Shop của tôi được nhấn");
-                        Navigator.pushNamed(
-                            context, RouteName.orderManagementScreen);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                Ordermanagementscreen(role: true),
+                          ),
+                        );
                       },
                     ),
                     const Divider(

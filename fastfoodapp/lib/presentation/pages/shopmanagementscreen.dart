@@ -1,4 +1,5 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/pages/ordermanagementscreen.dart';
 
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/images.dart';
@@ -102,7 +103,15 @@ class Shopmanagementscreen extends StatelessWidget {
                     _buildGridItem(
                       Icons.text_snippet_outlined,
                       'Lịch sử đơn hàng',
-                      () {},
+                      () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                Ordermanagementscreen(role: false),
+                          ),
+                        );
+                      },
                     ),
                     _buildGridItem(
                       Icons.inventory_2_outlined,
