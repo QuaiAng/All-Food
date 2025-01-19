@@ -1,4 +1,5 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/pages/mainscreen.dart';
 import 'package:fastfoodapp/presentation/states/loginviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
@@ -13,8 +14,22 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Loginscreen extends StatelessWidget {
+class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
+
+  @override
+  State<Loginscreen> createState() => _LoginscreenState();
+}
+
+class _LoginscreenState extends State<Loginscreen> {
+  GlobalKey<FormState>? _formKeyLogin;
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+    _formKeyLogin = GlobalKey<FormState>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +44,14 @@ class Loginscreen extends StatelessWidget {
           onPressed: () {
             Provider.of<AppProvier>(context, listen: false)
                 .setCurrentIndexPage(0);
-            Navigator.pushNamed(context, RouteName.mainScreen);
+            //Navigator.pop(context);
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Mainscreen()), // Màn hình mới
+              (Route<dynamic> route) =>
+                  false, // Điều kiện để loại bỏ tất cả màn hình, ở đây là loại bỏ tất cả
+            );
           },
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
@@ -44,7 +66,7 @@ class Loginscreen extends StatelessWidget {
         color: AppColors.backgroundColor,
         child: SingleChildScrollView(
           child: Form(
-            key: loginViewModel.formKeyLogin,
+            key: _formKeyLogin,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -93,7 +115,7 @@ class Loginscreen extends StatelessWidget {
                 Buttonlogin(
                     onClick: () async {
                       // Đợi kiểm tra thông tin login và kết quả trả về
-                      if (loginViewModel.validateForm()) {
+                      if (_formKeyLogin!.currentState!.validate()) {
                         bool result = await loginViewModel.login(
                           loginViewModel.usernameController.text,
                           loginViewModel.passwordController.text,
@@ -101,11 +123,33 @@ class Loginscreen extends StatelessWidget {
                         // Kiểm tra xem chuỗi trả về có rỗng không
                         if (result == true) {
                           // Nếu login thành công, chuyển hướng đến màn hình mới
-                          Navigator.pushNamed(context, RouteName.mainScreen);
-                          print(result); // In ra kết quả từ login
+                          Provider.of<AppProvier>(context, listen: false)
+                              .setCurrentIndexPage(0);
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const Mainscreen()), // Màn hình mới
+                            (Route<dynamic> route) =>
+                                false, // Điều kiện để loại bỏ tất cả màn hình, ở đây là loại bỏ tất cả
+                          );
                         } else {
                           // Xử lý khi login không thành công (chuỗi rỗng)
-                          print("Đăng nhập không thành công.");
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text("Đăng nhập thất bại"),
+                              content: const Text(
+                                  "Sai tên đăng nhập hoặc mật khẩu. Vui lòng thử lại!"),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(context), // Đóng hộp thoại
+                                  child: Text("OK"),
+                                ),
+                              ],
+                            ),
+                          );
                         }
                       }
                     },

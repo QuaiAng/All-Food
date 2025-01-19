@@ -1,14 +1,27 @@
-import 'package:fastfoodapp/main.dart';
+import 'dart:io';
+
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';
+import 'package:fastfoodapp/res/strings.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:fastfoodapp/utils/formatmoney.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class Productinshop extends StatelessWidget {
-  const Productinshop({super.key});
+  final String foodName;
+  final String description;
+  final String imageURL;
+  final double price;
+  final VoidCallback onAddTap;
+  const Productinshop(
+      {super.key,
+      required this.foodName,
+      required this.onAddTap,
+      required this.description,
+      required this.imageURL,
+      required this.price});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +33,8 @@ class Productinshop extends StatelessWidget {
           children: [
             Expanded(
               flex: 1,
-              child: Image.asset(
-                Imagepath.food,
+              child: Image.network(
+                "${AppStrings.urlAPI}/$imageURL",
                 fit: BoxFit.cover,
               ),
             ),
@@ -34,20 +47,22 @@ class Productinshop extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Combo Burger",
+                      foodName,
                       style: StylesOfWidgets.textStyle1(
                           fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w400),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10.sp),
                       child: Text(
-                        "Shortbread, chocolate turtle cookies, and red velvet.",
+                        description,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: StylesOfWidgets.textStyle1(
                             fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w300),
                       ),
                     ),
                     Text(
-                      Formatmoney.formatCurrency(56000),
+                      Formatmoney.formatCurrency(price),
                       softWrap: true,
                       style: StylesOfWidgets.textStyle1(
                           fs: SizeOfWidget.sizeOfH3,
@@ -57,7 +72,7 @@ class Productinshop extends StatelessWidget {
                   ],
                 )),
             InkWell(
-              onTap: () {},
+              onTap: onAddTap,
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),

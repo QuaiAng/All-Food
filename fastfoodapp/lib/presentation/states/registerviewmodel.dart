@@ -48,15 +48,10 @@ class Registerviewmodel with ChangeNotifier {
     return false;
   }
 
-  Future<bool> register(Usermodel user) async {
-    if (user.fullName.isEmpty ||
-        user.email.isEmpty ||
-        user.phone.isEmpty ||
-        user.password.isEmpty) {
-      return false;
-    }
+  Future<String> register(Usermodel user) async {
+    final response = await _userrepository.register(user);
 
-    return await _userrepository.register(user);
+    return response;
   }
 
   void disposeControllers() {

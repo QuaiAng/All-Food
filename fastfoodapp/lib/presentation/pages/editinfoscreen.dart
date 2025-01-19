@@ -1,5 +1,6 @@
 import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/states/editinfoviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/infofield.dart';
 import 'package:fastfoodapp/res/images.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class Editinfoscreen extends StatelessWidget {
         shadowColor: Colors.grey,
         leading: IconButton(
           onPressed: () {
+            // editInfoViewModel.dispose();
             Navigator.pop(context);
           },
           icon: const Icon(
@@ -165,13 +167,13 @@ class Editinfoscreen extends StatelessWidget {
                   isPassword: true,
                   isAddress: false,
                 ),
-                Infofield(
-                  label: 'ĐỊA CHỈ',
-                  onClick: () {},
-                  value: editInfoViewModel.addressController,
-                  isPassword: false,
-                  isAddress: true,
-                ),
+                // Infofield(
+                //   label: 'ĐỊA CHỈ',
+                //   onClick: () {},
+                //   value: editInfoViewModel.addressController,
+                //   isPassword: false,
+                //   isAddress: true,
+                // ),
               ],
             ),
           ),
@@ -185,14 +187,16 @@ class Editinfoscreen extends StatelessWidget {
           child: SizedBox(
             child: Center(
               child: Buttonlogin(
-                  onClick: () {
+                  onClick: () async {
                     if (editInfoViewModel.validateForm()) {
-                      // Xử lý lưu thông tin khi dữ liệu hợp lệ
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Thông tin đã được lưu!'),
-                        ),
+                      var temp = await editInfoViewModel.updateUserInfo().then(
+                        (value) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(value.toString().trim())),
+                          );
+                        },
                       );
+                      // Xử lý lưu thông tin khi dữ liệu hợp lệ
                     }
                   },
                   text: "HOÀN THÀNH"),

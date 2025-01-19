@@ -1,3 +1,4 @@
+import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/states/verifyotpviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
 import 'package:fastfoodapp/res/colors.dart';
@@ -87,6 +88,15 @@ class Verifyotpscreen extends StatelessWidget {
               Buttonlogin(
                   onClick: () {
                     verifyotpViewModel.validateOtp();
+                    if (verifyotpViewModel.isError == false) {
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        RouteName
+                            .loginScreen, // Tên route của màn hình đăng nhập
+                        (Route<dynamic> route) =>
+                            false, // Loại bỏ tất cả các route trước đó
+                      );
+                    }
                   },
                   text: "XÁC NHẬN"),
               SizedBox(

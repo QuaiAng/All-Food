@@ -1,8 +1,9 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/paymentviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
-import 'package:fastfoodapp/presentation/widgets/iteminpaymentscreen.dart';
+import 'package:fastfoodapp/presentation/widgets/iteminpayment.dart';
 import 'package:fastfoodapp/presentation/widgets/otherprice.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -13,9 +14,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+double total = 0;
+
 class Paymentscreen extends StatelessWidget {
   const Paymentscreen({super.key});
-  final double total = 400000.0;
 
   Future _showBottomSheet(BuildContext context) {
     return showModalBottomSheet(
@@ -24,7 +26,7 @@ class Paymentscreen extends StatelessWidget {
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       context: context,
-      builder: (context) => Container(
+      builder: (context) => SizedBox(
         height: MediaQuery.of(context).size.height * 0.5,
         child: Padding(
           padding: EdgeInsets.all(15.sp),
@@ -95,7 +97,8 @@ class Paymentscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final paymentViewModel = Provider.of<Paymentviewmodel>(context);
+    // final paymentViewModel = Provider.of<Paymentviewmodel>(context);
+    final cartViewModel = Provider.of<Cartviewmodel>(context);
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -122,136 +125,155 @@ class Paymentscreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: paymentViewModel.listProduct.length,
-              itemBuilder: (context, index) {
-                final item = paymentViewModel.listProduct[index];
+            FutureBuilder(
+              future: cartViewModel.getCartByUserId(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text(snapshot.error.toString()),
+                  );
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  total = snapshot.data!.cartDetails.fold(
+                      0.0, (sum, item) => sum + item.price * item.quantity);
+                  return Column(
+                    children: [
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: snapshot.data!.cartDetails.length,
+                        itemBuilder: (context, index) {
+                          final item = snapshot.data!.cartDetails[index];
 
-                return Column(
-                  children: [
-                    item,
-                    Container(
-                      height: 5.sp,
-                      padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                      child: const Divider(
-                        thickness: 0.5,
+                          return Column(
+                            children: [
+                              Itemrow(
+                                quantity: item.quantity,
+                                name: item.productName,
+                                description: item.description,
+                                price: item.price * 1.0 * item.quantity,
+                              ),
+                              Container(
+                                height: 5.sp,
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 15.sp),
+                                child: const Divider(
+                                  thickness: 0.5,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
-                    )
-                  ],
-                );
+                      //OK
+                      Padding(
+                        padding: EdgeInsets.all(15.sp),
+                        child: Column(
+                          children: [
+                            const Pricerow(
+                                label: "Phụ phí", amount: 0, isTotal: false),
+                            const Pricerow(
+                                label: "Phí giao hàng",
+                                amount: 0,
+                                isTotal: false),
+                            const Pricerow(
+                                label: "Voucher", amount: -0, isTotal: false),
+                            Pricerow(
+                                label: "Tổng thanh toán",
+                                amount: total,
+                                isTotal: true),
+                            const Divider(thickness: 0.5),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, RouteName.paymentmethodScreen);
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Phương thức thanh toán",
+                                        style: StylesOfWidgets.textStyle1(
+                                            fs: SizeOfWidget.sizeOfH3)),
+                                    Icon(Icons.arrow_forward_ios, size: 17.sp),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const Divider(thickness: 0.5),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, RouteName.voucherScreen);
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Voucher",
+                                        style: StylesOfWidgets.textStyle1(
+                                            fs: SizeOfWidget.sizeOfH3)),
+                                    Icon(Icons.arrow_forward_ios, size: 17.sp),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const Divider(thickness: 0.5),
+                            InkWell(
+                              onTap: () {
+                                Provider.of<AppProvier>(context, listen: false)
+                                    .setCurrentIndexPage(0);
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  RouteName.mainScreen,
+                                  (route) =>
+                                      false, // Xóa tất cả các route trước đó
+                                );
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Thêm món khác",
+                                        style: StylesOfWidgets.textStyle1(
+                                            fs: SizeOfWidget.sizeOfH3,
+                                            clr: AppColors.primaryColor)),
+                                    Icon(Icons.arrow_forward_ios, size: 17.sp),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  );
+                }
               },
             ),
-            Padding(
-              padding: EdgeInsets.all(15.sp),
-              child: Column(
-                children: [
-                  const Pricerow(label: "Phụ phí", amount: 0, isTotal: false),
-                  const Pricerow(
-                      label: "Phí giao hàng", amount: 0, isTotal: false),
-                  const Pricerow(label: "Voucher", amount: -0, isTotal: false),
-                  const Pricerow(
-                      label: "Tổng thanh toán", amount: 96000, isTotal: true),
-                  const Divider(thickness: 0.5),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(
-                          context, RouteName.paymentmethodScreen);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Phương thức thanh toán",
-                              style: StylesOfWidgets.textStyle1(
-                                  fs: SizeOfWidget.sizeOfH3)),
-                          Icon(Icons.arrow_forward_ios, size: 17.sp),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Divider(thickness: 0.5),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, RouteName.voucherScreen);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Voucher",
-                              style: StylesOfWidgets.textStyle1(
-                                  fs: SizeOfWidget.sizeOfH3)),
-                          Icon(Icons.arrow_forward_ios, size: 17.sp),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Divider(thickness: 0.5),
-                  InkWell(
-                    onTap: () {
-                      Provider.of<AppProvier>(context, listen: false)
-                          .setCurrentIndexPage(0);
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        RouteName.mainScreen,
-                        (route) => false, // Xóa tất cả các route trước đó
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Thêm món khác",
-                              style: StylesOfWidgets.textStyle1(
-                                  fs: SizeOfWidget.sizeOfH3,
-                                  clr: AppColors.primaryColor)),
-                          Icon(Icons.arrow_forward_ios, size: 17.sp),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
           ],
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-          height: 43.sp,
           color: AppColors.backgroundColor,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Tổng",
-                    style: GoogleFonts.inter(
-                        textStyle: TextStyle(fontSize: 17.sp)),
-                  ),
-                  Text(
-                    Formatmoney.formatCurrency(total),
-                    style: GoogleFonts.inter(
-                        textStyle: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: SizeOfWidget.sizeOfH3)),
-                  )
-                ],
-              ),
-              Buttonlogin(
-                  onClick: () {
-                    _showBottomSheet(context);
-                  },
-                  text: "THANH TOÁN")
-            ],
-          )),
+          child: Buttonlogin(
+              onClick: () {
+                _showBottomSheet(context);
+              },
+              text: "THANH TOÁN")),
     );
   }
 }

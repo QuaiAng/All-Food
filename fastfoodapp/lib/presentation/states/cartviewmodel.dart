@@ -1,87 +1,51 @@
-import 'package:fastfoodapp/presentation/widgets/itemincart.dart';
+import 'package:fastfoodapp/data/models/CartDetailModel.dart';
+import 'package:fastfoodapp/data/models/CartModel.dart';
+import 'package:fastfoodapp/data/repositories/CartRepository.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Cartviewmodel extends ChangeNotifier {
-  List<Itemincart> _Itemincarts = [
-    Itemincart(
-      onTap: () {},
-      image: 'assets/images/food.png',
-      name: "Khoai tây chiên",
-      note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
-      price: 56000.0,
-      quantity: 1,
-      shopName: "Từ McDonald's",
-    ),
-    Itemincart(
-      onTap: () {},
-      image: 'assets/images/food.png',
-      name: "Khoai tây chiên",
-      note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
-      price: 56000.0,
-      quantity: 1,
-      shopName: "Từ McDonald's",
-    ),
-    Itemincart(
-      onTap: () {},
-      image: 'assets/images/food.png',
-      name: "Khoai tây chiên",
-      note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
-      price: 56000.0,
-      quantity: 1,
-      shopName: "Từ McDonald's",
-    ),
-    Itemincart(
-      onTap: () {},
-      image: 'assets/images/food.png',
-      name: "Khoai tây chiên",
-      note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
-      price: 56000.0,
-      quantity: 1,
-      shopName: "Từ McDonald's",
-    ),
-    Itemincart(
-      onTap: () {},
-      image: 'assets/images/food.png',
-      name: "Khoai tây chiên",
-      note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
-      price: 56000.0,
-      quantity: 1,
-      shopName: "Từ McDonald's",
-    ),
-    Itemincart(
-      onTap: () {},
-      image: 'assets/images/food.png',
-      name: "Khoai tây chiên",
-      note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
-      price: 56000.0,
-      quantity: 1,
-      shopName: "Từ McDonald's",
-    ),
-    Itemincart(
-      onTap: () {},
-      image: 'assets/images/food.png',
-      name: "Khoai tây chiên",
-      note: "Đây là ghi chú Đây là ghi chú Đây là ghi chú Đây ",
-      price: 56000.0,
-      quantity: 1,
-      shopName: "Từ McDonald's",
-    ),
-  ];
+  CartRepository _cartRepository;
+  Cartviewmodel(this._cartRepository);
 
-  List get Itemincarts => _Itemincarts;
+  Cartmodel? cartmodel;
 
-  void addToCart(Itemincart value) {
-    _Itemincarts.add(value);
+  Future<Cartmodel?> getCartByUserId() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    var userId;
+    if (_prefs.containsKey('userId')) {
+      userId = _prefs.getInt('userId');
+    } else {
+      userId = 0;
+    }
+    final response = await _cartRepository.getCartByUserId(userId);
+    if (response != null) {
+      cartmodel = response;
+      return response;
+    }
+    // notifyListeners();
+    return null;
+  }
+
+  Future<bool> addToCart(Cartdetailmodel cartdetail) async {
+    final response = await _cartRepository.addToCart(cartdetail);
     notifyListeners();
+    return response;
   }
 
-  void removeFromCart(int index) {
-    _Itemincarts.removeAt(index);
+  Future<String> removeFromCart(int productId, int cartId) async {
+    final response = await _cartRepository.removeFromCart(productId, cartId);
     notifyListeners();
+    return response;
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  //Kiểm tra trạng thái đăng nhập
+  int? _userId;
+  Future<bool> checkUserLoggedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _userId = prefs.getInt('userId');
+    return _userId != null;
   }
+
+  int? get userId => _userId;
 }

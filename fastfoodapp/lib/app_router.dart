@@ -1,8 +1,8 @@
-import 'package:fastfoodapp/data/models/VoucherModel.dart';
 import 'package:fastfoodapp/presentation/pages/addressscreen.dart';
 import 'package:fastfoodapp/presentation/pages/cartscreen.dart';
 import 'package:fastfoodapp/presentation/pages/bestsellerlist.dart';
 import 'package:fastfoodapp/presentation/pages/changepasswordscreen.dart';
+import 'package:fastfoodapp/presentation/pages/detailproductscreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailvoucherscreen.dart';
 import 'package:fastfoodapp/presentation/pages/editinfoscreen.dart';
 import 'package:fastfoodapp/presentation/pages/feedbackscreen.dart';
@@ -11,6 +11,7 @@ import 'package:fastfoodapp/presentation/pages/homescreen.dart';
 import 'package:fastfoodapp/presentation/pages/detailshopscreen.dart';
 import 'package:fastfoodapp/presentation/pages/loginscreen.dart';
 import 'package:fastfoodapp/presentation/pages/mainscreen.dart';
+import 'package:fastfoodapp/presentation/pages/ordermanagementscreen.dart';
 import 'package:fastfoodapp/presentation/pages/orderstatusscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentmethodscreen.dart';
 import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
@@ -24,6 +25,8 @@ import 'package:fastfoodapp/presentation/pages/splashscreen.dart';
 import 'package:fastfoodapp/presentation/pages/verifyotpscreen.dart';
 import 'package:fastfoodapp/presentation/pages/voucherscreen.dart';
 import 'package:fastfoodapp/presentation/pages/filterrevenuescreen.dart';
+import 'package:fastfoodapp/presentation/pages/waitingforapprovalscreen.dart';
+import 'package:fastfoodapp/presentation/pages/invoicedetailsscreen.dart';
 import 'package:flutter/material.dart';
 
 class RouteName {
@@ -35,7 +38,7 @@ class RouteName {
   static const String verifyotpScreen = "/verifyotp";
   static const String detaiListProductScreen = "/detaillistproduct";
   static const String paymentScreen = "/payment";
-  static const String voucherScreen = "/voucher";
+  static const String voucherScreen = "/vouchers";
   static const String mainScreen = "/main";
   static const String detailsearchScreen = "/detailsearch";
   static const String splashScreen = "";
@@ -53,6 +56,13 @@ class RouteName {
   static const String changePasswordScreen = "/changepassword";
   static const String resultSearchScreen = "/resultsearch";
   static const String filterRevenue = "/filterrevenue";
+  static const String invoicedetails = "/invoicedetails";
+
+  static const String addvoucherscreen = "/addvoucher";
+  static const String orderManagementScreen = "/ordermanagement";
+
+  static const String detailProductScreen = "/detailproductscreen";
+  static const String waitingForApprovalScreen = "/waitingforapproval";
 }
 
 class AppRouter {
@@ -70,6 +80,9 @@ class AppRouter {
       //Màn hình chờ
       case RouteName.splashScreen:
         return MaterialPageRoute(builder: (_) => const Splashscreen());
+      //Màn hình chờ
+      case RouteName.waitingForApprovalScreen:
+        return MaterialPageRoute(builder: (_) => Waitingforapprovalscreen());
       //Màn hình chờ
       case RouteName.resultSearchScreen:
         return MaterialPageRoute(builder: (_) => const Resultsearchscreen());
@@ -104,8 +117,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const Voucherscreen());
       //Màn hình chi tiết voucher
       case RouteName.detailvoucherScreen:
-        final voucher = settings.arguments as Vouchermodel;
-        return MaterialPageRoute(builder: (_) => VoucherDetailScreen(voucher: voucher,));
+        return MaterialPageRoute(builder: (_) => const VoucherDetailScreen());
       //Màn hình tìm kiếm
       case RouteName.searchScreen:
         return MaterialPageRoute(builder: (_) => const Searchscreen());
@@ -137,16 +149,26 @@ class AppRouter {
       //Man hình cài đặt
       case RouteName.detailShopScreen:
         return MaterialPageRoute(builder: (_) => const Detailshopscreen());
-
       case RouteName.addressScreen:
         return MaterialPageRoute(builder: (_) => const Addressscreen());
-
       case RouteName.shopManagementScreen:
         return MaterialPageRoute(builder: (_) => const Shopmanagementscreen());
       case RouteName.feedBackscreen:
         return MaterialPageRoute(builder: (_) => const Feedbackscreen());
+
       case RouteName.filterRevenue:
         return MaterialPageRoute(builder: (_) => const Filterrevenuescreen());
+      case RouteName.invoicedetails:
+        final args = settings.arguments as Map<String, dynamic>?; // Lấy arguments
+        final isAdmin = args?['isAdmin'] ?? false; // Mặc định là false nếu không truyền
+        return MaterialPageRoute(
+          builder: (_) => Invoicedetailsscreen(isAdmin: isAdmin),
+        );
+      // case RouteName.addvoucherscreen:
+      // return MaterialPageRoute(builder: (_) => const Addvoucherscreen());
+      case RouteName.orderManagementScreen:
+        return MaterialPageRoute(builder: (_) => const Ordermanagementscreen());
+
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

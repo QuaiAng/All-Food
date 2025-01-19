@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
+import 'package:fastfoodapp/res/strings.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:fastfoodapp/utils/formatmoney.dart';
 import 'package:flutter/gestures.dart';
@@ -23,7 +26,7 @@ class Itemincart extends StatefulWidget {
   final String name;
   final String note;
   final String shopName;
-  final double price;
+  final int price;
   final int quantity;
 
   @override
@@ -32,7 +35,7 @@ class Itemincart extends StatefulWidget {
 
 class _ItemincartState extends State<Itemincart> {
   late int _quantity;
-  late double _totalPrice;
+  late int _totalPrice;
 
   @override
   void initState() {
@@ -76,8 +79,8 @@ class _ItemincartState extends State<Itemincart> {
                     // color: Colors.amber,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Image.asset(
-                    widget.image,
+                  child: Image.network(
+                    "${AppStrings.urlAPI}/${widget.image}",
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -101,6 +104,8 @@ class _ItemincartState extends State<Itemincart> {
                 ),
                 Text(
                   widget.note,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: StylesOfWidgets.textStyle1(
                       fs: SizeOfWidget.sizeOfH3,
                       fw: FontWeight.w400,
@@ -119,7 +124,7 @@ class _ItemincartState extends State<Itemincart> {
                         ),
                       ),
                       TextSpan(
-                        text: "McDonald's",
+                        text: widget.shopName,
                         style: StylesOfWidgets.textStyle1(
                             fs: SizeOfWidget.sizeOfH3,
                             fw: FontWeight.w700,
@@ -185,7 +190,7 @@ class _ItemincartState extends State<Itemincart> {
                       child: Container(
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          Formatmoney.formatCurrency(_totalPrice),
+                          Formatmoney.formatCurrency(_totalPrice * 1.0),
                           softWrap: true,
                           style: StylesOfWidgets.textStyle1(
                               fs: SizeOfWidget.sizeOfH3,

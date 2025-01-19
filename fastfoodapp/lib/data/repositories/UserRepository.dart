@@ -19,19 +19,44 @@ class Userrepository {
 
   Future<User?> getUser() async {
     var response = await _userService.getUser();
-    // if(response != null){
-    //   if (response['fullName'] == ) {
-
-    //   } // kiểm tra
-    // }
-
     User? user = User.fromJson(
         response as Map<String, dynamic>); // chuyển từ json sang đối tượng
 
     return user;
   }
 
-  Future<bool> register(Usermodel user) async {
-    return await _userService.register(user);
+  Future<String> getNameUserByUserId(int userId) async {
+    final response = await _userService.getNameUserByUserId(userId);
+    User? user = User.fromJson(response); // chuyển từ json sang đối tượng
+
+    return user.fullName;
+  }
+
+  Future<String> register(Usermodel user) async {
+    final response = await _userService.register(user);
+    if (response['success'] == false) {
+      return response['message'];
+    }
+    return "ok";
+  }
+
+  Future<String> updateInfoUser(
+      String name, String phone, String email, int userId) async {
+    final response =
+        await _userService.updateInfoUser(name, email, phone, userId);
+    if (response['success'] == true) {
+      return response['message'];
+    }
+    return response['message'];
+  }
+
+  Future<String> changePassword(
+      String oldPassword, String newPassword, int userId) async {
+    final response =
+        await _userService.changePassword(oldPassword, newPassword, userId);
+    if (response['success'] == true) {
+      return response['message'];
+    }
+    return response['message'];
   }
 }

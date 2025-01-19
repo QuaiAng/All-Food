@@ -1,4 +1,3 @@
-import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/states/changepasswordviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
 import 'package:fastfoodapp/presentation/widgets/textbox.dart';
@@ -103,9 +102,19 @@ class Changepasswordscreen extends StatelessWidget {
                   height: 20.sp,
                 ),
                 Buttonlogin(
-                    onClick: () {
+                    onClick: () async {
                       if (changePasswordViewModel.validateForm()) {
-                        Navigator.pushNamed(context, RouteName.verifyotpScreen);
+                        // Navigator.pushNamed(context, RouteName.verifyotpScreen);
+                        final result =
+                            await changePasswordViewModel.changePassword().then(
+                          (value) {
+                            Navigator.pop(context);
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(value),
+                              duration: const Duration(seconds: 3),
+                            ));
+                          },
+                        );
                       }
                     },
                     text: "LƯU"),

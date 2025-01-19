@@ -105,9 +105,6 @@ class Addressscreen extends StatelessWidget {
                 subtitle: FutureBuilder(
                   future: addressViewModel.getAddressCurrent(),
                   builder: (BuildContext context, snapshot) {
-                    // String currentAddress = snapshot.data == null
-                    //     ? 'Chưa có địa chỉ hiện tại'
-                    //     : snapshot.data!;
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
                         child: CircularProgressIndicator(),
@@ -221,7 +218,8 @@ class Addressscreen extends StatelessWidget {
                                                                   context,
                                                                   true);
                                                             },
-                                                            child: Text("OK"))
+                                                            child: const Text(
+                                                                "OK"))
                                                       ],
                                                     );
                                                   });

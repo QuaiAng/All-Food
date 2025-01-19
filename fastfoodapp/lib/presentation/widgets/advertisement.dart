@@ -30,9 +30,12 @@ class Listimageindicator extends StatelessWidget {
                         .withOpacity(0), // Không làm tối khi `isShop` là false
                 BlendMode.darken,
               ),
-              child: Image.asset(
-                images[index],
-                fit: BoxFit.cover, // Điều chỉnh cách hiển thị ảnh
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12.0),
+                child: Image.asset(
+                  images[index],
+                  fit: BoxFit.cover, // Điều chỉnh cách hiển thị ảnh
+                ),
               ),
             ),
           );

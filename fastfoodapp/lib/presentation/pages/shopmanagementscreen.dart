@@ -1,4 +1,5 @@
 import 'package:fastfoodapp/app_router.dart';
+
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/images.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -77,7 +78,7 @@ class Shopmanagementscreen extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.sp),
-                child: Divider(),
+                child: const Divider(),
               ),
               SizedBox(height: 14.sp),
               Padding(
@@ -90,29 +91,41 @@ class Shopmanagementscreen extends StatelessWidget {
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
                   children: [
-                    _buildGridItem(Icons.inbox_outlined, 'Đơn hàng chờ duyệt', () {
-                      
-                    },),
                     _buildGridItem(
-                        Icons.text_snippet_outlined, 'Lịch sử đơn hàng', () {  
-                      },),
+                      Icons.inbox_outlined,
+                      'Đơn hàng chờ duyệt',
+                      () {
+                        Navigator.pushNamed(
+                            context, RouteName.waitingForApprovalScreen);
+                      },
+                    ),
                     _buildGridItem(
-                        Icons.inventory_2_outlined, 'Quản lý sản phẩm', () {
-                          
-                        },),
-                    _buildGridItem(Icons.menu, 'Quản lý danh mục', () {
-                      
-                    },),
+                      Icons.text_snippet_outlined,
+                      'Lịch sử đơn hàng',
+                      () {},
+                    ),
                     _buildGridItem(
-                        Icons.local_offer_outlined, 'Quản lý ưu đãi', () {
-                      Navigator.pushNamed(context, RouteName.voucherScreen);
-                    },
-                        
-                      ),
+                      Icons.inventory_2_outlined,
+                      'Quản lý sản phẩm',
+                      () {},
+                    ),
                     _buildGridItem(
-                        Icons.attach_money_outlined, 'Thống kê doanh thu', () {
-                      
-                    },)
+                      Icons.menu,
+                      'Quản lý danh mục',
+                      () {},
+                    ),
+                    _buildGridItem(
+                      Icons.local_offer_outlined,
+                      'Quản lý ưu đãi',
+                      () {
+                        Navigator.pushNamed(context, RouteName.voucherScreen);
+                      },
+                    ),
+                    _buildGridItem(
+                      Icons.attach_money_outlined,
+                      'Thống kê doanh thu',
+                      () {},
+                    )
                   ],
                 ),
               ),
@@ -135,7 +148,7 @@ class Shopmanagementscreen extends StatelessWidget {
             BoxShadow(
               color: Colors.black.withOpacity(0.3), // Màu của bóng
               blurRadius: 4, // Độ mờ của bóng
-              offset: Offset(0, 2), // Độ dịch chuyển của bóng (x, y)
+              offset: const Offset(0, 2), // Độ dịch chuyển của bóng (x, y)
             ),
           ],
         ),
@@ -145,21 +158,16 @@ class Shopmanagementscreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Icon trong vùng tròn trắng
-            InkWell(
-              onTap: () {
-                // Navigator.pushNamed(context, routeName)
-              },
-              child: Container(
-                width: 30.sp,
-                height: 30.sp,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(icon, size: 25.sp, color: Colors.black, weight: 0.5),
+            Container(
+              width: 30.sp,
+              height: 30.sp,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
               ),
+              child: Icon(icon, size: 25.sp, color: Colors.black, weight: 0.5),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             // Tiêu đề giới hạn diện tích
             SizedBox(
               width: 37.sp,

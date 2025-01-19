@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
+import 'package:fastfoodapp/res/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart'; // File chứa đường dẫn ảnh
@@ -16,24 +19,26 @@ class Sectionfood extends StatelessWidget {
   final String name_food;
   final String foodImg;
   final String foodLocation;
-  final double foodRating;
+  final int foodRating;
   final int time;
   final String delivery;
 
   @override
   Widget build(BuildContext context) {
+    // String imageURL = "${AppStrings.urlAPI}/$foodImg";
     return Padding(
       padding: EdgeInsets.all(SizeOfWidget.sizeOfH4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-              height: 55.sp,
-              width: 55.sp,
-              child: Image.asset(
-                foodImg,
-                fit: BoxFit.fill,
-              )),
+            height: 55.sp,
+            width: 55.sp,
+            child: Image.network(
+              "${AppStrings.urlAPI}/$foodImg",
+              fit: BoxFit.fill,
+            ),
+          ),
           SizedBox(
             height: 4.sp,
           ),
@@ -70,7 +75,7 @@ class Sectionfood extends StatelessWidget {
                     color: AppColors.primaryColor,
                     borderRadius: BorderRadius.circular(4)),
                 child: Text(
-                  "$foodRating",
+                  (foodRating * 1.0).toString(),
                   style: GoogleFonts.inter(
                       fontSize: SizeOfWidget.sizeOfH4,
                       fontWeight: FontWeight.w500,

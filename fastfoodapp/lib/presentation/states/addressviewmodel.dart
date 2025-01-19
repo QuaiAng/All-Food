@@ -1,28 +1,28 @@
-import 'package:fastfoodapp/data/models/Address.dart';
+import 'package:fastfoodapp/data/models/AddressModel.dart';
 import 'package:fastfoodapp/data/repositories/AddressRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Addressviewmodel extends ChangeNotifier {
   List<Address> listAddressUser = [];
-  Future<String>? addressCurrent = null;
+  Future<String>? addressCurrent;
 
-  Addressrepository _addressrepository;
+  final Addressrepository _addressrepository;
   Addressviewmodel(this._addressrepository);
 
   Future<void> getAddress() async {
-    List<Address>? _address = await _addressrepository
+    List<Address>? address = await _addressrepository
         .getAddress(); // tạo ra 1 list để hứng hoặc copy từ list bên repository qua.
-    if (_address != null) {
+    if (address != null) {
       if (listAddressUser.isNotEmpty) {
-        for (int i = 0; i < _address.length; i++) {
-          if (listAddressUser[i].addressId != _address[i].addressId) {
-            listAddressUser.add(_address[i]); // sau đó in ra.
+        for (int i = 0; i < address.length; i++) {
+          if (listAddressUser[i].addressId != address[i].addressId) {
+            listAddressUser.add(address[i]); // sau đó in ra.
           }
         }
       } else {
-        for (int i = 0; i < _address!.length; i++) {
-          listAddressUser.add(_address[i]); // sau đó in ra.
+        for (int i = 0; i < address!.length; i++) {
+          listAddressUser.add(address[i]); // sau đó in ra.
         }
       }
     }
@@ -33,9 +33,9 @@ class Addressviewmodel extends ChangeNotifier {
     if (!_prefs.containsKey('addressCurrent')) {
       return 'Chưa chọn địa chỉ mặc định';
     }
-    Address? _address = await _addressrepository
+    Address? address = await _addressrepository
         .getAddressById(_prefs.getInt('addressCurrent')!);
-    return _address == null ? '' : _address.address;
+    return address == null ? '' : address.address;
   }
 
   Future<bool> deleteAddressById(int addressId) async {
@@ -46,8 +46,9 @@ class Addressviewmodel extends ChangeNotifier {
   }
 
   Future<bool> saveAddressByIdCurrent(int addressIdCurrent) async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    final result = await _prefs.setInt('addressCurrent', addressIdCurrent);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final result = await prefs.setInt('addressCurrent', addressIdCurrent);
+
     notifyListeners();
     return result;
   }
