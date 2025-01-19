@@ -57,6 +57,8 @@ class Sectionfood extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 4.sp),
             child: Text(
               foodLocation,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: GoogleFonts.inter(
                   fontSize: SizeOfWidget.sizeOfH3,
                   fontWeight: FontWeight.w400,

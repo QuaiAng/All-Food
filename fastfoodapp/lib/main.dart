@@ -26,6 +26,7 @@ import 'package:fastfoodapp/data/services/ShopService.dart';
 import 'package:fastfoodapp/data/services/UserService.dart';
 
 import 'package:fastfoodapp/data/services/VoucherService.dart';
+import 'package:fastfoodapp/presentation/pages/invoicedetailsscreen.dart';
 
 import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
@@ -177,7 +178,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      return const MaterialApp(
+      return MaterialApp(
         initialRoute: RouteName.mainScreen,
         onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
