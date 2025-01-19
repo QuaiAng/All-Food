@@ -48,7 +48,7 @@ import 'package:fastfoodapp/presentation/states/shopviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/verifyotpviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/filterrevenueviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/voucherviewmodel.dart';
-import 'package:fastfoodapp/presentation/widgets/detailordershopscreen.dart';
+import 'package:fastfoodapp/presentation/pages/detailordershopscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';

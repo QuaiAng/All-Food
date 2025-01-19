@@ -1,5 +1,5 @@
 import 'package:fastfoodapp/presentation/states/orderstatusviewmodel.dart';
-import 'package:fastfoodapp/presentation/widgets/detailordershopscreen.dart';
+import 'package:fastfoodapp/presentation/pages/detailordershopscreen.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
