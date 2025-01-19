@@ -26,8 +26,9 @@ class Sectionfood extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // String imageURL = "${AppStrings.urlAPI}/$foodImg";
-    return Padding(
-      padding: EdgeInsets.all(SizeOfWidget.sizeOfH4),
+    return Container(
+      padding: EdgeInsets.all(10.sp),
+      width: 60.sp,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -57,6 +58,8 @@ class Sectionfood extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 4.sp),
             child: Text(
               foodLocation,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: GoogleFonts.inter(
                   fontSize: SizeOfWidget.sizeOfH3,
                   fontWeight: FontWeight.w400,

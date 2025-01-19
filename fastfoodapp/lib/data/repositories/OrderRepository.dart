@@ -19,9 +19,10 @@ class Orderrepository {
     }
   }
 
-  Future<bool> cancelOrder(int orderId) async {
+  Future<bool> cancelOrder(int orderId, int userId, int orderStatus) async {
     try {
-      final response = await _orderservice.cancelOrder(orderId);
+      final response =
+          await _orderservice.cancelOrder(orderId, userId, orderStatus);
       return response['success'];
     } catch (error) {
       throw Exception('Error in CartRepository: $error');

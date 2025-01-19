@@ -142,15 +142,13 @@ class OrderList extends StatelessWidget {
                         //   backgroundColor: result ? Colors.green : Colors.red,
                         // );
                         // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        
                       },
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.symmetric(
                           horizontal: 20.sp,
                           vertical: 10.sp,
                         ),
-                        backgroundColor:
-                            Colors.red, // Không có màu nền
+                        backgroundColor: Colors.red, // Không có màu nền
                         foregroundColor:
                             AppColors.backgroundColor, // Màu chữ vàng
                         // side: const BorderSide(
@@ -187,8 +185,10 @@ class OrderList extends StatelessWidget {
                           horizontal: 20.sp,
                           vertical: 10.sp,
                         ),
-                        backgroundColor: AppColors.primaryColor, // Không có màu nền
-                        foregroundColor: AppColors.backgroundColor, // Màu chữ vàng
+                        backgroundColor:
+                            AppColors.primaryColor, // Không có màu nền
+                        foregroundColor:
+                            AppColors.backgroundColor, // Màu chữ vàng
                         // side: const BorderSide(
                         //   // Viền vàng
                         //   color: AppColors.primaryColor,
@@ -273,7 +273,7 @@ class OrderList extends StatelessWidget {
                                       SizedBox(width: 4.sp),
                                       Expanded(
                                         child: Text(
-                                          orderModel.shopName,
+                                          snapshot.data![index].shopName,
                                           style: StylesOfWidgets.textStyle1(
                                             clr: AppColors.gray,
                                             fs: SizeOfWidget.sizeOfH3,
@@ -287,7 +287,7 @@ class OrderList extends StatelessWidget {
                                   SizedBox(height: 15.sp),
                                   // Ngày tháng đặt
                                   Text(
-                                    orderModel.date,
+                                    snapshot.data![index].date,
                                     style: StylesOfWidgets.textStyle1(
                                       clr: AppColors.gray,
                                       fs: SizeOfWidget.sizeOfH3,
@@ -304,7 +304,7 @@ class OrderList extends StatelessWidget {
                                 padding: EdgeInsets.only(top: 20.sp),
                                 child: Text(
                                   Formatmoney.formatCurrency(
-                                      orderModel.total * 1.0),
+                                      snapshot.data![index].total * 1.0),
                                   style: StylesOfWidgets.textStyle1(
                                     clr: AppColors.primaryColor,
                                     fs: SizeOfWidget.sizeOfH2,
@@ -325,8 +325,8 @@ class OrderList extends StatelessWidget {
                     right: 10.sp,
                     child: TextButton(
                       onPressed: () async {
-                        bool result = await orderViewModel
-                            .cancelOrder(snapshot.data![index].orderId);
+                        bool result = await orderViewModel.cancelOrder(
+                            snapshot.data![index].orderId, 3);
                         var snackBar = SnackBar(
                           content: Text(
                             result ? "Huỷ thành công" : "Huỷ thất bại",

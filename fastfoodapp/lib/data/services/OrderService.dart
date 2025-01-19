@@ -20,10 +20,12 @@ class Orderservice {
     }
   }
 
-  Future<Map<String, dynamic>> cancelOrder(int orderId) async {
-    final String url = '${AppStrings.urlAPI}/order/remove/$orderId';
+  Future<Map<String, dynamic>> cancelOrder(
+      int orderId, int userId, int orderStatus) async {
+    final String url =
+        '${AppStrings.urlAPI}/order/update/orderId=$orderId/userId=$userId/orderStatus=$orderStatus';
     try {
-      final response = await http.delete(Uri.parse(url));
+      final response = await http.put(Uri.parse(url));
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
         return jsonData;

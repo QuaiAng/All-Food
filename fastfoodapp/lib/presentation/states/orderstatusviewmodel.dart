@@ -49,6 +49,24 @@ class OrderStatusViewModel extends ChangeNotifier {
     return listOrderNotComplete;
   }
 
+  Future<List<OrderModel>?> getOrderByUserIdDoing() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    var userId;
+    if (_prefs.containsKey('userId')) {
+      userId = _prefs.getInt('userId');
+    } else {
+      userId = 0;
+    }
+    final response = await _orderrepository.getOrderByUserId(userId);
+    List<OrderModel> listOrderNotComplete = [];
+    for (int i = 0; i < response!.length; i++) {
+      if (response[i].orderStatus == 1) {
+        listOrderNotComplete.add(response[i]);
+      }
+    }
+    return listOrderNotComplete;
+  }
+
   Future<List<OrderModel>?> getOrderByUserIdComplete() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     var userId;
@@ -61,15 +79,37 @@ class OrderStatusViewModel extends ChangeNotifier {
     List<OrderModel>? listOrderComplete = [];
 
     for (int i = 0; i < response!.length; i++) {
-      if (response[i].orderStatus == 1) {
+      if (response[i].orderStatus == 2) {
         listOrderComplete.add(response[i]);
       }
     }
     return listOrderComplete;
   }
 
-  Future<bool> cancelOrder(int orderId) async {
-    final response = await _orderrepository.cancelOrder(orderId);
+  Future<List<OrderModel>?> getOrderByUserIdCanceled() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    var userId;
+    if (_prefs.containsKey('userId')) {
+      userId = _prefs.getInt('userId');
+    } else {
+      userId = 0;
+    }
+    final response = await _orderrepository.getOrderByUserId(userId);
+    List<OrderModel>? listOrderComplete = [];
+
+    for (int i = 0; i < response!.length; i++) {
+      if (response[i].orderStatus == 3) {
+        listOrderComplete.add(response[i]);
+      }
+    }
+    return listOrderComplete;
+  }
+
+  Future<bool> cancelOrder(int orderId, int orderStatus) async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    int? userId = _pref.getInt('userId');
+    final response =
+        await _orderrepository.cancelOrder(orderId, userId!, orderStatus);
     notifyListeners();
     return response;
   }
