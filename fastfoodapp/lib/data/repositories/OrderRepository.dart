@@ -28,4 +28,12 @@ class Orderrepository {
       throw Exception('Error in CartRepository: $error');
     }
   }
+
+  Future<bool> addToOrder(OrderModel order) async{
+    try{
+      return await _orderservice.addToOrder(order);
+    } catch(e){
+      throw Exception('Error in CartRepository: $e');
+    }
+  }
 }

@@ -23,7 +23,7 @@ class OrderModel {
     required this.status,
     required this.paymentMethod,
     required this.orderStatus,
-    required this.discount,
+    required this.discount, //OK rồi
     required this.fullNameUser,
     required this.shopName,
     required this.phoneNum,
@@ -50,4 +50,19 @@ class OrderModel {
           .toList(),
     );
   }
+
+  OrderModel.withoutStatus(
+      {required this.userId,
+      required this.total,
+      required this.date,
+      required this.deliveryAddress,
+      required this.paymentMethod,
+      required this.discount,
+      required this.fullNameUser,
+      required this.shopName,
+      required this.phoneNum,
+      required this.orderDetails})
+      : status = true,
+        orderStatus = 0,
+        orderId = 0;
 }

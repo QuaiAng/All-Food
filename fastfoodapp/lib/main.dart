@@ -137,7 +137,7 @@ void main() {
       ChangeNotifierProvider(
           create: (context) =>
               Resultsearchviewmodel(context.read<Productrepository>())),
-      ChangeNotifierProvider(create: (_) => Paymentviewmodel()),
+      ChangeNotifierProvider(create: (context) => Paymentviewmodel(context.read<Userrepository>())),
 
       ChangeNotifierProvider(create: (_) => Filterrevenueviewmodel()),
       ChangeNotifierProvider(

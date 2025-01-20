@@ -1,7 +1,15 @@
 import 'package:fastfoodapp/app_router.dart';
+import 'package:fastfoodapp/data/models/AddressModel.dart';
+import 'package:fastfoodapp/data/models/CartModel.dart';
+import 'package:fastfoodapp/data/models/OrderDetail.dart';
+import 'package:fastfoodapp/data/models/OrderModel.dart';
+import 'package:fastfoodapp/data/models/User.dart';
+import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
+import 'package:fastfoodapp/presentation/states/orderstatusviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/paymentviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/provider.dart';
+import 'package:fastfoodapp/presentation/states/shopviewmodel.dart';
 import 'package:fastfoodapp/presentation/widgets/buttonlogin.dart';
 import 'package:fastfoodapp/presentation/widgets/iteminpayment.dart';
 import 'package:fastfoodapp/presentation/widgets/otherprice.dart';
@@ -12,6 +20,7 @@ import 'package:fastfoodapp/utils/formatmoney.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 double total = 0;
@@ -97,8 +106,12 @@ class Paymentscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final paymentViewModel = Provider.of<Paymentviewmodel>(context);
+    final paymentViewModel = Provider.of<Paymentviewmodel>(context);
     final cartViewModel = Provider.of<Cartviewmodel>(context);
+    final addressViewModel = Provider.of<Addressviewmodel>(context);
+    final orderViewModel = Provider.of<OrderStatusViewModel>(context);
+    final shopViewModel = Provider.of<Shopviewmodel>(context);
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -270,8 +283,39 @@ class Paymentscreen extends StatelessWidget {
       bottomNavigationBar: BottomAppBar(
           color: AppColors.backgroundColor,
           child: Buttonlogin(
-              onClick: () {
-                _showBottomSheet(context);
+              onClick: () async {
+                SharedPreferences _prefs =
+                    await SharedPreferences.getInstance();
+                int? userId = _prefs.getInt('userId');
+
+                var user = await paymentViewModel.getUserById();
+                var cart = await cartViewModel.getCartByUserId();
+                var shop = await shopViewModel.getShopByShopID(24);
+                String address = await addressViewModel.getAddressCurrent();
+                var now = DateTime.now();
+                String today = "${now.year}-${now.month}-${now.day}";
+
+                var order = OrderModel.withoutStatus(
+                    date: today,
+                    total: total.toInt(),
+                    deliveryAddress: address,
+                    paymentMethod: 1,
+                    discount: 0,
+                    fullNameUser: user!.fullName,
+                    shopName: shop.shopName,
+                    phoneNum: user.phone,
+                    userId: userId!,
+                    orderDetails: cart!.cartDetails.map((item) {
+                      return OrderDetail(
+                          orderId: 0,
+                          productId: item.productId,
+                          quantity: item.quantity,
+                          price: item.price,
+                          note: '',
+                          productName: item.productName);
+                    }).toList());
+                var result = await orderViewModel.addToOrder(order);
+                if (result) _showBottomSheet(context);
               },
               text: "THANH TOÁN")),
     );

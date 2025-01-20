@@ -113,4 +113,10 @@ class OrderStatusViewModel extends ChangeNotifier {
     notifyListeners();
     return response;
   }
+
+  Future<bool> addToOrder(OrderModel order) async {
+    final response = await _orderrepository.addToOrder(order);
+    notifyListeners();
+    return response;
+  }
 }

@@ -29,7 +29,7 @@ class Userrepository {
     final response = await _userService.getNameUserByUserId(userId);
     User? user = User.fromJson(response); // chuyển từ json sang đối tượng
 
-    return user.fullName;
+    return user.fullName;//???
   }
 
   Future<String> register(Usermodel user) async {
@@ -58,5 +58,12 @@ class Userrepository {
       return response['message'];
     }
     return response['message'];
+  }
+
+    Future<String> getPhoneUserByUserId(int userId) async {
+    final response = await _userService.getNameUserByUserId(userId);
+    User? user = User.fromJson(response); // chuyển từ json sang đối tượng
+
+    return user.phone;
   }
 }

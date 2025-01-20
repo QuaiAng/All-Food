@@ -1,6 +1,8 @@
+import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/data/models/CartDetailModel.dart';
 import 'package:fastfoodapp/data/models/CartModel.dart';
 import 'package:fastfoodapp/data/repositories/CartRepository.dart';
+import 'package:fastfoodapp/presentation/pages/paymentscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,6 +11,8 @@ class Cartviewmodel extends ChangeNotifier {
   Cartviewmodel(this._cartRepository);
 
   Cartmodel? cartmodel;
+
+  List<Cartdetailmodel> get cartDetails => cartmodel?.cartDetails ?? [];
 
   Future<Cartmodel?> getCartByUserId() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
@@ -48,4 +52,7 @@ class Cartviewmodel extends ChangeNotifier {
   }
 
   int? get userId => _userId;
+
+
+
 }
