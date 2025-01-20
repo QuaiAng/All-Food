@@ -140,6 +140,18 @@ class Cartscreen extends StatelessWidget {
                                               })
                                         ]),
                                     child: Itemincart(
+                                        increaseQuantity: () {
+                                          cartViewModel.updateQuantity(
+                                              item.quantity + 1,
+                                              item.productId,
+                                              item.cartId);
+                                        },
+                                        reduceQuantity: () {
+                                          cartViewModel.updateQuantity(
+                                              item.quantity - 1,
+                                              item.productId,
+                                              item.cartId);
+                                        },
                                         onTap: () {
                                           Navigator.push(
                                             context,

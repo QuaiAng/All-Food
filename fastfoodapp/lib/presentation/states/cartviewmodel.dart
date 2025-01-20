@@ -53,6 +53,10 @@ class Cartviewmodel extends ChangeNotifier {
 
   int? get userId => _userId;
 
-
-
+  Future<bool> updateQuantity(int quantity, int productId, int cartId) async {
+    final response =
+        await _cartRepository.updateQuantity(quantity, productId, cartId);
+    notifyListeners();
+    return response;
+  }
 }

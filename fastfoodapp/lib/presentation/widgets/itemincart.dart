@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/strings.dart';
@@ -9,7 +7,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class Itemincart extends StatefulWidget {
+class Itemincart extends StatelessWidget {
   const Itemincart({
     super.key,
     required this.onTap,
@@ -19,6 +17,8 @@ class Itemincart extends StatefulWidget {
     required this.price,
     required this.quantity,
     required this.shopName,
+    required this.increaseQuantity,
+    required this.reduceQuantity,
   });
 
   final VoidCallback onTap;
@@ -28,42 +28,13 @@ class Itemincart extends StatefulWidget {
   final String shopName;
   final int price;
   final int quantity;
-
-  @override
-  State<Itemincart> createState() => _ItemincartState();
-}
-
-class _ItemincartState extends State<Itemincart> {
-  late int _quantity;
-  late int _totalPrice;
-
-  @override
-  void initState() {
-    super.initState();
-    _quantity = widget.quantity;
-    _totalPrice = widget.price * _quantity;
-  }
-
-  void _increaseQuantity() {
-    setState(() {
-      _quantity++;
-      _totalPrice = widget.price * _quantity;
-    });
-  }
-
-  void _decreaseQuantity() {
-    setState(() {
-      if (_quantity > 1) {
-        _quantity--;
-        _totalPrice = widget.price * _quantity;
-      }
-    });
-  }
+  final VoidCallback increaseQuantity;
+  final VoidCallback reduceQuantity;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: widget.onTap,
+      onTap: onTap,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -80,7 +51,7 @@ class _ItemincartState extends State<Itemincart> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Image.network(
-                    "${AppStrings.urlAPI}/${widget.image}",
+                    "${AppStrings.urlAPI}/$image",
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -98,12 +69,12 @@ class _ItemincartState extends State<Itemincart> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  widget.name,
+                  name,
                   style: StylesOfWidgets.textStyle1(
                       fs: SizeOfWidget.sizeOfH1, fw: FontWeight.w400),
                 ),
                 Text(
-                  widget.note,
+                  note,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: StylesOfWidgets.textStyle1(
@@ -124,7 +95,7 @@ class _ItemincartState extends State<Itemincart> {
                         ),
                       ),
                       TextSpan(
-                        text: widget.shopName,
+                        text: shopName,
                         style: StylesOfWidgets.textStyle1(
                             fs: SizeOfWidget.sizeOfH3,
                             fw: FontWeight.w700,
@@ -132,11 +103,11 @@ class _ItemincartState extends State<Itemincart> {
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             // Xử lý sự kiện click
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("You clicked on McDonald's!"),
-                              ),
-                            );
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   const SnackBar(
+                            //     content: Text("You clicked on McDonald's!"),
+                            //   ),
+                            // );
                           },
                       ),
                     ],
@@ -154,7 +125,7 @@ class _ItemincartState extends State<Itemincart> {
                           Expanded(
                             flex: 1,
                             child: IconButton(
-                              onPressed: _decreaseQuantity,
+                              onPressed: reduceQuantity,
                               icon: Icon(
                                 Icons.remove,
                                 color: AppColors.primaryColor,
@@ -165,7 +136,7 @@ class _ItemincartState extends State<Itemincart> {
                           Expanded(
                             flex: 1,
                             child: Text(
-                              _quantity.toString(),
+                              quantity.toString(),
                               textAlign: TextAlign.center,
                               style: StylesOfWidgets.textStyle1(
                                   fs: SizeOfWidget.sizeOfH3),
@@ -174,7 +145,7 @@ class _ItemincartState extends State<Itemincart> {
                           Expanded(
                             flex: 1,
                             child: IconButton(
-                              onPressed: _increaseQuantity,
+                              onPressed: increaseQuantity,
                               icon: Icon(
                                 Icons.add,
                                 color: AppColors.primaryColor,
@@ -190,7 +161,7 @@ class _ItemincartState extends State<Itemincart> {
                       child: Container(
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          Formatmoney.formatCurrency(_totalPrice * 1.0),
+                          Formatmoney.formatCurrency(quantity * price * 1.0),
                           softWrap: true,
                           style: StylesOfWidgets.textStyle1(
                               fs: SizeOfWidget.sizeOfH3,

@@ -38,4 +38,14 @@ class CartRepository {
       throw Exception('Error in CartRepository: $error');
     }
   }
+
+  Future<bool> updateQuantity(int quantity, int productId, int cartId) async {
+    try {
+      final response =
+          await _cartService.updateQuantity(quantity, productId, cartId);
+      return response['success'];
+    } catch (error) {
+      throw Exception('Error in CartRepository: $error');
+    }
+  }
 }

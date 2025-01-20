@@ -54,4 +54,21 @@ class Cartservice {
       throw Exception('Error fetching cart data: $error');
     }
   }
+
+  Future<Map<String, dynamic>> updateQuantity(
+      int quantity, int productId, int cartId) async {
+    final String url =
+        '${AppStrings.urlAPI}/cartdetail/updatequantity=$quantity/productId=$productId/cartId=$cartId';
+    try {
+      final response = await http.put(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.body);
+        return jsonData;
+      } else {
+        return jsonDecode(response.body);
+      }
+    } catch (error) {
+      throw Exception('Error fetching cart data: $error');
+    }
+  }
 }

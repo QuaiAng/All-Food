@@ -1,5 +1,6 @@
 import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/data/models/AddressModel.dart';
+import 'package:fastfoodapp/data/models/CartDetailModel.dart';
 import 'package:fastfoodapp/data/models/CartModel.dart';
 import 'package:fastfoodapp/data/models/OrderDetail.dart';
 import 'package:fastfoodapp/data/models/OrderModel.dart';
@@ -16,6 +17,7 @@ import 'package:fastfoodapp/presentation/widgets/otherprice.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
+import 'package:fastfoodapp/utils/customdialog.dart';
 import 'package:fastfoodapp/utils/formatmoney.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -77,7 +79,7 @@ class Paymentscreen extends StatelessWidget {
                   child: Text(
                     softWrap: true,
                     textAlign: TextAlign.center,
-                    "Bạn đã đặt hàng thành công. Các bạn sẽ nhận được thức ăn trong vòng 25 phút. Cảm ơn đã sử dụng dịch vụ của chúng tôi. Thưởng thức đồ ăn của bạn ^^",
+                    "Bạn đã đặt hàng thành công. Các bạn sẽ nhận được thức ăn trong vòng ít phút. Cảm ơn đã sử dụng dịch vụ của chúng tôi. Thưởng thức đồ ăn của bạn ^^",
                     style: StylesOfWidgets.textStyle1(
                         fs: SizeOfWidget.sizeOfH2, fw: FontWeight.w400),
                   ),
@@ -288,16 +290,40 @@ class Paymentscreen extends StatelessWidget {
                     await SharedPreferences.getInstance();
                 int? userId = _prefs.getInt('userId');
 
+                // Lấy thông tin user, giỏ hàng, và địa chỉ giao hàng
                 var user = await paymentViewModel.getUserById();
                 var cart = await cartViewModel.getCartByUserId();
-                var shop = await shopViewModel.getShopByShopID(24);
                 String address = await addressViewModel.getAddressCurrent();
                 var now = DateTime.now();
                 String today = "${now.year}-${now.month}-${now.day}";
 
-                var order = OrderModel.withoutStatus(
+                // Kiểm tra giỏ hàng
+                if (cart?.cartDetails == null || cart!.cartDetails.isEmpty) {
+                  print("Giỏ hàng trống!");
+                  return;
+                }
+
+                // Nhóm sản phẩm theo shopId
+                Map<int, List<Cartdetailmodel>> groupedCartDetails = {};
+                for (var item in cart.cartDetails) {
+                  groupedCartDetails
+                      .putIfAbsent(item.shopId, () => [])
+                      .add(item);
+                }
+
+                // Duyệt qua từng shop và tạo đơn hàng
+                for (var entry in groupedCartDetails.entries) {
+                  int shopId = entry.key;
+                  List<Cartdetailmodel> shopCartDetails = entry.value;
+
+                  // Lấy thông tin shop
+                  var shop = await shopViewModel.getShopByShopID(shopId);
+
+                  // Tạo đơn hàng cho shop
+                  var order = OrderModel.withoutStatus(
                     date: today,
-                    total: total.toInt(),
+                    total: shopCartDetails.fold(
+                        0, (sum, item) => sum + (item.price * item.quantity)),
                     deliveryAddress: address,
                     paymentMethod: 1,
                     discount: 0,
@@ -305,17 +331,41 @@ class Paymentscreen extends StatelessWidget {
                     shopName: shop.shopName,
                     phoneNum: user.phone,
                     userId: userId!,
-                    orderDetails: cart!.cartDetails.map((item) {
+                    orderDetails: shopCartDetails.map((item) {
                       return OrderDetail(
-                          orderId: 0,
-                          productId: item.productId,
-                          quantity: item.quantity,
-                          price: item.price,
-                          note: '',
-                          productName: item.productName);
-                    }).toList());
-                var result = await orderViewModel.addToOrder(order);
-                if (result) _showBottomSheet(context);
+                        orderId: 0,
+                        productId: item.productId,
+                        quantity: item.quantity,
+                        price: item.price,
+                        note: '',
+                        productName: item.productName,
+                      );
+                    }).toList(),
+                  );
+
+                  // Gửi đơn hàng
+                  var result = await orderViewModel.addToOrder(order);
+                  if (result) {
+                    // Xóa sản phẩm khỏi giỏ hàng
+                    for (var item in shopCartDetails) {
+                      await cartViewModel.removeFromCart(
+                          item.productId, cart.cartId);
+                    }
+                    // Hiển thị BottomSheet sau khi xử lý xong tất cả đơn hàng
+                    _showBottomSheet(context).then(
+                      (value) {
+                        Navigator.pop(context);
+                      },
+                    );
+                    print("Đơn hàng cho shop ${shop.shopName} đã được gửi!");
+                  } else {
+                    print("Gửi đơn hàng cho shop ${shop.shopName} thất bại.");
+                    Customdialog.showCustomDialog(
+                        context: context,
+                        title: "Lỗi",
+                        content: "Thanh toán thất bại, đã xảy ra lỗi");
+                  }
+                }
               },
               text: "THANH TOÁN")),
     );
