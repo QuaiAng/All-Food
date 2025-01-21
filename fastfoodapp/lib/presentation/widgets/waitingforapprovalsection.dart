@@ -8,13 +8,17 @@ import 'package:sizer/sizer.dart';
 import '../../data/models/productwatting.dart';
 
 class Waitingforapprovalsection extends StatelessWidget {
-  final Productwatting product;
   final VoidCallback onAccept;
   final VoidCallback onCancel;
+  final String productName;
+  final String shopName;
+  final int price;
 
   const Waitingforapprovalsection({
     super.key,
-    required this.product,
+    required this.productName,
+    required this.shopName,
+    required this.price,
     required this.onAccept,
     required this.onCancel,
   });
@@ -29,7 +33,7 @@ class Waitingforapprovalsection extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: Image.asset(
-              product.image,
+              "assets/images/bg.png",
               width: 48.sp,
               height: 53.sp,
               fit: BoxFit.cover,
@@ -41,7 +45,7 @@ class Waitingforapprovalsection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  product.name,
+                  productName,
                   style: StylesOfWidgets.textStyle1(
                       clr: Colors.black,
                       fs: SizeOfWidget.sizeOfH1,
@@ -60,7 +64,7 @@ class Waitingforapprovalsection extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      product.user,
+                      shopName,
                       style: StylesOfWidgets.textStyle1(
                           clr: AppColors.primaryColor,
                           fs: SizeOfWidget.sizeOfH3,
@@ -75,7 +79,7 @@ class Waitingforapprovalsection extends StatelessWidget {
                   height: 10.sp,
                 ),
                 Text(
-                  Formatmoney.formatCurrency(double.parse(product.price)),
+                  Formatmoney.formatCurrency(double.parse(price.toString())),
                   style: StylesOfWidgets.textStyle1(
                       clr: AppColors.primaryColor,
                       fs: SizeOfWidget.sizeOfH3,

@@ -23,4 +23,14 @@ class Shopservice {
       return jsonDecode(response.body);
     }
   }
+   Future<Map<String, dynamic>> getShopByShop(int shopId) async {
+    final response =
+        await http.get(Uri.parse("${AppStrings.urlAPI}/shop/shopId=$shopId"));
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      return jsonDecode(response.body);
+    }
+  }
 }

@@ -1,6 +1,10 @@
+import 'package:fastfoodapp/data/models/OrderModel.dart';
+import 'package:fastfoodapp/presentation/states/orderstatusviewmodel.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
+import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../data/models/productwatting.dart';
 import '../widgets/waitingforapprovalsection.dart';
@@ -8,32 +12,10 @@ import '../widgets/waitingforapprovalsection.dart';
 class Waitingforapprovalscreen extends StatelessWidget {
   Waitingforapprovalscreen({super.key});
 
-  final List<Productwatting> productList = [
-    Productwatting(
-      id: 1,
-      name: 'Khoai tây chiên',
-      price: '56000',
-      user: 'User XYZ',
-      image: 'assets/images/bg.png',
-    ),
-    Productwatting(
-      id: 2,
-      name: 'Khoai tây chiên',
-      price: '56000',
-      user: 'User XYZ',
-      image: 'assets/images/bg.png',
-    ),
-    Productwatting(
-      id: 3,
-      name: 'Khoai tây chiên',
-      price: '56000',
-      user: 'User XYZ',
-      image: 'assets/images/bg.png',
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final orderWaiting = Provider.of<OrderStatusViewModel>(context);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -53,24 +35,55 @@ class Waitingforapprovalscreen extends StatelessWidget {
           ),
           centerTitle: true,
         ),
-        body: ListView.builder(
-          itemCount: productList.length,
-          itemBuilder: (context, index) {
-            final product = productList[index];
-            return Waitingforapprovalsection(
-              product: product,
-              onAccept: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                      content: Text('Đã xác nhận sản phẩm ${product.name}')),
-                );
-              },
-              onCancel: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Đã hủy sản phẩm ${product.name}')),
-                );
-              },
-            );
+        body: FutureBuilder(
+          future: orderWaiting.getOrderByUserIdNotComplete(),
+          builder: (BuildContext context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasData) {
+              return SizedBox(
+                height: 200.sp,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    final product = snapshot.data![index].orderDetails;
+                    if (snapshot.data!.length == 0) {
+                      return Center(
+                        child: Text("Không có đơn hàng nào",
+                            style: StylesOfWidgets.textStyle1(
+                                fs: 20.sp, fw: FontWeight.w400)),
+                      );
+                    }
+                    return Waitingforapprovalsection(
+                      shopName: snapshot.data![index].shopName,
+                      price: product[index].price,
+                      productName: product[index].productName,
+                      onAccept: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text(
+                                  'Đã xác nhận sản phẩm ${product[index].productName}')),
+                        );
+                      },
+                      onCancel: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text(
+                                  'Đã hủy sản phẩm ${product[index].productName}')),
+                        );
+                      },
+                    );
+                  },
+                ),
+              );
+            } else {
+              return const Center(
+                child: Text("Không tìm thấy dữ liệu"),
+              );
+            }
           },
         ),
       ),

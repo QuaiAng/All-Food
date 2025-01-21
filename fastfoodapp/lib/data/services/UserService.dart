@@ -52,6 +52,18 @@ class UserService {
     }
   }
 
+  Future<Map<String, dynamic>> getShopByUserId() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    final response = await http.get(
+      Uri.parse("${AppStrings.urlAPI}/shop/userId=${_prefs.getInt('userId')}"),
+    );
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      return jsonDecode(response.body);
+    }
+  }
+
   Future<Map<String, dynamic>> getNameUserByUserId(int userId) async {
     final response = await http.get(
       Uri.parse("${AppStrings.urlAPI}/user/${userId}"),

@@ -159,7 +159,8 @@ class AppRouter {
       // case RouteName.addvoucherscreen:
       // return MaterialPageRoute(builder: (_) => const Addvoucherscreen());
       case RouteName.orderManagementScreen:
-        return MaterialPageRoute(builder: (_) => const Ordermanagementscreen(role: false));
+        return MaterialPageRoute(
+            builder: (_) => const Ordermanagementscreen(role: false));
 
       default:
         return MaterialPageRoute(

@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:fastfoodapp/app_router.dart';
 import 'package:fastfoodapp/presentation/pages/ordermanagementscreen.dart';
+import 'package:fastfoodapp/presentation/pages/shopmanagementscreen.dart';
+import 'package:fastfoodapp/presentation/states/loginviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/settingviewmodel.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
@@ -25,6 +27,8 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     final settingViewModel = Provider.of<Settingviewmodel>(context);
+    final shopInfo = Provider.of<Loginviewmodel>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -153,10 +157,18 @@ class _SettingScreenState extends State<SettingScreen> {
                         Icons.chevron_right,
                         color: AppColors.primaryColor,
                       ),
-                      onTap: () {
+                      onTap: () async {
+                        int shopId = 0;
+                        shopId = await shopInfo.getShopByUserId();
                         // print("Shop của tôi được nhấn");
-                        Navigator.pushNamed(
-                            context, RouteName.shopManagementScreen);
+                        Navigator.push(
+                          // ignore: use_build_context_synchronously
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Shopmanagementscreen(),
+                            settings: RouteSettings(arguments: shopId),
+                          ),
+                        );
                       },
                     ),
                     const Divider(

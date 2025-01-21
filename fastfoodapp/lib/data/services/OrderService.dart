@@ -42,6 +42,7 @@ class Orderservice {
     Map<String, dynamic> requestBody = {
       "userId": order.userId,
       "total": order.total,
+      "shopId": order.shopId,
       "deliveryAddress": order.deliveryAddress,
       "paymentMethod": order.paymentMethod,
       "discount": order.discount,
@@ -69,5 +70,21 @@ class Orderservice {
     );
 
     return response.statusCode == 200;
+  }
+
+  Future<Map<String, dynamic>> getOrderByOrderId(int orderId) async {
+    try {
+      final response = await http
+          .get(Uri.parse("${AppStrings.urlAPI}/order/orderId=$orderId"));
+
+      if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.body)['data'];
+        return jsonData;
+      } else {
+        return jsonDecode(response.body);
+      }
+    } catch (error) {
+      throw Exception('Error fetching order data: $error');
+    }
   }
 }

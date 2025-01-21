@@ -1,10 +1,7 @@
 import 'package:fastfoodapp/app_router.dart';
-import 'package:fastfoodapp/data/models/AddressModel.dart';
 import 'package:fastfoodapp/data/models/CartDetailModel.dart';
-import 'package:fastfoodapp/data/models/CartModel.dart';
 import 'package:fastfoodapp/data/models/OrderDetail.dart';
 import 'package:fastfoodapp/data/models/OrderModel.dart';
-import 'package:fastfoodapp/data/models/User.dart';
 import 'package:fastfoodapp/presentation/states/addressviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/cartviewmodel.dart';
 import 'package:fastfoodapp/presentation/states/orderstatusviewmodel.dart';
@@ -18,9 +15,7 @@ import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:fastfoodapp/utils/customdialog.dart';
-import 'package:fastfoodapp/utils/formatmoney.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -321,6 +316,7 @@ class Paymentscreen extends StatelessWidget {
 
                   // Tạo đơn hàng cho shop
                   var order = OrderModel.withoutStatus(
+                    shopId: shopId,
                     date: today,
                     total: shopCartDetails.fold(
                         0, (sum, item) => sum + (item.price * item.quantity)),

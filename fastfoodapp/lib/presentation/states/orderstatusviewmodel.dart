@@ -119,4 +119,9 @@ class OrderStatusViewModel extends ChangeNotifier {
     notifyListeners();
     return response;
   }
+
+  Future<OrderModel> getOrderByOrderId(int orderId) async {
+    final response = await _orderrepository.getOrderByOderId(orderId);
+    return response;
+  }
 }

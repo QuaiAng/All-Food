@@ -19,13 +19,24 @@ class Orderrepository {
     }
   }
 
+  Future<OrderModel> getOrderByOderId(int orderID) async {
+    try {
+      final response = await _orderservice.getOrderByOrderId(orderID);
+      OrderModel order = OrderModel.fromJson(response);
+
+      return order;
+    } catch (error) {
+      throw Exception('Error in OrderRepository: $error');
+    }
+  }
+
   Future<bool> cancelOrder(int orderId, int userId, int orderStatus) async {
     try {
       final response =
           await _orderservice.cancelOrder(orderId, userId, orderStatus);
       return response['success'];
     } catch (error) {
-      throw Exception('Error in CartRepository: $error');
+      throw Exception('Error in OrderRepository: $error');
     }
   }
 

@@ -12,4 +12,7 @@ class Productwatting {
     required this.user,
     required this.image,
   });
+  
+
+
 }
