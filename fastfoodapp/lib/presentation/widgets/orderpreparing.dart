@@ -114,6 +114,7 @@ class Orderpreparing extends StatelessWidget {
                                             ),
                                           ],
                                         ),
+                                        SizedBox(height: 15.sp),
                                         Row(
                                           children: [
                                             Icon(
@@ -121,8 +122,6 @@ class Orderpreparing extends StatelessWidget {
                                               size: 18.sp,
                                               color: AppColors.gray,
                                             ),
-                                            SizedBox(height: 15.sp),
-                                            SizedBox(width: 15.sp),
                                             Expanded(
                                               child: Text(
                                                 "Người nhận hàng: ${snapshot.data![index].fullNameUser}",

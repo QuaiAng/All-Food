@@ -2,6 +2,7 @@ import 'package:fastfoodapp/data/models/OrderModel.dart';
 import 'package:fastfoodapp/presentation/states/orderstatusviewmodel.dart';
 import 'package:fastfoodapp/res/colors.dart';
 import 'package:fastfoodapp/res/size.dart';
+import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -49,6 +50,13 @@ class Waitingforapprovalscreen extends StatelessWidget {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     final product = snapshot.data![index].orderDetails;
+                    if (snapshot.data!.length == 0) {
+                      return Center(
+                        child: Text("Không có đơn hàng nào",
+                            style: StylesOfWidgets.textStyle1(
+                                fs: 20.sp, fw: FontWeight.w400)),
+                      );
+                    }
                     return Waitingforapprovalsection(
                       shopName: snapshot.data![index].shopName,
                       price: product[index].price,
