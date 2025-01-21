@@ -11,6 +11,7 @@ import 'package:fastfoodapp/res/strings.dart';
 import 'package:fastfoodapp/res/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -158,17 +159,25 @@ class _SettingScreenState extends State<SettingScreen> {
                         color: AppColors.primaryColor,
                       ),
                       onTap: () async {
-                        int shopId = 0;
+                        int? shopId = 0;
                         shopId = await shopInfo.getShopByUserId();
-                        // print("Shop của tôi được nhấn");
-                        Navigator.push(
-                          // ignore: use_build_context_synchronously
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Shopmanagementscreen(),
-                            settings: RouteSettings(arguments: shopId),
-                          ),
-                        );
+                        if (shopId == null) {
+                          const Center(child: Text("Không Tìm thấy dữ liệu"));
+                        } else {
+                          SharedPreferences _prefs =
+                              await SharedPreferences.getInstance();
+                          _prefs.setInt("shopId", shopId);
+                          // print("Shop của tôi được nhấn");
+                          Navigator.push(
+                            // ignore: use_build_context_synchronously
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const Shopmanagementscreen(),
+                              settings: RouteSettings(arguments: shopId),
+                            ),
+                          );
+                        }
                       },
                     ),
                     const Divider(

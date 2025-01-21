@@ -36,12 +36,14 @@ class Waitingforapprovalscreen extends StatelessWidget {
           centerTitle: true,
         ),
         body: FutureBuilder(
-          future: orderWaiting.getOrderByUserIdNotComplete(),
+          future: orderWaiting.getOrderByShopIdNotComplete(),
           builder: (BuildContext context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
             } else if (snapshot.hasData) {
               return SizedBox(
                 height: 200.sp,
@@ -50,13 +52,13 @@ class Waitingforapprovalscreen extends StatelessWidget {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     final product = snapshot.data![index].orderDetails;
-                    if (snapshot.data!.length == 0) {
-                      return Center(
-                        child: Text("Không có đơn hàng nào",
-                            style: StylesOfWidgets.textStyle1(
-                                fs: 20.sp, fw: FontWeight.w400)),
-                      );
-                    }
+                    // if (snapshot.data!.length == 0) {
+                    //   return Center(
+                    //     child: Text("Không có đơn hàng nào",
+                    //         style: StylesOfWidgets.textStyle1(
+                    //             fs: 20.sp, fw: FontWeight.w400)),
+                    //   );
+                    // }
                     return Waitingforapprovalsection(
                       shopName: snapshot.data![index].shopName,
                       price: product[index].price,

@@ -19,6 +19,18 @@ class Orderrepository {
     }
   }
 
+  Future<List<OrderModel>?> getOrderByShopId(int shopId) async {
+    List<OrderModel>? listOrder = [];
+
+    try {
+      List? order = await _orderservice.getOrderByShopId(shopId);
+      listOrder = order!.map((item) => OrderModel.fromJson(item)).toList();
+      return listOrder;
+    } catch (error) {
+      throw Exception('Error in OrderRepository: $error');
+    }
+  }
+
   Future<OrderModel> getOrderByOderId(int orderID) async {
     try {
       final response = await _orderservice.getOrderByOrderId(orderID);
@@ -40,10 +52,10 @@ class Orderrepository {
     }
   }
 
-  Future<bool> addToOrder(OrderModel order) async{
-    try{
+  Future<bool> addToOrder(OrderModel order) async {
+    try {
       return await _orderservice.addToOrder(order);
-    } catch(e){
+    } catch (e) {
       throw Exception('Error in CartRepository: $e');
     }
   }

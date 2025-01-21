@@ -19,7 +19,7 @@ class Orderlistcanceled extends StatelessWidget {
     if (!role) {
       //Phía shop
       return FutureBuilder(
-        future: orderstatusViewModel.getOrderByUserIdCanceled(),
+        future: orderstatusViewModel.getOrderByShopIdCanceled(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

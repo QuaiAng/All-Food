@@ -124,4 +124,78 @@ class OrderStatusViewModel extends ChangeNotifier {
     final response = await _orderrepository.getOrderByOderId(orderId);
     return response;
   }
+
+  Future<List<OrderModel>?> getOrderByShopIdNotComplete() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    var shopId;
+    if (_prefs.containsKey('shopId')) {
+      shopId = _prefs.getInt('shopId');
+    } else {
+      shopId = 0;
+    }
+    final response = await _orderrepository.getOrderByShopId(shopId);
+    List<OrderModel> listOrderNotComplete = [];
+    for (int i = 0; i < response!.length; i++) {
+      if (response[i].orderStatus == 0) {
+        listOrderNotComplete.add(response[i]);
+      }
+    }
+    return listOrderNotComplete;
+  }
+
+  Future<List<OrderModel>?> getOrderByShopIdDoing() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    var shopId;
+    if (_prefs.containsKey('shopId')) {
+      shopId = _prefs.getInt('shopId');
+    } else {
+      shopId = 0;
+    }
+    final response = await _orderrepository.getOrderByShopId(shopId);
+    List<OrderModel> listOrderNotComplete = [];
+    for (int i = 0; i < response!.length; i++) {
+      if (response[i].orderStatus == 1) {
+        listOrderNotComplete.add(response[i]);
+      }
+    }
+    return listOrderNotComplete;
+  }
+
+  Future<List<OrderModel>?> getOrderByShopIdComplete() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    var shopId;
+    if (_prefs.containsKey('userId')) {
+      shopId = _prefs.getInt('userId');
+    } else {
+      shopId = 0;
+    }
+    final response = await _orderrepository.getOrderByShopId(shopId);
+    List<OrderModel>? listOrderComplete = [];
+
+    for (int i = 0; i < response!.length; i++) {
+      if (response[i].orderStatus == 2) {
+        listOrderComplete.add(response[i]);
+      }
+    }
+    return listOrderComplete;
+  }
+
+  Future<List<OrderModel>?> getOrderByShopIdCanceled() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    var shopId;
+    if (_prefs.containsKey('shopId')) {
+      shopId = _prefs.getInt('shopId');
+    } else {
+      shopId = 0;
+    }
+    final response = await _orderrepository.getOrderByShopId(shopId);
+    List<OrderModel>? listOrderComplete = [];
+
+    for (int i = 0; i < response!.length; i++) {
+      if (response[i].orderStatus == 3) {
+        listOrderComplete.add(response[i]);
+      }
+    }
+    return listOrderComplete;
+  }
 }

@@ -26,13 +26,13 @@ class Userrepository {
     return user;
   }
 
-  Future<int> getShopByUserId() async {
+  Future<int?> getShopByUserId() async {
     final response = await _userService.getShopByUserId();
     if (response['success'] == true) {
       Shopmodel shop = Shopmodel.fromJSON(response['data']);
       return shop.shopId;
     } else {
-      throw Exception("Lỗi tại user repo");
+      return null;
     }
   }
 
@@ -40,7 +40,7 @@ class Userrepository {
     final response = await _userService.getNameUserByUserId(userId);
     User? user = User.fromJson(response); // chuyển từ json sang đối tượng
 
-    return user.fullName;//???
+    return user.fullName; //???
   }
 
   Future<String> register(Usermodel user) async {
@@ -71,7 +71,7 @@ class Userrepository {
     return response['message'];
   }
 
-    Future<String> getPhoneUserByUserId(int userId) async {
+  Future<String> getPhoneUserByUserId(int userId) async {
     final response = await _userService.getNameUserByUserId(userId);
     User? user = User.fromJson(response); // chuyển từ json sang đối tượng
 

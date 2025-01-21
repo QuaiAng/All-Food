@@ -19,10 +19,12 @@ class Orderpreparing extends StatelessWidget {
     if (!role) {
       //Phía shop
       return FutureBuilder(
-        future: orderstatusViewModel.getOrderByUserIdDoing(),
+        future: orderstatusViewModel.getOrderByShopIdDoing(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
           } else if (snapshot.hasData) {
             return SizedBox(
               height: 100.sp,

@@ -36,8 +36,11 @@ class Loginviewmodel extends ChangeNotifier {
     return false;
   }
 
-  Future<int> getShopByUserId() async {
+  Future<int?> getShopByUserId() async {
     final response = await _userrepository.getShopByUserId();
+    if (response == null) {
+      return null;
+    }
     return response;
   }
 

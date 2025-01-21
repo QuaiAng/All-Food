@@ -18,7 +18,7 @@ class OrderList extends StatelessWidget {
 
     if (!role) {
       return FutureBuilder(
-        future: orderViewModel.getOrderByUserIdNotComplete(),
+        future: orderViewModel.getOrderByShopIdNotComplete(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

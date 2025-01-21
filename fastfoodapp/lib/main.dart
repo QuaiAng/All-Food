@@ -123,6 +123,7 @@ void main() {
       ChangeNotifierProvider(
           create: (context) =>
               OrderStatusViewModel(context.read<Orderrepository>())),
+
       ChangeNotifierProvider(
           create: (context) =>
               Registerviewmodel(context.read<Userrepository>())),
@@ -179,7 +180,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
-        initialRoute: RouteName.mainScreen,
+        initialRoute: RouteName.loginScreen,
         onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
         // home: Detailordershop(),

@@ -21,6 +21,22 @@ class Orderservice {
     }
   }
 
+  Future<List<dynamic>?> getOrderByShopId(int shopId) async {
+    try {
+      final response = await http
+          .get(Uri.parse("${AppStrings.urlAPI}/order/shopId=$shopId"));
+
+      if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.body)['data'];
+        return jsonData;
+      } else {
+        return jsonDecode(response.body);
+      }
+    } catch (error) {
+      throw Exception('Error fetching cart data: $error');
+    }
+  }
+
   Future<Map<String, dynamic>> cancelOrder(
       int orderId, int userId, int orderStatus) async {
     final String url =
