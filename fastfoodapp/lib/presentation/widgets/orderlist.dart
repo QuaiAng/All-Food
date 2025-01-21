@@ -31,7 +31,7 @@ class OrderList extends StatelessWidget {
                     .data!.length, //snapshot.data!.length, // Số lượng đơn hàng
                 itemBuilder: (context, index) {
                   var orderModel = snapshot.data![index];
-                  var orderDetail = snapshot.data![index].orderDetails[index];
+                  // var orderDetail = snapshot.data![index].orderDetails[index];
                   return InkWell(
                     onTap: () {
                       int orderId = snapshot.data![index].orderId;
@@ -194,43 +194,6 @@ class OrderList extends StatelessWidget {
                           right: 10.sp,
                           child: Row(
                             children: [
-                              TextButton(
-                                onPressed: () async {
-                                  // bool result = await orderViewModel
-                                  //     .cancelOrder(snapshot.data![index].orderId);
-                                  // var snackBar = SnackBar(
-                                  //   content: Text(
-                                  //     result ? "Huỷ thành công" : "Huỷ thất bại",
-                                  //     textAlign: TextAlign.center,
-                                  //   ),
-                                  //   backgroundColor: result ? Colors.green : Colors.red,
-                                  // );
-                                  // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                },
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 20.sp,
-                                    vertical: 10.sp,
-                                  ),
-                                  backgroundColor:
-                                      Colors.red, // Không có màu nền
-                                  foregroundColor:
-                                      AppColors.backgroundColor, // Màu chữ vàng
-                                  // side: const BorderSide(
-                                  //   // Viền vàng
-                                  //   color: AppColors.primaryColor,
-                                  //   width: 1.5,
-                                  // ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                ),
-                                child: Text("HỦY",
-                                    style: StylesOfWidgets.textStyle1(
-                                        fs: SizeOfWidget.sizeOfH2,
-                                        clr: AppColors.backgroundColor,
-                                        fw: FontWeight.w400)),
-                              ),
                               SizedBox(width: 10.sp),
                               TextButton(
                                 onPressed: () async {

@@ -215,12 +215,50 @@ class Detailproductscreen extends StatelessWidget {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
                                               children: [
-                                                CircleAvatar(
-                                                  radius: 20.sp,
-                                                  backgroundImage: NetworkImage(
-                                                    "${AppStrings.urlAPI}/${snapshot.data!.imageURL}",
-                                                  ),
-                                                ),
+                                                snapshot.data!.imageURL
+                                                        .toString()
+                                                        .isEmpty
+                                                    ? Container(
+                                                        width: 30
+                                                            .sp, // Đường kính hình tròn
+                                                        height: 30
+                                                            .sp, // Đường kính hình tròn
+                                                        decoration:
+                                                            const BoxDecoration(
+                                                          color: Colors
+                                                              .blue, // Màu xanh
+                                                          shape: BoxShape
+                                                              .circle, // Tạo hình tròn
+                                                        ),
+                                                        child: Center(
+                                                          child: Text(
+                                                              snapshot.data!
+                                                                      .shopName[
+                                                                  0], // Chữ hiển thị
+                                                              style: StylesOfWidgets.textStyle1(
+                                                                  fs: SizeOfWidget
+                                                                      .sizeOfH1,
+                                                                  fw: FontWeight
+                                                                      .w600,
+                                                                  clr: Colors
+                                                                      .white)),
+                                                        ),
+                                                      )
+                                                    : Container(
+                                                        height: 30.sp,
+                                                        width: 30.sp,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          image:
+                                                              DecorationImage(
+                                                            image: NetworkImage(
+                                                                "${AppStrings.urlAPI}/${snapshot.data!.imageURL}"),
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
+                                                      ),
                                                 SizedBox(width: 20.sp),
                                                 Expanded(
                                                   child: Column(

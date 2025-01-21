@@ -31,7 +31,6 @@ class Orderlistcanceled extends StatelessWidget {
                 itemCount: snapshot.data!.length, // Số lượng đơn hàng
                 itemBuilder: (context, index) {
                   var orderModel = snapshot.data![index];
-                  var orderDetail = snapshot.data![index].orderDetails[index];
                   return InkWell(
                     onTap: () {
                       int orderId = snapshot.data![index].orderId;

@@ -347,12 +347,7 @@ class Paymentscreen extends StatelessWidget {
                       await cartViewModel.removeFromCart(
                           item.productId, cart.cartId);
                     }
-                    // Hiển thị BottomSheet sau khi xử lý xong tất cả đơn hàng
-                    _showBottomSheet(context).then(
-                      (value) {
-                        Navigator.pop(context);
-                      },
-                    );
+
                     print("Đơn hàng cho shop ${shop.shopName} đã được gửi!");
                   } else {
                     print("Gửi đơn hàng cho shop ${shop.shopName} thất bại.");
@@ -362,6 +357,12 @@ class Paymentscreen extends StatelessWidget {
                         content: "Thanh toán thất bại, đã xảy ra lỗi");
                   }
                 }
+                // Hiển thị BottomSheet sau khi xử lý xong tất cả đơn hàng
+                _showBottomSheet(context).then(
+                  (value) {
+                    Navigator.pop(context);
+                  },
+                );
               },
               text: "THANH TOÁN")),
     );

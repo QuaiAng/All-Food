@@ -179,8 +179,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      return MaterialApp(
-        initialRoute: RouteName.loginScreen,
+      return const MaterialApp(
+        initialRoute: RouteName.mainScreen,
         onGenerateRoute: AppRouter.generateRoute,
         debugShowCheckedModeBanner: false,
         // home: Detailordershop(),
