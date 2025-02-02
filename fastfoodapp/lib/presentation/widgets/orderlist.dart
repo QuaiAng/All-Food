@@ -197,16 +197,21 @@ class OrderList extends StatelessWidget {
                               SizedBox(width: 10.sp),
                               TextButton(
                                 onPressed: () async {
-                                  // bool result = await orderViewModel
-                                  //     .cancelOrder(snapshot.data![index].orderId);
-                                  // var snackBar = SnackBar(
-                                  //   content: Text(
-                                  //     result ? "Huỷ thành công" : "Huỷ thất bại",
-                                  //     textAlign: TextAlign.center,
-                                  //   ),
-                                  //   backgroundColor: result ? Colors.green : Colors.red,
-                                  // );
-                                  // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                  bool result =
+                                      await orderViewModel.changeStatusOrder(
+                                          snapshot.data![index].orderId, 1);
+                                  var snackBar = SnackBar(
+                                    content: Text(
+                                      result
+                                          ? "Đơn hàng đã được chuẩn bị"
+                                          : "Hiện chưa thể duyệt đơn",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    backgroundColor:
+                                        result ? Colors.green : Colors.red,
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
                                 },
                                 style: TextButton.styleFrom(
                                   padding: EdgeInsets.symmetric(
@@ -361,11 +366,33 @@ class OrderList extends StatelessWidget {
                       right: 10.sp,
                       child: TextButton(
                         onPressed: () async {
-                          bool result = await orderViewModel.cancelOrder(
-                              snapshot.data![index].orderId, 3);
+                          bool result = false;
+                          bool? confirmDelete = await showDialog<bool>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text(
+                                      "Bạn có chắc chắn muốn hủy đơn ${snapshot.data![index].orderId}"),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context, false);
+                                        },
+                                        child: const Text("Không")),
+                                    TextButton(
+                                        onPressed: () async {
+                                          result = await orderViewModel
+                                              .changeStatusOrder(
+                                                  snapshot.data![index].orderId,
+                                                  3);
+                                        },
+                                        child: const Text("Có"))
+                                  ],
+                                );
+                              });
                           var snackBar = SnackBar(
                             content: Text(
-                              result ? "Huỷ thành công" : "Huỷ thất bại",
+                              result ? "Đã hủy đơn" : "Đơn không thể hủy",
                               textAlign: TextAlign.center,
                             ),
                             backgroundColor: result ? Colors.green : Colors.red,

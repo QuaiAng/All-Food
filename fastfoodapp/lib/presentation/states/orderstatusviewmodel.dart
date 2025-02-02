@@ -105,11 +105,11 @@ class OrderStatusViewModel extends ChangeNotifier {
     return listOrderComplete;
   }
 
-  Future<bool> cancelOrder(int orderId, int orderStatus) async {
+  Future<bool> changeStatusOrder(int orderId, int orderStatus) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
     int? userId = _pref.getInt('userId');
     final response =
-        await _orderrepository.cancelOrder(orderId, userId!, orderStatus);
+        await _orderrepository.changeStatusOrder(orderId, userId!, orderStatus);
     notifyListeners();
     return response;
   }
@@ -197,5 +197,11 @@ class OrderStatusViewModel extends ChangeNotifier {
       }
     }
     return listOrderComplete;
+  }
+
+  Future<bool> deleteOrder(int orderId) async {
+    final response = await _orderrepository.deleteOrder(orderId);
+    notifyListeners();
+    return response;
   }
 }

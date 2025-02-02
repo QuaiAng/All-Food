@@ -42,10 +42,11 @@ class Orderrepository {
     }
   }
 
-  Future<bool> cancelOrder(int orderId, int userId, int orderStatus) async {
+  Future<bool> changeStatusOrder(
+      int orderId, int userId, int orderStatus) async {
     try {
       final response =
-          await _orderservice.cancelOrder(orderId, userId, orderStatus);
+          await _orderservice.changeStatusOrder(orderId, userId, orderStatus);
       return response['success'];
     } catch (error) {
       throw Exception('Error in OrderRepository: $error');
@@ -56,7 +57,15 @@ class Orderrepository {
     try {
       return await _orderservice.addToOrder(order);
     } catch (e) {
-      throw Exception('Error in CartRepository: $e');
+      throw Exception('Error in OrderRepository: $e');
+    }
+  }
+
+  Future<bool> deleteOrder(int orderId) async {
+    try {
+      return await _orderservice.deleteOrder(orderId);
+    } catch (e) {
+      throw Exception('Error in OrderRepository: $e');
     }
   }
 }

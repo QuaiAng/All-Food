@@ -194,8 +194,42 @@ class Orderlistcanceled extends StatelessWidget {
                           bottom: 10.sp,
                           right: 10.sp,
                           child: TextButton(
-                            onPressed: () {
-                              // Xử lý khi nhấn nút HỦY
+                            onPressed: () async {
+                              bool result = false;
+                              bool? confirmDelete = await showDialog<bool>(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text(
+                                          "Bạn có chắc chắn muốn xóa đơn ${snapshot.data![index].orderId}"),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context, false);
+                                            },
+                                            child: const Text("Không")),
+                                        TextButton(
+                                            onPressed: () async {
+                                              result =
+                                                  await orderstatusViewModel
+                                                      .deleteOrder(snapshot
+                                                          .data![index]
+                                                          .orderId);
+                                            },
+                                            child: const Text("Có"))
+                                      ],
+                                    );
+                                  });
+                              var snackBar = SnackBar(
+                                content: Text(
+                                  result ? "Đã xóa đơn" : "Đơn chưa được xóa",
+                                  textAlign: TextAlign.center,
+                                ),
+                                backgroundColor:
+                                    result ? Colors.green : Colors.red,
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
                             },
                             style: TextButton.styleFrom(
                               padding: EdgeInsets.symmetric(
@@ -353,16 +387,37 @@ class Orderlistcanceled extends StatelessWidget {
                       right: 10.sp,
                       child: TextButton(
                         onPressed: () async {
-                          // bool result = await orderViewModel
-                          //     .cancelOrder(snapshot.data![index].orderId);
-                          // var snackBar = SnackBar(
-                          //   content: Text(
-                          //     result ? "Huỷ thành công" : "Huỷ thất bại",
-                          //     textAlign: TextAlign.center,
-                          //   ),
-                          //   backgroundColor: result ? Colors.green : Colors.red,
-                          // );
-                          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          bool result = false;
+                          bool? confirmDelete = await showDialog<bool>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text(
+                                      "Bạn có chắc chắn muốn xóa đơn ${snapshot.data![index].orderId}"),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context, false);
+                                        },
+                                        child: const Text("Không")),
+                                    TextButton(
+                                        onPressed: () async {
+                                          result = await orderstatusViewModel
+                                              .deleteOrder(snapshot
+                                                  .data![index].orderId);
+                                        },
+                                        child: const Text("Có"))
+                                  ],
+                                );
+                              });
+                          var snackBar = SnackBar(
+                            content: Text(
+                              result ? "Đã xóa đơn" : "Đơn chưa được xóa",
+                              textAlign: TextAlign.center,
+                            ),
+                            backgroundColor: result ? Colors.green : Colors.red,
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.symmetric(

@@ -190,8 +190,18 @@ class Orderpreparing extends StatelessWidget {
                           bottom: 10.sp,
                           right: 10.sp,
                           child: TextButton(
-                            onPressed: () {
-                              // Xử lý khi nhấn nút HỦY
+                            onPressed: () async{
+                              // Xử lý khi nhấn nút HOÀN THÀNH
+                              bool result = await orderstatusViewModel.changeStatusOrder(
+                              snapshot.data![index].orderId, 2);
+                          var snackBar = SnackBar(
+                            content: Text(
+                              result ? "Đơn đã hoàn thành" : "Đơn chưa thể hoàn thành",
+                              textAlign: TextAlign.center,
+                            ),
+                            backgroundColor: result ? Colors.green : Colors.red,
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             },
                             style: TextButton.styleFrom(
                               padding: EdgeInsets.symmetric(

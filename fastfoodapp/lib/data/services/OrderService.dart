@@ -37,7 +37,7 @@ class Orderservice {
     }
   }
 
-  Future<Map<String, dynamic>> cancelOrder(
+  Future<Map<String, dynamic>> changeStatusOrder(
       int orderId, int userId, int orderStatus) async {
     final String url =
         '${AppStrings.urlAPI}/order/update/orderId=$orderId/userId=$userId/orderStatus=$orderStatus';
@@ -101,6 +101,16 @@ class Orderservice {
       }
     } catch (error) {
       throw Exception('Error fetching order data: $error');
+    }
+  }
+
+  Future<bool> deleteOrder(int orderId) async {
+    final String url = '${AppStrings.urlAPI}/order/remove/$orderId';
+    try {
+      final response = await http.delete(Uri.parse(url));
+      return response.statusCode == 200;
+    } catch (error) {
+      throw Exception('Error fetching cart data: $error');
     }
   }
 }
